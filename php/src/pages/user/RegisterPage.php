@@ -6,8 +6,7 @@
 </style>
 
 <section id="title">
-    <h2>HOME PAGE</h2>
-    <a href="/home/new">goto new</a>
+    <h2>REGISTER</h2>
 </section>
 
 <?php require_once __DIR__ . "/../template/footer.php" ?>

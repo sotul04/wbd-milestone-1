@@ -1,6 +1,6 @@
 <?php
 
-class HomeView implements ViewInterface
+class LoginView implements ViewInterface
 {
     private $data;
     public function __construct($data = [])
@@ -10,6 +10,6 @@ class HomeView implements ViewInterface
 
     public function render()
     {
-        require_once __DIR__. '/../../pages/home/HomePage.php';
+        require_once __DIR__ . '/../../pages/user/LoginPage.php';
     }
 }

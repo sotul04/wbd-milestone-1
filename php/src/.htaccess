@@ -1,9 +1,11 @@
 Options -Indexes
 
 RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
 
-# Stop processing if already in the /public directory
-RewriteRule ^public/ - [L]
+RewriteRule ^(.+)$ index.php/$1 [QSA,L]
 
-# Push every other request to index.php
-RewriteRule ^(.+)$ index.php [QSA]
+# Set PHP values
+php_value upload_max_filesize 300M
+php_value post_max_size 300M

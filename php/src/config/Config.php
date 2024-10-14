@@ -1,6 +1,6 @@
 <?php
 
-define("BASE_URL","http://localhost:8000/public");
+define("BASE_URL","http://localhost:8000");
 
 // DATABASE
 define('DB_HOST', $_ENV['DB_HOST']);

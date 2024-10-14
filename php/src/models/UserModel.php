@@ -27,7 +27,7 @@ class UserModel {
     public function createUser($email, $password, $role, $nama) {
         $this->db->query("INSERT INTO users (email, password, role, nama) VALUES (:email, :password, :role, :nama)");
         $this->db->bind(':email', $email);
-        $this->db->bind(':password', password_hash($password, PASSWORD_BCRYPT));
+        $this->db->bind(':password', password_hash($password, PASSWORD_DEFAULT));
         $this->db->bind(':role', $role);
         $this->db->bind(':nama', $nama);
         return $this->db->execute();

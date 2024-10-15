@@ -1,0 +1,156 @@
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    min-height: 60px;
+    position: sticky;
+    top: 0;
+    background-color: #F4F2EE;
+}
+
+.navCt {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navLeft {
+    display: flex;
+}
+
+.navLogoSide {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    color: black;
+    gap: 4px;
+    cursor: pointer;
+    margin: 10px 0;
+    padding: 0 10px;
+    transition: all 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.navLogoSide:hover {
+    color: rgb(0, 101, 184);
+}
+
+.navLogoSide>img {
+    width: 40px;
+    height: 40px;
+}
+
+.navLogoSide h1 {
+    font-size: 27px;
+    font-weight: bold;
+    color: inherit;
+}
+
+.navRight {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navItems {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.navItems li.link {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.navItems li.link:hover {
+    transition: all 0.25s ease-out;
+    color: rgb(0, 101, 184);
+}
+
+.navProfile>.profileCt p {
+    font-size: 20px;
+    font-weight: 600;
+    height: 35px;
+    width: 35px;
+    background-color: rgb(161, 194, 223);
+    border-radius: 99999px;
+    text-align: center;
+    padding-top: 2px;
+}
+
+.navProfile>.profileCt {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 10px 0;
+}
+
+#logout {
+    display: none;
+}
+
+.navItems.active {
+    left: 0;
+}
+
+.hamburger {
+    display: none;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #101010;
+}
+
+@media (max-width: 768px) {
+    .navItems {
+        gap: 8px;
+        align-items: center;
+        position: fixed;
+        padding: 8px;
+        height: calc(100vh - 60px);
+        left: -100%;
+        top: 60px;
+        flex-direction: column;
+        background-color: #fff;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+    }
+
+    .navItems li.link {
+        margin: 8px 0 0 0;
+    }
+
+    .navItems.active {
+        left: 0;
+    }
+
+    #logout {
+        display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .hamburger {
+        display: block;
+        margin: 0 16px;
+        cursor: pointer;
+    }
+}

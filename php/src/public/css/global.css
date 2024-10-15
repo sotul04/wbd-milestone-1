@@ -36,72 +36,6 @@ body {
     }
 }
 
-.navbar {
-    border: 1px solid black;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.navCt {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navLeft {
-    display: flex;
-}
-
-.navLogoSide {
-    display: flex;
-    justify-content: center;
-    align-items: end;
-    color: black;
-    gap: 4px;
-    cursor: pointer;
-    margin: 10px 0;
-    padding: 0 10px;
-    transition: all 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-.navLogoSide:hover {
-    color: rgb(0, 101, 184);
-}
-
-.navLogoSide>img {
-    width: 30px;
-    height: 30px;
-    margin-bottom: 6px;
-}
-
-.navLogoSide h1 {
-    font-size: 28px;
-    font-weight: bold;
-    color: inherit;
-}
-
-.navRight {
-    display: flex;
-    align-items: center;
-    gap: 10px
-}
-
-.navItems {
-    display: flex;
-    gap: 5px;
-}
-
-.navItems li {
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.navItems li:hover {
-    transition: all 0.25s ease-out;
-    color: rgb(0, 101, 184);
-}
-
 .hover-underline-animation {
     display: inline-block;
     position: relative;
@@ -131,11 +65,43 @@ body {
     transform-origin: bottom center;
 }
 
-.navProfile {
-    display: flex;
+/* Button Style */
+
+.btn {
+    padding: 4px 12px;
+    border-radius: 99999px;
+    transition: all 0.3s ease-in;
+    text-align: center;
 }
 
-.navProfile>img {
-    width: 35px;
-    height: 35px;
+.btn-primary {
+    background-color: blue;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: rgb(93, 93, 255);
+}
+
+.btn-destroy {
+    background-color: red;
+    color: white;
+}
+
+.btn-destroy:hover {
+    background-color: rgb(255, 102, 102);
+}
+
+.btn-secondary {
+    background-color: rgb(39, 39, 39);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: rgb(91, 91, 91);
+}
+
+a.link {
+    color: rgb(0, 0, 250);
+    transition: all 0.5s ease-in-out;
 }

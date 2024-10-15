@@ -3,17 +3,18 @@
         <div class="navCt container">
             <div class="navLeft hover">
                 <div class="navLogoSide" onclick="redirectToHome()">
-                    <img src="http://localhost:8000/public/assets/icons/linkinpurry.ico" alt="Linkinpurry Logo">
+                    <img src="<?php echo BASE_URL; ?>/public/assets/icons/logo.ico" alt="Linkinpurry Logo">
                     <h1 class="navTitle">Purry</h1>
                 </div>
             </div>
             <div class="navRight">
                 <ul class="navItems">
-                    <li class="hover-underline-animation" onclick="redirectToLogin()">Login</li>
-                    <li class="hover-underline-animation" onclick="redirectToRegister()">Register</li>
+                    <!-- Navigation items will be injected here via JavaScript -->
                 </ul>
-                <div class="navProfile">
-                    <img src="<?php echo BASE_URL; ?>/public/assets/icons/profile.ico" alt="profile picture">
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
                 </div>
             </div>
         </div>

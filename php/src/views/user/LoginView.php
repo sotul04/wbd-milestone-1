@@ -10,6 +10,7 @@ class LoginView implements ViewInterface
 
     public function render()
     {
+        extract($this->data);
         require_once __DIR__ . '/../../pages/user/LoginPage.php';
     }
 }

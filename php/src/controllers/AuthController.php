@@ -30,8 +30,9 @@ class AuthController extends Controller
 
             // Check if user exists
             if ($user === false) {
-                // Return error response if user is not found
-                echo "Username not found.\n";
+                // Render the view with error message if user is not found
+                $loginView = $this->view('user', 'LoginView', ['errorMessage' => 'User not found.']);
+                $loginView->render();
                 return;
             }
 
@@ -43,10 +44,14 @@ class AuthController extends Controller
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['role'] = $user['role'];
 
+                // Redirect to home page upon successful login
                 header('Location: /home');
+                exit;
             } else {
-                // If password is incorrect
-                echo "Invalid username or password.";
+                // Render the view with error message if password is incorrect
+                $loginView = $this->view('user', 'LoginView', ['errorMessage' => 'Incorrect username or password.']);
+                $loginView->render();
+                return;
             }
         }
     }
@@ -58,7 +63,8 @@ class AuthController extends Controller
         unset($_SESSION['email']);
         unset($_SESSION['role']);
         session_destroy();
-        header('Location: /user/login');
+
+        json_response_success("Logged out successfully");
     }
 
     public function info()
@@ -81,6 +87,20 @@ class AuthController extends Controller
             }
         } else {
             json_response_fail('not');
+        }
+    }
+
+    public function checkAuth()
+    {
+        if (isset($_SESSION['user_id'])) {
+            $response = [
+                'user_id' => $_SESSION['user_id'],
+                'role' => $_SESSION['role'],
+                'name' => $_SESSION['name']
+            ];
+            json_response_success($response);
+        } else {
+            json_response_fail('User is not logged in.');
         }
     }
 }

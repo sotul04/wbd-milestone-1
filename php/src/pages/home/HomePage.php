@@ -2,7 +2,9 @@
 <?php require_once __DIR__ . "/../template/navbar.php" ?>
 
 <style>
-    /* style for home */
+    #title {
+        height: 100vh;
+    }
 </style>
 
 <section id="title">

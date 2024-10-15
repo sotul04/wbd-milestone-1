@@ -10,5 +10,6 @@
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link href='http://localhost:8000/public/css/reset.css' rel="stylesheet">
     <link href='http://localhost:8000/public/css/global.css' rel="stylesheet">
-    <title><?= $data['title'] ?? "KBL" ?></title>
+    <link href='http://localhost:8000/public/css/navbar.css' rel="stylesheet">
+    <title><?= $data['title'] ?? "Linkin" ?></title>
 </head>

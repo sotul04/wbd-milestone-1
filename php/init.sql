@@ -1,17 +1,32 @@
+-- Drop tables if they already exist
 DROP TABLE IF EXISTS lamaran;
 DROP TABLE IF EXISTS attachments_lowongan;
 DROP TABLE IF EXISTS lowongan;
 DROP TABLE IF EXISTS company_details;
 DROP TABLE IF EXISTS users;
 
+-- Drop existing ENUM types if they exist
+DROP TYPE IF EXISTS enum_jenis_lokasi;
+DROP TYPE IF EXISTS enum_jenis_pekerjaan;
+DROP TYPE IF EXISTS enum_role;
+DROP TYPE IF EXISTS enum_status;
+
+-- Create ENUM types
+CREATE TYPE enum_role AS ENUM ('jobseeker', 'company');
+CREATE TYPE enum_jenis_lokasi AS ENUM ('on-site', 'hybrid', 'remote');
+CREATE TYPE enum_jenis_pekerjaan AS ENUM ('Full-time', 'Part-time', 'Internship');
+CREATE TYPE enum_status AS ENUM ('accepted', 'rejected', 'waiting');
+
+-- Create users table
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role VARCHAR(50) CHECK (role IN ('jobseeker', 'company')),
+    role enum_role NOT NULL,  -- Changed to ENUM
     nama VARCHAR(255) NOT NULL
 );
 
+-- Create company_details table
 CREATE TABLE company_details (
     user_id INT PRIMARY KEY,  
     lokasi VARCHAR(255),
@@ -23,13 +38,14 @@ CREATE TABLE company_details (
         ON UPDATE CASCADE  
 );
 
+-- Create lowongan table
 CREATE TABLE lowongan (
     lowongan_id SERIAL PRIMARY KEY,
     company_id INT,
     posisi VARCHAR(255),
     deskripsi TEXT,
-    jenis_pekerjaan VARCHAR(255),
-    jenis_lokasi VARCHAR(255),
+    jenis_pekerjaan enum_jenis_pekerjaan NOT NULL,  -- Changed to ENUM
+    jenis_lokasi enum_jenis_lokasi NOT NULL,  -- Changed to ENUM
     is_open BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -40,6 +56,7 @@ CREATE TABLE lowongan (
         ON UPDATE CASCADE  
 );
 
+-- Create attachments_lowongan table
 CREATE TABLE attachments_lowongan (
     attachment_id SERIAL PRIMARY KEY,
     lowongan_id INT,
@@ -51,13 +68,14 @@ CREATE TABLE attachments_lowongan (
         ON UPDATE CASCADE
 );
 
+-- Create lamaran table
 CREATE TABLE lamaran (
     lamaran_id SERIAL PRIMARY KEY,
     user_id INT,  
     lowongan_id INT,  
     cv_path VARCHAR(255),
     video_path VARCHAR(255),
-    status VARCHAR(50) CHECK (status IN ('accepted', 'rejected', 'waiting')),
+    status enum_status NOT NULL,  -- Changed to ENUM
     status_reason TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_lamaran_user
@@ -86,9 +104,9 @@ INSERT INTO company_details (user_id, lokasi, about) VALUES
 
 -- Seed lowongan table
 INSERT INTO lowongan (company_id, posisi, deskripsi, jenis_pekerjaan, jenis_lokasi) VALUES
-    (2, 'Software Engineer', 'We are looking for a software engineer.', 'Full-time', 'Remote'),
-    (2, 'UI/UX Designer', 'We are looking for a creative UI/UX designer.', 'Full-time', 'On-site'),
-    (4, 'Data Analyst', 'We are looking for a data analyst to join our team.', 'Contract', 'Remote');
+    (2, 'Software Engineer', 'We are looking for a software engineer.', 'Full-time', 'remote'),
+    (2, 'UI/UX Designer', 'We are looking for a creative UI/UX designer.', 'Full-time', 'on-site'),
+    (4, 'Data Analyst', 'We are looking for a data analyst to join our team.', 'Part-time', 'remote');
 
 -- Seed attachments_lowongan table
 INSERT INTO attachments_lowongan (lowongan_id, file_path) VALUES

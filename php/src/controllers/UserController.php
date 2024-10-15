@@ -1,8 +1,8 @@
 <?php
 
-class UserController extends Controller implements ControllerInterface 
+class UserController extends Controller implements ControllerInterface
 {
-    public function index() 
+    public function index()
     {
         $notFoundView = $this->view('not-found', 'NotFoundView');
         $notFoundView->render();
@@ -12,8 +12,8 @@ class UserController extends Controller implements ControllerInterface
     {
         if (isset($_SESSION['user_id'])) {
             http_response_code(301);
-            header('Location: /user/logout');
-            exit;
+            header('Location: /home');
+            return;
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {

@@ -1,10 +1,17 @@
 Options -Indexes
 
 RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
 
-RewriteRule ^(.+)$ index.php/$1 [QSA,L]
+# Jika path pertama mengarah ke file atau direktori dalam folder /public, sajikan langsung
+RewriteCond %{REQUEST_URI} ^/public/.*$
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteRule ^ - [L]
+
+# Jika bukan file atau direktori, lanjutkan ke index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [QSA,L]
 
 # Set PHP values
 php_value upload_max_filesize 300M

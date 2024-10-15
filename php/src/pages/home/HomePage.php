@@ -16,11 +16,4 @@
         </form>
     <?php endif; ?>
 </section>
-
-<?php
-$match = password_verify('123123123', '$2y$10$ZgNSc4OmlX23ODIm/pkXw.hUl6YTBp367YYlxOF2LU8VXJ5uBDSfS');
-if ($match) echo 'match';
-else echo 'false';
-?>
-
 <?php require_once __DIR__ . "/../template/footer.php" ?>

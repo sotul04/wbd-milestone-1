@@ -1,0 +1,141 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    width: 100%;
+}
+
+@media (min-width: 640px) {
+    .container {
+        max-width: 640px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 768px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1024px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .container {
+        max-width: 1280px;
+    }
+}
+
+@media (min-width: 1536px) {
+    .container {
+        max-width: 1536px;
+    }
+}
+
+.navbar {
+    border: 1px solid black;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.navCt {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navLeft {
+    display: flex;
+}
+
+.navLogoSide {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    color: black;
+    gap: 4px;
+    cursor: pointer;
+    margin: 10px 0;
+    padding: 0 10px;
+    transition: all 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.navLogoSide:hover {
+    color: rgb(0, 101, 184);
+}
+
+.navLogoSide>img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 6px;
+}
+
+.navLogoSide h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: inherit;
+}
+
+.navRight {
+    display: flex;
+    align-items: center;
+    gap: 10px
+}
+
+.navItems {
+    display: flex;
+    gap: 5px;
+}
+
+.navItems li {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.navItems li:hover {
+    transition: all 0.25s ease-out;
+    color: rgb(0, 101, 184);
+}
+
+.hover-underline-animation {
+    display: inline-block;
+    position: relative;
+}
+
+.hover-underline-animation::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #0087ca;
+    transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover::after {
+    transform: scaleX(1);
+}
+
+.hover-underline-animation::after {
+    transform-origin: bottom center;
+}
+
+.hover-underline-animation:hover::after {
+    transform-origin: bottom center;
+}
+
+.navProfile {
+    display: flex;
+}
+
+.navProfile>img {
+    width: 35px;
+    height: 35px;
+}

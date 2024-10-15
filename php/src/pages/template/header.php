@@ -8,5 +8,7 @@
     <link rel="icon" type="image/png" href="/../public/images/logo.png">
 
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link href='http://localhost:8000/public/css/reset.css' rel="stylesheet">
+    <link href='http://localhost:8000/public/css/global.css' rel="stylesheet">
     <title><?= $data['title'] ?? "KBL" ?></title>
 </head>

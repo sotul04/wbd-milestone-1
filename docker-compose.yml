@@ -12,6 +12,8 @@ services:
       - "8000:80"
     depends_on:
       - db
+    command: >
+      sh -c "./config/seed.sh && apache2-foreground"
     environment:
       DB_HOST: ${DB_HOST}
       DB_DATABASE: ${DB_DATABASE}
@@ -29,6 +31,3 @@ services:
       - ./php:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
-
-# volumes:
-#   db_data:

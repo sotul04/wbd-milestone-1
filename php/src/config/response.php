@@ -5,5 +5,5 @@ function json_response_success($data) {
 }
 
 function json_response_fail($msg) {
-    echo(json_encode(array('status' => 'fail', 'data' => $msg)));
+    echo(json_encode(array('status' => 'bad', 'data' => $msg)));
 }

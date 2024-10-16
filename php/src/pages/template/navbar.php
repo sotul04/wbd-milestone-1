@@ -1,4 +1,4 @@
-<body onload="initPage()">
+<body>
     <nav class="navbar">
         <div class="navCt container">
             <div class="navLeft hover">
@@ -8,6 +8,7 @@
                 </div>
             </div>
             <div class="navRight">
+                <div id="profile-nav-close"></div>
                 <ul class="navItems">
                     <!-- Navigation items will be injected here via JavaScript -->
                 </ul>

@@ -68,28 +68,28 @@ body {
 /* Button Style */
 
 .btn {
-    padding: 4px 12px;
+    padding: 4px 12px 6px 12px;
     border-radius: 99999px;
     transition: all 0.3s ease-in;
     text-align: center;
 }
 
 .btn-primary {
-    background-color: blue;
+    background-color: rgb(24, 48, 133);
     color: white;
 }
 
 .btn-primary:hover {
-    background-color: rgb(93, 93, 255);
+    background-color: rgb(55, 71, 141);
 }
 
 .btn-destroy {
-    background-color: red;
+    background-color: rgb(181, 32, 32);
     color: white;
 }
 
 .btn-destroy:hover {
-    background-color: rgb(255, 102, 102);
+    background-color: rgb(201, 73, 73);
 }
 
 .btn-secondary {
@@ -102,6 +102,26 @@ body {
 }
 
 a.link {
-    color: rgb(0, 0, 250);
-    transition: all 0.5s ease-in-out;
+    color: rgb(60, 116, 255);
+    transition: color 0.5s ease-in-out;
+}
+
+.shadow-1 {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.shadow-2 {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.shadow-3 {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.shadow-4 {
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+}
+
+.shadow-5 {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 }

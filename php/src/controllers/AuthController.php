@@ -11,10 +11,44 @@ class AuthController extends Controller
             $name = $_POST['name'];
             $role = $_POST['role'];
 
-            if ($this->model('UserModel')->createUser($email, $password, $role, $name)) {
-                json_response_success(data: "success");
+            if ($role === 'company') {
+                $about = $_POST['about'];
+                $location = $_POST['location'];
+                $newUser = $this->model('UserModel')->createUser($email, $password, $role, $name, $location, $about);
+                if ($newUser !== false && $newUser !== 'exists') {
+                    $user = $this->model('UserModel')->getUserByEmail($email);
+                    if ($user !== false) {
+                        $_SESSION['user_id'] = $user['user_id'];
+                        $_SESSION['name'] = $user['nama'];
+                        $_SESSION['email'] = $user['email'];
+                        $_SESSION['role'] = $user['role'];
+                        json_response_success(data: "success");
+                    } else {
+                        json_response_fail("Failed to login as new user");
+                    }
+                } else if ($newUser === 'exists'){
+                    json_response_fail("The email has been used");
+                } else {
+                    json_response_fail("Failed to add new user");
+                }
             } else {
-                json_response_fail("fail");
+                $newUser = $this->model('UserModel')->createUser($email, $password, $role, $name);
+                if ($newUser !== false && $newUser !== 'exists') {
+                    $user = $this->model('UserModel')->getUserByEmail($email);
+                    if ($user !== false) {
+                        $_SESSION['user_id'] = $user['user_id'];
+                        $_SESSION['name'] = $user['nama'];
+                        $_SESSION['email'] = $user['email'];
+                        $_SESSION['role'] = $user['role'];
+                        json_response_success(data: "success");
+                    } else {
+                        json_response_fail("Failed to login as new user");
+                    }
+                } else if ($newUser === 'exists') {
+                    json_response_fail("The email has been used");
+                } else {
+                    json_response_fail("Failed to add new user");
+                }
             }
         }
     }
@@ -30,10 +64,9 @@ class AuthController extends Controller
 
             // Check if user exists
             if ($user === false) {
-                // Render the view with error message if user is not found
-                $loginView = $this->view('user', 'LoginView', ['errorMessage' => 'User not found.']);
-                $loginView->render();
-                return;
+                // Redirect to /user/login with error message and form data
+                header('Location: /user/login?errorMessage=User%20not%20found&email=' . urlencode($email));
+                exit;
             }
 
             // Verify password
@@ -48,10 +81,9 @@ class AuthController extends Controller
                 header('Location: /home');
                 exit;
             } else {
-                // Render the view with error message if password is incorrect
-                $loginView = $this->view('user', 'LoginView', ['errorMessage' => 'Incorrect username or password.']);
-                $loginView->render();
-                return;
+                // Redirect to /user/login with error message and form data
+                header('Location: /user/login?errorMessage=Incorrect%20username%20or%20password&email=' . urlencode($email));
+                exit;
             }
         }
     }
@@ -64,7 +96,7 @@ class AuthController extends Controller
         unset($_SESSION['role']);
         session_destroy();
 
-        json_response_success("Logged out successfully");
+        header('Location: /user/login');
     }
 
     public function info()

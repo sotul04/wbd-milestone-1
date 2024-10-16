@@ -6,6 +6,7 @@
     position: sticky;
     top: 0;
     background-color: #F4F2EE;
+    z-index: 5;
 }
 
 .navCt {
@@ -55,6 +56,7 @@
     display: flex;
     gap: 8px;
     align-items: center;
+    margin-right: 16px;
 }
 
 .navItems li.link {
@@ -67,7 +69,7 @@
     color: rgb(0, 101, 184);
 }
 
-.navProfile>.profileCt p {
+.navProfile>.profileCt>p {
     font-size: 20px;
     font-weight: 600;
     height: 35px;
@@ -83,6 +85,7 @@
     align-items: center;
     gap: 16px;
     margin: 10px 0;
+    position: relative;
 }
 
 #logout {
@@ -107,15 +110,77 @@
     background-color: #101010;
 }
 
+#profile-nav {
+    position: absolute;
+    display: none;
+    opacity: 0;
+    flex-direction: column;
+    top: 150%;
+    right: 0;
+    padding: 1rem;
+    gap: 12px;
+    transition: all 1s ease-in-out;
+    border-radius: 8px;
+    background-color: #F4F2EE;
+}
+
+#profile-nav.active {
+    z-index: 20;
+    display: flex;
+    opacity: 100%;
+}
+
+#profile-nav > div :nth-child(1) {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#profile-nav > div :nth-child(2) {
+    font-size: 14px;
+    font-weight: 500;
+    color: gray;
+}
+
+#profile-nav > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#profile-nav-close {
+    position: absolute;
+    min-width: 100vw;
+    display: none;
+    min-height: 100vh;
+    z-index: -10;
+    left: 0;
+    top: 0;
+}
+
+#profile-nav-close.active {
+    z-index: 10;
+    display: block;
+}
+
+.profileCt>p {
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
+
+    #profile-nav, #profile-nav-close, #profile-nav.active, #profile-nav-close.active {
+        display: none;
+    }
+
     .navItems {
         gap: 8px;
         align-items: center;
         position: fixed;
         padding: 8px;
         height: calc(100vh - 60px);
+        margin-right: 0;
         left: -100%;
-        top: 60px;
+        top: 62px;
         flex-direction: column;
         background-color: #fff;
         width: 100%;

@@ -17,7 +17,11 @@ class UserController extends Controller implements ControllerInterface
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            $loginView = $this->view('user', 'LoginView');
+            $errorMessage = isset($_GET['errorMessage']) ? $_GET['errorMessage'] : null;
+            $email = isset($_GET['email']) ? $_GET['email'] : null;
+    
+            // Pass error message and email to the view
+            $loginView = $this->view('user', 'LoginView', ['errorMessage' => $errorMessage, 'email' => $email]);
             $loginView->render();
         }
     }
@@ -31,7 +35,7 @@ class UserController extends Controller implements ControllerInterface
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            $loginView = $this->view('user', 'RegisterView');
+            $loginView = $this->view('user', 'RegisterView', ['title' => 'Register - Linkin']);
             $loginView->render();
         }
     }

@@ -15,17 +15,25 @@
 
 /* Style for the aside section */
 .sidebar {
-    background-color: #ffffff;
-    border-radius: 8px;
-    height: fit-content;
-    position: sticky; /* Make the sidebar sticky */
-    top: 80px; /* Keeps the sidebar 20px from the top while scrolling */
-    border: 1px solid #DFDEDB;
+    position: sticky; 
+    top: 80px;
     align-self: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 
 }
 
-.sidebar .img {
+.sidebar-item {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #DFDEDB;
+    position: relative;
+    width: 100%;
+}
+
+.sidebar-item .img {
     position: absolute;
     height: 72px;
     width: 72px;
@@ -38,13 +46,13 @@
     transform: translateX(-50%);
 }
 
-.sidebar .sidebar-top {
+.sidebar-item .sidebar-top {
     height: 60px;
     background-color: #A0B4B7;
     border-radius: 8px 8px 0 0;
 }
 
-.sidebar .sidebar-main {
+.sidebar-item .sidebar-main {
     margin: 50px 10px 20px 10px;
 }
 
@@ -68,9 +76,9 @@
 
     .sidebar {
         order: 1;
-        margin-bottom: 20px;
-        position: relative;
+        position:static;
         top: 0;
+        padding: 20px;
     }
 
     .main-content {
@@ -79,8 +87,7 @@
 }
 
 .filter-form {
-    margin-bottom: 10px;
-    padding: 0 15px 15px 15px;
+    padding: 15px 15px 8px 15px;
     border-radius: 10px;
 }
 

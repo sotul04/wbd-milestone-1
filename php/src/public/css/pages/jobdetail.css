@@ -1,0 +1,81 @@
+#job-detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.job-container {
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.job-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.company-info {
+    margin-top: 10px;
+}
+
+.company-name {
+    font-size: 20px;
+    color: #0073b1; /* LinkedIn brand color */
+}
+
+.job-location {
+    font-size: 16px;
+    color: #555;
+}
+
+.job-description {
+    margin-top: 20px;
+    padding-right: min(20px, 5%);
+}
+
+.job-description h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.job-type,
+.job-posted-date {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.apply-button {
+    margin-top: 20px;
+}
+
+.apply-button .btn {
+    background-color: #0073b1; /* LinkedIn brand color */
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.apply-button .btn:hover {
+    background-color: #005582;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#job-description-editor {
+    height: 200px; /* Set a height for the editor */
+    margin-top: 10px;
+}
+
+strong {
+    font-weight: 600;
+}

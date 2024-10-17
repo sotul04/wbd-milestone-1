@@ -1,7 +1,9 @@
 <?php require_once __DIR__ . "/../template/header.php" ?>
 <?php require_once __DIR__ . "/../template/navbar.php" ?>
 
-<link rel="stylesheet" href="<? BASE_URL ?>/public/css/pages/jobseekerpage.css" />
+<link rel="stylesheet" href="<?php echo BASE_URL ?>/public/css/pages/jobseekerpage.css" />
+<!-- Include Quill CSS -->
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
 
 <main id="main">
     <section class="grid-container container">
@@ -9,7 +11,7 @@
             <div class="sidebar-item">
                 <div class="sidebar-top"></div>
                 <div class="img">
-                    <img src="<? BASE_URL ?>/public/assets/icons/Camera.ico" alt="Camera icon">
+                    <img src="<?php echo BASE_URL ?>/public/assets/icons/Camera.ico" alt="Camera icon">
                 </div>
                 <div class="sidebar-main">
                     <p>Welcome, <?= isset($name) ? htmlspecialchars($name) : 'GUEST' ?>!</p>
@@ -28,7 +30,7 @@
                             <option value="remote" <?= isset($_GET['locationType']) && $_GET['locationType'] == 'remote' ? 'selected' : '' ?>>Remote</option>
                         </select>
                     </div>
-    
+
                     <div class="filter-group">
                         <label for="jobType">Job Type:</label>
                         <select name="jobType" id="jobType">
@@ -38,30 +40,33 @@
                             <option value="Internship" <?= isset($_GET['jobType']) && $_GET['jobType'] == 'Internship' ? 'selected' : '' ?>>Internship</option>
                         </select>
                     </div>
-    
+
                     <div class="filter-group">
                         <label for="sort">Sort by:</label>
                         <select name="sort" id="sort">
-                            <option value="" <?= isset($_GET['sort']) && $_GET['sort'] == '' ? 'selected' : '' ?>>Default</option>
-                            <option value="ASC" <?= isset($_GET['sort']) && $_GET['sort'] == 'ASC' ? 'selected' : '' ?>>Older First</option>
-                            <option value="DESC" <?= isset($_GET['sort']) && $_GET['sort'] == 'DESC' ? 'selected' : '' ?>>Newest First</option>
+                            <option value="" <?= isset($_GET['sort']) && $_GET['sort'] == '' ? 'selected' : '' ?>>Default
+                            </option>
+                            <option value="ASC" <?= isset($_GET['sort']) && $_GET['sort'] == 'ASC' ? 'selected' : '' ?>>
+                                Older First</option>
+                            <option value="DESC" <?= isset($_GET['sort']) && $_GET['sort'] == 'DESC' ? 'selected' : '' ?>>
+                                Newest First</option>
                         </select>
                     </div>
-    
+
                     <div class="filter-group">
                         <label for="search">Search:</label>
                         <input type="text" name="search" id="search"
                             value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>"
-                            placeholder="Search jobs...">
+                            placeholder="Search">
                     </div>
                 </form>
             </div>
         </aside>
-        
+
         <div class="main-content">
             <!-- Job Listings -->
             <div class="job-listings">
-                <?
+                <?php
                 if (isset($content)) {
                     foreach ($content['jobs'] as $key => $item) {
                         ?>
@@ -73,19 +78,23 @@
                             <div class="job-body">
                                 <p><strong>Type:</strong> <?= htmlspecialchars($item['jenis_pekerjaan']) ?></p>
                                 <p><strong>Location:</strong> <?= htmlspecialchars($item['jenis_lokasi']) ?></p>
-                                <p class="job-description"><?= htmlspecialchars($item['deskripsi']) ?></p>
+                                <label for="quill-editor-<?= $key ?>" class="job-description-label"><strong>Description:</strong></label>
+                                <div class="job-description" id="quill-editor-<?= $key ?>"
+                                    data-description="<?= htmlspecialchars(json_encode($item['deskripsi'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)) ?>">
+                                    <?= $item['deskripsi']?>
+                                </div>
                             </div>
                             <div class="job-footer">
                                 <p><small>Posted on: <?= date('F j, Y', strtotime($item['created_at'])) ?></small></p>
-                                <button class="apply-btn">Apply Now</button>
+                                <a href="http://localhost:8000/job/<?= $item['lowongan_id'] ?>" class="apply-btn">Detail</a>
                             </div>
                         </div>
-                        <?
+                        <?php
                     }
                     if (count($content['jobs']) === 0) {
                         ?>
                         <p>No Job Available</p>
-                        <?
+                        <?php
                     }
                 }
                 ?>
@@ -129,6 +138,8 @@
     </section>
 </main>
 
-<script src="<? BASE_URL ?>/public/js/pages/jobseekerpage.js"></script>
+<!-- Include Quill JS -->
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+<script src="http://localhost:8000/public/js/pages/jobseekerpage.js"></script>
 
 <?php require_once __DIR__ . "/../template/footer.php" ?>

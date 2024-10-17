@@ -39,8 +39,13 @@ class App {
         $methodPart = $url[1] ?? null;
         if (isset($methodPart) && method_exists($this->controller, $methodPart)) {
             $this->method = $methodPart;
+            unset($url[1]);
         }
-        unset($url[1]);
+
+        // if ($controllerRoot === 'Job') {
+        //     json_response_success($url);
+        //     exit;
+        // }
 
         if (!empty($url)) {
             $this->params = array_values($url);

@@ -30,9 +30,9 @@ class JobModel
 
         // Updated query to join with users table to fetch company name
         $query = "SELECT lowongan.*, users.nama as company_name 
-              FROM lowongan
-              JOIN users ON lowongan.company_id = users.user_id
-              WHERE 1=1";
+                FROM lowongan
+                JOIN users ON lowongan.company_id = users.user_id
+                WHERE 1=1";
 
         if (!empty($locationType)) {
             $query .= " AND jenis_lokasi = :jenis_lokasi";
@@ -116,12 +116,21 @@ class JobModel
     public function createJob($companyId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi)
     {
         $this->db->query("INSERT INTO lowongan (company_id, posisi, deskripsi, jenis_pekerjaan, jenis_lokasi) 
-                          VALUES (:companyId, :posisi, :deskripsi, :jenis_pekerjaan, :jenis_lokasi)");
+                            VALUES (:companyId, :posisi, :deskripsi, :jenis_pekerjaan, :jenis_lokasi)");
         $this->db->bind(':companyId', $companyId);
         $this->db->bind(':posisi', $posisi);
         $this->db->bind(':deskripsi', $deskripsi);
         $this->db->bind(':jenis_pekerjaan', $jenisPekerjaan);
         $this->db->bind(':jenis_lokasi', $jenisLokasi);
         return $this->db->execute();
+    }
+
+    public function getJobDetail($lowonganId) {
+        $this->db->query("SELECT lowongan.*, users.nama as company_name 
+                            FROM lowongan 
+                            JOIN users ON lowongan.company_id = users.user_id 
+                            WHERE lowongan.lowongan_id = :lowonganId");
+        $this->db->bind(':lowonganId', $lowonganId);
+        return $this->db->single();
     }
 }

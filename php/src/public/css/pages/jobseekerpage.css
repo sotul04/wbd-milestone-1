@@ -1,0 +1,207 @@
+#main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Grid container for the layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Style for the aside section */
+.sidebar {
+    background-color: #ffffff;
+    border-radius: 8px;
+    height: fit-content;
+    position: sticky; /* Make the sidebar sticky */
+    top: 80px; /* Keeps the sidebar 20px from the top while scrolling */
+    border: 1px solid #DFDEDB;
+    align-self: start;
+
+}
+
+.sidebar .img {
+    position: absolute;
+    height: 72px;
+    width: 72px;
+    border-radius: 100%;
+    padding: 16px;
+    background-color: #F8FAFD;
+    border: white 1.5px solid;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.sidebar .sidebar-top {
+    height: 60px;
+    background-color: #A0B4B7;
+    border-radius: 8px 8px 0 0;
+}
+
+.sidebar .sidebar-main {
+    margin: 50px 10px 20px 10px;
+}
+
+.sidebar-main p {
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Style for the main content */
+.main-content {
+    background-color: inherit;
+    padding: 8px 20px 8px 20px;
+    border-radius: 8px;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        order: 1;
+        margin-bottom: 20px;
+        position: relative;
+        top: 0;
+    }
+
+    .main-content {
+        order: 2;
+    }
+}
+
+.filter-form {
+    margin-bottom: 10px;
+    padding: 0 15px 15px 15px;
+    border-radius: 10px;
+}
+
+.filter-group {
+    margin-bottom: 15px;
+}
+
+.filter-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.filter-group select,
+.filter-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.filter-group .btn {
+    padding: 10px 20px;
+    background-color: #0073b1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.filter-group .btn:hover {
+    background-color: #005a8c;
+}
+
+/* Style for job listings */
+.job-listings {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.job-listings>p {
+    text-align: center;
+    margin: 10px;
+}
+
+.job-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.job-header {
+    margin-bottom: 15px;
+}
+
+.job-title {
+    font-size: 1.2em;
+    color: #0073b1;
+}
+
+.company-name {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.job-body {
+    margin-bottom: 15px;
+}
+
+.job-description {
+    color: #333;
+}
+
+.job-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.apply-btn {
+    background-color: #0073b1;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.apply-btn:hover {
+    background-color: #005a8c;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center; /* Center the pagination */
+    align-items: center;
+    margin: 20px 0; /* Add some margin above and below the pagination */
+}
+
+.pagination button {
+    background-color: white; /* Default background color */
+    border: 1px solid #ccc; /* Light grey border */
+    color: #0077b5; /* LinkedIn blue text color */
+    padding: 4px 10px 4px 10px; /* Padding for button */
+    margin: 0 5px; /* Space between buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+/* Active or current page style */
+.pagination button.active {
+    background-color: #0077b5; /* LinkedIn blue background */
+    color: white; /* White text color */
+    border: none; /* Remove border for active button */
+}
+
+/* Button hover effect */
+.pagination button:hover:not(.active) {
+    background-color: #f0f0f0; /* Light grey background on hover */
+}

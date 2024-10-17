@@ -1,5 +1,7 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #F4F2EE; /* Light grey background */
+    color: #333; /* Default text color */
 }
 
 .container {
@@ -24,18 +26,6 @@ body {
     }
 }
 
-@media (min-width: 1280px) {
-    .container {
-        max-width: 1280px;
-    }
-}
-
-@media (min-width: 1536px) {
-    .container {
-        max-width: 1536px;
-    }
-}
-
 .hover-underline-animation {
     display: inline-block;
     position: relative;
@@ -49,7 +39,7 @@ body {
     height: 2px;
     bottom: -2px;
     left: 0;
-    background-color: #0087ca;
+    background-color: #0077b5; /* LinkedIn blue */
     transition: transform 0.25s ease-out;
 }
 
@@ -69,26 +59,25 @@ body {
 
 .btn {
     padding: 4px 12px 6px 12px;
-    border-radius: 99999px;
-    transition: all 0.2s ease-in;
+    border-radius: 4px;
     text-align: center;
 }
 
 .btn-primary {
-    background-color: rgb(24, 48, 133);
+    background-color: #0077b5; /* LinkedIn blue */
     color: white;
 }
 
 .btn-primary:hover {
-    background-color: rgb(55, 71, 141);
+    background-color: #005582; /* Darker blue on hover */
 }
 
 .btn-primary:active {
-    background-color: rgb(119, 144, 255);
+    background-color: #003e54; /* Even darker blue on active */
 }
 
 .btn-destroy {
-    background-color: rgb(181, 32, 32);
+    background-color: rgb(201, 40, 40);
     color: white;
 }
 
@@ -114,8 +103,11 @@ body {
 }
 
 a.link {
-    color: rgb(60, 116, 255);
-    transition: color 0.5s ease-in-out;
+    color: #0077b5; /* LinkedIn blue link color */
+}
+
+a.link:hover {
+    color: #005582; /* Darker blue on hover */
 }
 
 .shadow-1 {

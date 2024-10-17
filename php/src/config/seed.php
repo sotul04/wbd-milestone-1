@@ -61,6 +61,10 @@ try {
         $companyDetailsInsertQuery .= implode(', ', $companyDetailsValues);
         $pdo->exec($companyDetailsInsertQuery);
 
+        // Define arrays for job type and location type
+        $jenisLokasi = ['on-site', 'hybrid', 'remote'];
+        $jenisPekerjaan = ['Full-time', 'Part-time', 'Internship'];
+
         // Prepare and insert data into lowongan table
         $lowonganInsertQuery = "INSERT INTO lowongan (company_id, posisi, deskripsi, jenis_pekerjaan, jenis_lokasi) VALUES ";
         $lowonganValues = [];
@@ -68,7 +72,10 @@ try {
             for ($j = 1; $j <= 20; $j++) { // Doubling job openings per company
                 $posisi = "Position {$j} for Company {$companyId}";
                 $deskripsi = "Job description for {$posisi}.";
-                $lowonganValues[] = "($companyId, '$posisi', '$deskripsi', 'Full-time', 'remote')";
+                // Randomly select a job type and location type
+                $randomJenisPekerjaan = $jenisPekerjaan[array_rand($jenisPekerjaan)];
+                $randomJenisLokasi = $jenisLokasi[array_rand($jenisLokasi)];
+                $lowonganValues[] = "($companyId, '$posisi', '$deskripsi', '$randomJenisPekerjaan', '$randomJenisLokasi')";
             }
         }
         $lowonganInsertQuery .= implode(', ', $lowonganValues);

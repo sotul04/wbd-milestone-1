@@ -1,5 +1,5 @@
 function redirectToHome() {
-    window.location.href = '/';  // Replace with your home URL
+    window.location.href = '/home';  // Replace with your home URL
 }
 
 function redirectToLogin() {

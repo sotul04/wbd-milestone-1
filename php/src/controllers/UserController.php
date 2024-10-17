@@ -17,8 +17,8 @@ class UserController extends Controller implements ControllerInterface
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            $errorMessage = isset($_GET['errorMessage']) ? $_GET['errorMessage'] : null;
-            $email = isset($_GET['email']) ? $_GET['email'] : null;
+            $errorMessage = $_GET['errorMessage'] ?? null;
+            $email = $_GET['email'] ?? null;
     
             // Pass error message and email to the view
             $loginView = $this->view('user', 'LoginView', ['errorMessage' => $errorMessage, 'email' => $email]);

@@ -28,20 +28,20 @@ require_once __DIR__ . "/../template/navbar.php";
 
             <div class="form-group">
                 <img src="http://localhost:8000/public/assets/icons/User.ico" alt="User Icon">
-                <input type="text" id="name" name="name" placeholder="Full Name" required autocomplete="off">
+                <input type="text" id="name" name="name" placeholder="Full Name" autocomplete="off">
             </div>
 
             <div class="form-group">
                 <img src="http://localhost:8000/public/assets/icons/Email.ico" alt="Email Icon">
-                <input type="email" id="email" name="email" placeholder="Email" required autocomplete="off">
+                <input type="email" id="email" name="email" placeholder="Email" autocomplete="off">
             </div>
             <div class="form-group">
                 <img src="http://localhost:8000/public/assets/icons/Password.ico" alt="Password Icon">
-                <input type="password" id="password" name="password" placeholder="Password" required autocomplete="off">
+                <input type="password" id="password" name="password" placeholder="Password" autocomplete="off">
             </div>
             <div class="form-group">
                 <img src="http://localhost:8000/public/assets/icons/Password.ico" alt="Password Icon">
-                <input type="password" id="confirm" name="confirm" placeholder="Confirm Password" required
+                <input type="password" id="confirm" name="confirm" placeholder="Confirm Password"
                     autocomplete="off">
             </div>
             <div class="form-group">

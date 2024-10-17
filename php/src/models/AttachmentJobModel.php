@@ -1,13 +1,13 @@
 <?php
 
-class AttachmentLowonganModel {
+class AttachmentJobModel {
     private $db;
 
     public function __construct() {
         $this->db = new Database();
     }
 
-    public function getAttachmentsByLowonganId($lowonganId) {
+    public function getAttachmentsByJobId($lowonganId) {
         $this->db->query("SELECT * FROM attachments_lowongan WHERE lowongan_id = :lowonganId");
         $this->db->bind(':lowonganId', $lowonganId);
         return $this->db->resultSet();

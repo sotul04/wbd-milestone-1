@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             locationGroup.className = 'form-group';
             locationGroup.innerHTML = `
                 <img src="http://localhost:8000/public/assets/icons/Location.ico" alt="Location Icon">
-                <input type="text" id="location" name="location" placeholder="Company Location" required autocomplete="off">
+                <input type="text" id="location" name="location" placeholder="Company Location" autocomplete="off">
             `;
             form.insertBefore(locationGroup, form.children[form.children.length - 3]); // Insert before the register button
 
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             aboutGroup.className = 'form-group';
             aboutGroup.innerHTML = `
                 <img src="http://localhost:8000/public/assets/icons/About.ico" alt="About Icon">
-                <textarea id="about" name="about" placeholder="About your company" required></textarea>
+                <textarea id="about" name="about" placeholder="About your company" ></textarea>
             `;
             form.insertBefore(aboutGroup, form.children[form.children.length - 3]); // Insert before the register button
             document.getElementById('name').placeholder = 'Company Name';

@@ -1,25 +1,25 @@
 <?php
 
-class LamaranModel {
+class ApplicationModel {
     private $db;
 
     public function __construct() {
         $this->db = new Database();
     }
 
-    public function getLamaranById($lamaranId) {
+    public function getApplicationById($lamaranId) {
         $this->db->query("SELECT * FROM lamaran WHERE lamaran_id = :lamaranId");
         $this->db->bind(':lamaranId', $lamaranId);
         return $this->db->single();
     }
 
-    public function getLamaransByUserId($userId) {
+    public function getApplicationByUserId($userId) {
         $this->db->query("SELECT * FROM lamaran WHERE user_id = :userId");
         $this->db->bind(':userId', $userId);
         return $this->db->resultSet();
     }
 
-    public function createLamaran($userId, $lowonganId, $cvPath, $videoPath, $status, $statusReason = '') {
+    public function createApplication($userId, $lowonganId, $cvPath, $videoPath, $status, $statusReason = '') {
         $this->db->query("INSERT INTO lamaran (user_id, lowongan_id, cv_path, video_path, status, status_reason) 
                           VALUES (:userId, :lowonganId, :cvPath, :videoPath, :status, :statusReason)");
         $this->db->bind(':userId', $userId);

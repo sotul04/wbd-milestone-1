@@ -13,7 +13,7 @@ class UserController extends Controller implements ControllerInterface
         if (isset($_SESSION['user_id'])) {
             http_response_code(301);
             header('Location: /home');
-            return;
+            exit;
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {

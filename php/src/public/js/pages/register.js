@@ -1,8 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const link = document.createElement('link');
-    link.href = "http://localhost:8000/public/css/pages/register.css";
-    link.rel = "stylesheet";
-    document.head.appendChild(link);
     document.head.title = "Register - Linkin";
 
     const userTypeDropdown = document.getElementById('userType');

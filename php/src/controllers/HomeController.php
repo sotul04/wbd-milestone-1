@@ -7,4 +7,4 @@ class HomeController extends Controller implements ControllerInterface
         $homeview = $this->view('home', 'HomeView');
         $homeview->render();
     }
-}
+}  

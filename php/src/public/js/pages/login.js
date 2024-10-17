@@ -1,10 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const link = document.createElement('link');
-    link.href = "http://localhost:8000/public/css/pages/login.css";
-    link.rel = "stylesheet";
-    document.head.appendChild(link);
-});
-
 function validateForm(event) {
     event.preventDefault();
 

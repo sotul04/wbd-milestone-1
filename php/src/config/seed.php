@@ -23,7 +23,7 @@ try {
                 'email' => "c{$i}@c.com",
                 'password' => password_hash('password', PASSWORD_DEFAULT),
                 'role' => 'company',
-                'nama' => "Company {$i} THEGREATEST"
+                'nama' => "Company{$i} THEGREATEST"
             ];
         }
         
@@ -33,7 +33,7 @@ try {
                 'email' => "js{$i}@js.com",
                 'password' => password_hash('password', PASSWORD_DEFAULT),
                 'role' => 'jobseeker',
-                'nama' => "JobSeeker {$i} THEBEST"
+                'nama' => "JobSeeker{$i} THEBEST"
             ];
         }
 

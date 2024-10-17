@@ -1,8 +1,11 @@
 <?php
 require_once __DIR__ . "/../template/header.php";
 require_once __DIR__ . "/../template/navbar.php";
-// the style register.css added via javascript
 ?>
+
+<style>
+    <? include __DIR__.'/../../public/css/pages/register.css'; ?>
+</style>
 
 <section id="register-section">
     <div class="form-container">

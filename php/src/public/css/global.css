@@ -70,7 +70,7 @@ body {
 .btn {
     padding: 4px 12px 6px 12px;
     border-radius: 99999px;
-    transition: all 0.3s ease-in;
+    transition: all 0.2s ease-in;
     text-align: center;
 }
 
@@ -83,6 +83,10 @@ body {
     background-color: rgb(55, 71, 141);
 }
 
+.btn-primary:active {
+    background-color: rgb(119, 144, 255);
+}
+
 .btn-destroy {
     background-color: rgb(181, 32, 32);
     color: white;
@@ -92,13 +96,21 @@ body {
     background-color: rgb(201, 73, 73);
 }
 
+.btn-destroy:active {
+    background-color: rgb(255, 131, 131);
+}
+
 .btn-secondary {
     background-color: rgb(39, 39, 39);
     color: white;
 }
 
 .btn-secondary:hover {
-    background-color: rgb(91, 91, 91);
+    background-color: rgb(80, 80, 80);
+}
+
+.btn-secondary:active {
+    background-color: rgb(105, 105, 105);
 }
 
 a.link {

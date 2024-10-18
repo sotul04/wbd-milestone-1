@@ -12,6 +12,7 @@ class HomeController extends Controller implements ControllerInterface
         $name = $_SESSION['name'] ?? null;
         $search = $_GET['search'] ?? '';
         $role = $this->getRole();
+        $companyId = $_SESSION['user_id'] ?? null;
 
         // Validate parameters
         $page = $this->validatePage($page);
@@ -21,13 +22,15 @@ class HomeController extends Controller implements ControllerInterface
         $search = $this->validateSearch($search);
 
         if ($role === 'company') {
+            $content = $this->model('JobModel')->getJobByCompanyId($companyId);
             $homeview = $this->view('home', 'CompanyHomeView', [
                 'name' => $name,
                 'page' => $page,
                 'sort' => $sort,
                 'locationType' => $locationType,
                 'jobType' => $jobType,
-                'search' => $search
+                'search' => $search,
+                'content' => $content
             ]);
             $homeview->render();
             exit;

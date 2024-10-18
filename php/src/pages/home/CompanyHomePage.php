@@ -57,6 +57,75 @@
                 </form>
             </div>
         </aside>
+
+        <div class="main-content">
+            <!-- Job Listings -->
+            <div class="job-listings">
+                <?
+                if (isset($content)) {
+                    foreach ($content['jobs'] as $key => $item) {
+                        ?>
+                        <div class="job-card">
+                            <div class="job-header">
+                                <h3 class="job-title"><?= htmlspecialchars($item['posisi']) ?></h3>
+                                <p class="company-name"><?= htmlspecialchars($item['company_name']) ?></p>
+                            </div>
+                            <div class="job-body">
+                                <p><strong>Type:</strong> <?= htmlspecialchars($item['jenis_pekerjaan']) ?></p>
+                                <p><strong>Location:</strong> <?= htmlspecialchars($item['jenis_lokasi']) ?></p>
+                                <p class="job-description"><?= htmlspecialchars($item['deskripsi']) ?></p>
+                            </div>
+                            <div class="job-footer">
+                                <p><small>Posted on: <?= date('F j, Y', strtotime($item['created_at'])) ?></small></p>
+                                <button class="apply-btn">Apply Now</button>
+                            </div>
+                        </div>
+                        <?
+                    }
+                    if (count($content['jobs']) === 0) {
+                        ?>
+                        <p>No Job Available</p>
+                        <?
+                    }
+                }
+                ?>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <?php
+                $totalPages = isset($content) ? $content['total_pages'] : 1;
+                $currentPage = isset($content) ? $content['current_page'] : 1;
+
+                echo "<p>$currentPage of $totalPages</p>";
+                // Previous button (disabled if on the first page)
+                if ($currentPage > 1) {
+                    echo "<button data-page='" . ($currentPage - 1) . "' class='prev-btn'>Prev</button>";
+                } else {
+                    echo "<button disabled class='prev-btn'>Prev</button>";
+                }
+
+                // Pagination numbers
+                $minPage = max(1, $currentPage - 1);
+                $maxPage = min($totalPages, $currentPage + 1);
+
+                for ($i = $minPage; $i <= $maxPage; $i++) {
+                    if ($i == $currentPage) {
+                        echo "<button class='active' disabled>$i</button>";
+                    } else {
+                        echo "<button data-page='$i'>$i</button>";
+                    }
+                }
+
+                // Next button (disabled if on the last page)
+                if ($currentPage < $totalPages) {
+                    echo "<button data-page='" . ($currentPage + 1) . "' class='next-btn'>Next</button>";
+                } else {
+                    echo "<button disabled class='next-btn'>Next</button>";
+                }
+                ?>
+            </div>
+        </div>
     </section>
 </main>
 

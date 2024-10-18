@@ -20,7 +20,11 @@ class JobModel
     {
         $this->db->query("SELECT * FROM lowongan WHERE company_id = :companyId");
         $this->db->bind(':companyId', $companyId);
-        return $this->db->resultSet();
+        return [
+            'jobs' => $this->db->resultSet(),
+            'total_pages' => 1,
+            'current_page' => 1
+        ];
     }
 
     public function getJobs($page, $sort, $locationType, $jobType, $search)

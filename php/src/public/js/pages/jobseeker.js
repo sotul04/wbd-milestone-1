@@ -3,18 +3,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("search");
     let debounceTimeout;
 
-    document.querySelectorAll('.job-description').forEach(editor => {
-        // const description = editor.getAttribute('data-description');
+    // document.querySelectorAll('.job-description').forEach(editor => {
+    //     // const description = editor.getAttribute('data-description');
 
-        // Initialize Quill editor
-        new Quill(editor, {
-            theme: 'snow',
-            modules: {
-                toolbar: false // Disable the toolbar for read-only
-            },
-            readOnly: true // Set the editor to read-only
-        });
-    });
+    //     // Initialize Quill editor
+    //     new Quill(editor, {
+    //         theme: 'snow',
+    //         modules: {
+    //             toolbar: false // Disable the toolbar for read-only
+    //         },
+    //         readOnly: true // Set the editor to read-only
+    //     });
+    // });
 
     // Apply filter on change
     filters.forEach((filter) => {

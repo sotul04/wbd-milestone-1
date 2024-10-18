@@ -1,9 +1,7 @@
 <?php require_once __DIR__ . "/../template/header.php" ?>
 <?php require_once __DIR__ . "/../template/navbar.php" ?>
 
-<link rel="stylesheet" href="<?php echo BASE_URL ?>/public/css/pages/jobseekerpage.css" />
-<!-- Include Quill CSS -->
-<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+<link rel="stylesheet" href="<?php echo BASE_URL ?>/public/css/pages/jobseeker.css" />
 
 <main id="main">
     <section class="grid-container container">
@@ -78,11 +76,6 @@
                             <div class="job-body">
                                 <p><strong>Type:</strong> <?= htmlspecialchars($item['jenis_pekerjaan']) ?></p>
                                 <p><strong>Location:</strong> <?= htmlspecialchars($item['jenis_lokasi']) ?></p>
-                                <label for="quill-editor-<?= $key ?>" class="job-description-label"><strong>Description:</strong></label>
-                                <div class="job-description" id="quill-editor-<?= $key ?>"
-                                    data-description="<?= htmlspecialchars(json_encode($item['deskripsi'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)) ?>">
-                                    <?= $item['deskripsi']?>
-                                </div>
                             </div>
                             <div class="job-footer">
                                 <p><small>Posted on: <?= date('F j, Y', strtotime($item['created_at'])) ?></small></p>
@@ -139,7 +132,7 @@
 </main>
 
 <!-- Include Quill JS -->
-<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-<script src="http://localhost:8000/public/js/pages/jobseekerpage.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script> -->
+<script src="http://localhost:8000/public/js/pages/jobseeker.js"></script>
 
 <?php require_once __DIR__ . "/../template/footer.php" ?>

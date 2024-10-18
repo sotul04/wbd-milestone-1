@@ -5,3 +5,11 @@ new Quill('#job-description-editor', {
         toolbar: false
     }
 });
+
+new Quill('#application-response', {
+    theme: 'snow',
+    readOnly: true,
+    modules: {
+        toolbar: false
+    }
+});

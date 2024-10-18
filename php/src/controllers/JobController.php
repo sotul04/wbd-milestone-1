@@ -25,8 +25,15 @@ class JobController extends Controller
             $this->notFound();
         }
         $role = $this->getRole() ?? 'guest';
-        $detailView = $this->view('job', 'JobDetailView', ['role' => $role, 'jobDetail' => $jobDetail]);
-        $detailView->render();
+        $attachments = $this->model('JobModel')->getAttachments($jobID);
+        if ($role !== 'jobseeker') {
+            $detailView = $this->view('job', 'JobDetailView', ['role' => $role, 'jobDetail' => $jobDetail, 'attachments'=> $attachments]);
+            $detailView->render();
+        } else {
+            $infoApplication = $this->model('JobModel')->getApplicationBrief($jobID);
+            $detailView = $this->view('job', 'JobDetailView', ['role' => $role, 'jobDetail' => $jobDetail, 'attachments'=> $attachments,'infoApplication' => $infoApplication]);
+            $detailView->render();
+        }
     }
 
     public function jobApplication($jobID)

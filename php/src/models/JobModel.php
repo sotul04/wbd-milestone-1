@@ -126,7 +126,7 @@ class JobModel
         $this->db->query("SELECT * FROM lamaran WHERE user_id = :userId AND lowongan_id = :lowonganId");
         $this->db->bind(':userId', $userId);
         $this->db->bind(':lowonganId', $lowonganId);
-        return $this->db->single(); 
+        return $this->db->single();
     }
 
     public function createJob($companyId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi)

@@ -11,5 +11,11 @@
     <link href='http://localhost:8000/public/css/reset.css' rel="stylesheet">
     <link href='http://localhost:8000/public/css/global.css' rel="stylesheet">
     <link href='http://localhost:8000/public/css/navbar.css' rel="stylesheet">
+    <link href='http://localhost:8000/public/css/toast.css' rel="stylesheet">
     <title><?= isset($title) ? $title : "Linkin" ?></title>
+    <script src="http://localhost:8000/public/js/toast.js" defer></script>
+
 </head>
+
+<div id="toastContainer">
+</div>

@@ -42,6 +42,10 @@ class JobController extends Controller
         if ($jobDetail === false) {
             $this->notFound();
         }
+        $role = $this->getRole() ?? 'guest';
+        if ($role === 'guest' || $role === 'company') {
+            $this->unauthorized();
+        }
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST')  {

@@ -1,0 +1,69 @@
+#history {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.jobs-container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.jobs-container h2 {
+    font-size: larger;
+    font-weight: 600;
+}
+
+.job-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.job-header {
+    margin-bottom: 15px;
+}
+
+.job-title {
+    font-size: 1.2em;
+    color: #0073b1;
+}
+
+.company-name {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.job-body {
+    margin-bottom: 15px;
+}
+
+.job-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.link-btn {
+    background-color: #0073b1;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline from link */
+    display: inline-block; /* Allow padding and line-height to take effect */
+    line-height: normal; /* Reset line-height to prevent vertical misalignment */
+    font-family: inherit; /* Use the same font as the rest of the page */
+    font-size: inherit; /* Use the same font size as the rest of the page */
+}
+
+.link-btn:hover {
+    background-color: #005a8c;
+    text-decoration: none; /* Ensure no underline appears on hover */
+}

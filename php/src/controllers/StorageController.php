@@ -41,8 +41,8 @@ class StorageController extends Controller
 
         // Access control: jobseeker can only access their own files
         if ($role === 'jobseeker') {
-            $userID = explode("_", $fileName)[0];
-            if ($userID !== $_SESSION['user_id']) {
+            $isAccessed = $this->model('ApplicationModel')->isFileOwnedByJobseeker($_SESSION['user_id'], $fileName);
+            if (!$isAccessed) {
                 header("HTTP/1.1 403 Forbidden");
                 echo "Unauthorized access.";
                 exit;
@@ -50,10 +50,8 @@ class StorageController extends Controller
         }
         // Access control: company can only access files related to their jobs
         else {
-            $fileNameWithoutExtension = pathinfo($fileName, PATHINFO_FILENAME);
-            $jobID = explode("_", $fileNameWithoutExtension)[1] ?? '';
-            $isExists = $this->model('ApplicationModel')->isLowonganExists($_SESSION['user_id'], $jobID);
-            if (!$isExists) {
+            $isAccessed = $this->model('ApplicationModel')->isFileAccessedByCompany($_SESSION['user_id'], $fileName);
+            if (!$isAccessed) {
                 header("HTTP/1.1 403 Forbidden");
                 echo "Unauthorized access.";
                 exit;

@@ -7,18 +7,20 @@
 <section id="job-detail" aria-labelledby="job-title">
     <div class="container job-container shadow-4">
         <h1 id="job-title" class="job-title"><?= htmlspecialchars($jobDetail['posisi']) ?></h1>
-        <div class="company-info" role="complementary">
+        <div class="job-info-container" role="complementary">
+            <p class="job-info"><?= htmlspecialchars($jobDetail['jenis_lokasi']) ?></p>
+            <p class="job-info"><?= htmlspecialchars($jobDetail['jenis_pekerjaan']) ?></p>
+        </div>
+        <div class="company-details">
             <h2 class="company-name"><?= htmlspecialchars($jobDetail['company_name']) ?></h2>
-            <p class="job-location"><strong>Location: </strong><?= htmlspecialchars($jobDetail['jenis_lokasi']) ?></p>
+            <p><img alt="Location icon" src="http://localhost:8000/public/assets/icons/Location.ico"><?= htmlspecialchars($jobDetail['lokasi'])?></p>
+            <p><img alt="Location icon" src="http://localhost:8000/public/assets/icons/About.ico"><?= htmlspecialchars($jobDetail['about'])?></p>
         </div>
         <div class="job-description">
-            <label for="job-description-editor">Description:</label>
+            <label for="job-description-editor">Job's description:</label>
             <div id="job-description-editor" role="document">
                 <?= htmlspecialchars($jobDetail['deskripsi']) ?>
             </div>
-        </div>
-        <div class="job-type">
-            <p><strong>Type:</strong> <?= htmlspecialchars($jobDetail['jenis_pekerjaan']) ?></p>
         </div>
         <div class="job-posted-date">
             <p>Posted on: <?= htmlspecialchars(date('F j, Y', strtotime($jobDetail['created_at']))) ?></p>

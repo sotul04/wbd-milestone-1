@@ -1,9 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     checkSession();
-    createToast('Test', 'error');
-    createToast('Test', 'warning');
-    createToast('Test', 'success');
-    createToast('Test', 'default');
 });
 
 function checkSession() {

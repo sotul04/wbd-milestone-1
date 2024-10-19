@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.title = "Register - Linkin";
 
     const userTypeDropdown = document.getElementById('userType');
-    const form = document.getElementById('loginForm');
+    const form = document.getElementById('registerForm');
 
     userTypeDropdown.addEventListener('change', (event) => {
         const selectedValue = event.target.value;

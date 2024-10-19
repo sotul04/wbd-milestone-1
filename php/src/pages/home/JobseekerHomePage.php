@@ -1,7 +1,7 @@
 <?php require_once __DIR__ . "/../template/header.php" ?>
 <?php require_once __DIR__ . "/../template/navbar.php" ?>
 
-<link rel="stylesheet" href="<?php echo BASE_URL ?>/public/css/pages/jobseeker.css" />
+<link rel="stylesheet" href="http://localhost:8000/public/css/pages/jobseeker.css" />
 
 <main id="main">
     <section class="grid-container container">
@@ -9,7 +9,7 @@
             <div class="sidebar-item shadow-5">
                 <div class="sidebar-top"></div>
                 <div class="img">
-                    <img src="<?php echo BASE_URL ?>/public/assets/icons/Camera.ico" alt="Camera icon">
+                    <img src="http://localhost:8000/public/assets/icons/Camera.ico" alt="Camera icon">
                 </div>
                 <div class="sidebar-main">
                     <p>Welcome, <?= isset($name) ? htmlspecialchars($name) : 'GUEST' ?>!</p>
@@ -131,8 +131,6 @@
     </section>
 </main>
 
-<!-- Include Quill JS -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script> -->
 <script src="http://localhost:8000/public/js/pages/jobseeker.js"></script>
 
 <?php require_once __DIR__ . "/../template/footer.php" ?>

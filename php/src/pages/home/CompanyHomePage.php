@@ -129,4 +129,6 @@
     </section>
 </main>
 
+<script src="http://localhost:8000/public/js/pages/jobseeker.js"></script>
+
 <?php require_once __DIR__ . "/../template/footer.php" ?>

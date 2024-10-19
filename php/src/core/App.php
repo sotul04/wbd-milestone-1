@@ -1,6 +1,7 @@
 <?php
 
-class App {
+class App
+{
     protected $controller;
     protected $method;
     protected $params = [];
@@ -19,7 +20,7 @@ class App {
         header('Access-Control-Allow-Credentials: true');
         header('Access-Control-Max-Age: 86400');
         session_start();
-        
+
         $this->method = 'index';
 
         $url = $this->parseUrl();
@@ -42,25 +43,18 @@ class App {
             unset($url[1]);
         }
 
-        // if ($controllerRoot === 'Job') {
-        //     json_response_success($url);
-        //     exit;
-        // }
-
         if (!empty($url)) {
             $this->params = array_values($url);
-        }
-        else {
+        } else {
             $this->params = [];
         }
 
-        call_user_func_array([ $this->controller, $this->method], $this->params);
+        call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
     public function parseUrl()
     {
-        if (isset($_SERVER['PATH_INFO']))
-        {
+        if (isset($_SERVER['PATH_INFO'])) {
             $url = trim($_SERVER['PATH_INFO'], '/');
             $url = filter_var($url, FILTER_SANITIZE_URL);
             $url = explode('/', $url);
@@ -68,5 +62,4 @@ class App {
             return $url;
         }
     }
-
 }

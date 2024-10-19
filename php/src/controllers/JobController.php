@@ -56,11 +56,11 @@ class JobController extends Controller
             $viewPage = $this->view('job', 'JobApplicationView', ['user_id' => $_SESSION['user_id'], 'jobID' => $jobID]);
             $viewPage->render();
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $uploaderCv = new FileUploader('/../public/files/applications/cv'); 
+            $uploaderCv = new FileUploader('/../storage/files/cv'); 
 
             $userId = $_SESSION['user_id'];
 
-            $cvResponse = $uploaderCv->uploadFile($_FILES['cv'], $userId, ['application/pdf'], 10000000); // 10MB max
+            $cvResponse = $uploaderCv->uploadFile($_FILES['cv'], $userId, $jobID,['application/pdf'], 10000000); // 10MB max
             if ($cvResponse['status'] !== 'success') {
                 json_response_fail($cvResponse['message']);
                 return;
@@ -69,8 +69,8 @@ class JobController extends Controller
             $videoResponse = ['status' => 'success', 'fileName' => null];
 
             if (isset($_FILES['video']) && $_FILES['video']['error'] !== UPLOAD_ERR_NO_FILE) {
-                $uploaderVideo = new FileUploader('/../public/files/applications/videos'); // Set your upload directory for videos
-                $videoResponse = $uploaderVideo->uploadFile($_FILES['video'], $userId, ['video/mp4'], 50000000); // 50MB max
+                $uploaderVideo = new FileUploader('/../storage/files/videos');
+                $videoResponse = $uploaderVideo->uploadFile($_FILES['video'], $userId, $jobID, ['video/mp4'], 50000000); // 50MB max
 
                 if ($videoResponse['status'] !== 'success') {
                     json_response_fail($videoResponse['message']);

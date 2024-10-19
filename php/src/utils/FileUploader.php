@@ -8,17 +8,14 @@ class FileUploader
     {
         $this->uploadDir = rtrim($uploadDir, '/') . '/'; 
         
-        // Check if the upload directory exists, create it if it does not
         if (!file_exists(__DIR__.$this->uploadDir)) {
             if (!mkdir(__DIR__.$this->uploadDir, 0777, true)) {
                 throw new Exception('Failed to create upload directory: ' . $this->uploadDir);
             }
-            // json_response_fail('Dir NYA GADA');
-            // exit;
-        } 
+        }
     }
 
-    public function uploadFile($file, $userId, $allowedTypes = [], $maxFileSize = null)
+    public function uploadFile($file, $userId, $jobID, $allowedTypes = [], $maxFileSize = null)
     {
         if (!isset($file) || $file['error'] !== UPLOAD_ERR_OK) {
             return ['status' => 'error', 'message' => 'File upload error.'];
@@ -32,7 +29,7 @@ class FileUploader
             return ['status' => 'error', 'message' => 'File is too large.'];
         }
 
-        $uniqueId = uniqid($userId . '-', true);
+        $uniqueId = $userId.'_'.$jobID;
         $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
         $fileName = $uniqueId . '.' . $fileExtension;
         $destination = $this->uploadDir . $fileName;

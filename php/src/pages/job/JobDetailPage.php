@@ -61,7 +61,7 @@
                 <?php if (!empty($infoApplication['cv_path'])): ?>
                     <div class="apply-button">
                         <a class="btn"
-                            href="<?= 'http://localhost:8000/public/files/applications/cv/' . $infoApplication['cv_path'] ?>"
+                            href="<?= 'http://localhost:8000/storage/files/cv/' . $infoApplication['cv_path'] ?>"
                             target="_blank">Your CV</a>
                     </div>
                 <?php endif; ?>
@@ -69,7 +69,7 @@
                 <?php if (!empty($infoApplication['video_path'])): ?>
                     <div class="apply-button">
                         <a class="btn"
-                            href="<?= 'http://localhost:8000/public/files/applications/videos/' . $infoApplication['video_path'] ?>"
+                            href="<?= 'http://localhost:8000/storage/files/videos/' . $infoApplication['video_path'] ?>"
                             target="_blank">Your Video</a>
                     </div>
                 <?php endif; ?>
@@ -78,14 +78,14 @@
                 ?>
                 <video controls>
                     <source
-                        src="<?= 'http://localhost:8000/public/files/applications/videos/' . $infoApplication['video_path'] ?>"
+                        src="<?= 'http://localhost:8000/storage/files/videos/' . $infoApplication['video_path'] ?>"
                         type="video/mp4">
                 </video>
             <?
             } ?>
             <? if (!empty($infoApplication['cv_path'])) {
                 ?>
-                <embed class="" src="<?= 'http://localhost:8000/public/files/applications/cv/' . $infoApplication['cv_path'] ?>"
+                <embed class="" src="<?= 'http://localhost:8000/storage/files/cv/' . $infoApplication['cv_path'] ?>"
                     type="application/pdf">
             <?
             } ?>

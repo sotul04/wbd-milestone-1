@@ -3,6 +3,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("search");
     let debounceTimeout;
 
+    document.querySelectorAll('.job-description').forEach(editor => {
+        // const description = editor.getAttribute('data-description');
+
+        // Initialize Quill editor
+        new Quill(editor, {
+            theme: 'snow',
+            modules: {
+                toolbar: false // Disable the toolbar for read-only
+            },
+            readOnly: true // Set the editor to read-only
+        });
+    });
+
     // Apply filter on change
     filters.forEach((filter) => {
         const element = document.getElementById(filter);
@@ -14,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Debounce for search input
     searchInput.addEventListener("input", function () {
         clearTimeout(debounceTimeout);
-        debounceTimeout = setTimeout(function() {
+        debounceTimeout = setTimeout(function () {
             applyFilters(1); // Reset page to 1 when search changes
         }, 500);
     });
@@ -29,10 +42,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Function to apply filters and update URL
     function applyFilters(page) {
-        const url = new URL(window.location.href);
-        const params = new URLSearchParams(url.search);
+        let url = new URL(window.location.href);
+        let params = new URLSearchParams(url.search);
     
         // Update filters in URL
         filters.forEach((filter) => {
@@ -44,21 +56,16 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     
-        // Update search in URL
-        const searchValue = searchInput.value.trim();
-        if (searchValue) {
-            params.set("search", searchValue);
-        } else {
-            params.delete("search");
-        }
+        // Update search parameter
+        params.set('search', searchInput.value);
     
-        // Update the page parameter in the URL
-        params.set("page", page);
+        // Update page parameter
+        params.set('page', page);
     
-        // Remove trailing slash from pathname if it exists
-        const pathname = url.pathname.endsWith('/') ? url.pathname.slice(0, -1) : url.pathname;
+        // Remove the trailing slash if present
+        let pathname = url.pathname.replace(/\/$/, '');
     
-        // Update the URL with new parameters
+        // Redirect to updated URL
         window.location.href = `${pathname}?${params.toString()}`;
     }
 });

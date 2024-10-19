@@ -22,7 +22,7 @@ class HomeController extends Controller implements ControllerInterface
         $search = $this->validateSearch($search);
 
         if ($role === 'company') {
-            $content = $this->model('JobModel')->getJobByCompanyId($companyId);
+            $content = $this->model('JobModel')->getJobByCompanyId($companyId, $page, $sort, $locationType, $jobType, $search);
             $homeview = $this->view('home', 'CompanyHomeView', [
                 'name' => $name,
                 'page' => $page,

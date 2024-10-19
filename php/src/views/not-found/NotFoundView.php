@@ -1,6 +1,6 @@
 <?php
 
-class LoginView implements ViewInterface
+class NotFoundView implements ViewInterface
 {
     public function __construct() {}
 

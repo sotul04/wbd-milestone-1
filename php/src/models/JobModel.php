@@ -70,7 +70,8 @@ class JobModel
         $jobs = $this->db->resultSet();
 
         // Count query
-        $countQuery = "SELECT COUNT(*) as total FROM lowongan WHERE 1=1";
+        $countQuery = "SELECT COUNT(*) as total FROM lowongan JOIN users ON lowongan.company_id = users.user_id
+                  WHERE lowongan.company_id = :companyId";
 
         if (!empty($locationType)) {
             $countQuery .= " AND jenis_lokasi = :jenis_lokasi";
@@ -83,6 +84,7 @@ class JobModel
         }
 
         $this->db->query($countQuery);
+        $this->db->bind(':companyId', $companyId);
 
         if (!empty($locationType)) {
             $this->db->bind(':jenis_lokasi', $locationType);
@@ -98,6 +100,8 @@ class JobModel
         $countResult = $this->db->single();
 
         $totalRow = $countResult ? $countResult['total'] : 0; // Default to 0 if countResult is false
+
+        var_dump($totalRow);
 
         $totalPages = ceil($totalRow / $rowperpage);
 

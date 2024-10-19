@@ -41,7 +41,7 @@ class StorageController extends Controller
 
         // Access control: jobseeker can only access their own files
         if ($role === 'jobseeker') {
-            $userID = explode("_", $fileName)[0]; // Assuming user_id is part of file name
+            $userID = explode("_", $fileName)[0];
             if ($userID !== $_SESSION['user_id']) {
                 header("HTTP/1.1 403 Forbidden");
                 echo "Unauthorized access.";
@@ -50,7 +50,8 @@ class StorageController extends Controller
         }
         // Access control: company can only access files related to their jobs
         else {
-            $jobID = explode("_", $fileName)[1] ?? '';
+            $fileNameWithoutExtension = pathinfo($fileName, PATHINFO_FILENAME);
+            $jobID = explode("_", $fileNameWithoutExtension)[1] ?? '';
             $isExists = $this->model('ApplicationModel')->isLowonganExists($_SESSION['user_id'], $jobID);
             if (!$isExists) {
                 header("HTTP/1.1 403 Forbidden");
@@ -59,11 +60,9 @@ class StorageController extends Controller
             }
         }
 
-        // Get file extension and validate mime type
         $fileExtension = pathinfo($fullPath, PATHINFO_EXTENSION);
         $mimeType = $this->getMimeType($fileExtension);
 
-        // Serve file if valid mime type, else throw error
         if ($mimeType) {
             header('Content-Type: ' . $mimeType);
             header('Content-Disposition: inline; filename="' . basename($fullPath) . '"');

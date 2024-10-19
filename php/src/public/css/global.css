@@ -77,12 +77,12 @@ body {
 }
 
 .btn-destroy {
-    background-color: rgb(201, 40, 40);
+    background-color: rgb(230, 71, 71);
     color: white;
 }
 
 .btn-destroy:hover {
-    background-color: rgb(201, 73, 73);
+    background-color: rgb(175, 33, 33);
 }
 
 .btn-destroy:active {

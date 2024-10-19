@@ -141,6 +141,7 @@
 video {
     margin-top: 20px;
     border-radius: 6px;
+    width: 100%;
 }
 
 embed {

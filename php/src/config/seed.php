@@ -138,7 +138,7 @@ foreach ($lowonganIds as $index => $lowonganId) {
                     "default.pdf",
                     "default.mp4",
                     'waiting',
-                    ''
+                    null
                 ]);
             }
         }

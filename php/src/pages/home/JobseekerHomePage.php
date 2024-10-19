@@ -6,7 +6,7 @@
 <main id="main">
     <section class="grid-container container">
         <aside class="sidebar">
-            <div class="sidebar-item">
+            <div class="sidebar-item shadow-5">
                 <div class="sidebar-top"></div>
                 <div class="img">
                     <img src="<?php echo BASE_URL ?>/public/assets/icons/Camera.ico" alt="Camera icon">
@@ -17,7 +17,7 @@
                 <nav>
                 </nav>
             </div>
-            <div class="sidebar-item">
+            <div class="sidebar-item shadow-5">
                 <form class="filter-form" id="filter-form">
                     <div class="filter-group">
                         <label for="locationType">Location Type:</label>

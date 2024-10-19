@@ -1,15 +1,16 @@
 <?php
 
+
 class AuthController extends Controller
 {
     public function register()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+            $email = htmlspecialchars($_POST['email']);
+            $password = htmlspecialchars($_POST['password']);
 
-            $name = $_POST['name'];
-            $role = $_POST['role'];
+            $name = htmlspecialchars($_POST['name']);
+            $role = htmlspecialchars($_POST['role']);
 
             if ($role === 'company') {
                 $about = $_POST['about'];

@@ -198,6 +198,22 @@ class JobModel
         ];
     }
 
+    public function getAttachments($lowonganId) 
+    {
+        $this->db->query("SELECT * FROM attachments_lowongan WHERE lowongan_id = :lowonganId");
+        $this->db->bind(':lowonganId', $lowonganId);
+        return $this->db->resultSet();
+    }
+    public function getApplicationBrief($lowonganId)
+    {
+        $userId = $_SESSION['user_id'];
+
+        $this->db->query("SELECT * FROM lamaran WHERE user_id = :userId AND lowongan_id = :lowonganId");
+        $this->db->bind(':userId', $userId);
+        $this->db->bind(':lowonganId', $lowonganId);
+        return $this->db->single();
+    }
+
     public function createJob($companyId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi)
     {
         $this->db->query("INSERT INTO lowongan (company_id, posisi, deskripsi, jenis_pekerjaan, jenis_lokasi) 
@@ -210,7 +226,8 @@ class JobModel
         return $this->db->execute();
     }
 
-    public function getJobDetail($lowonganId) {
+    public function getJobDetail($lowonganId)
+    {
         $this->db->query("SELECT lowongan.*, users.nama as company_name 
                             FROM lowongan 
                             JOIN users ON lowongan.company_id = users.user_id 

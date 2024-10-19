@@ -1,0 +1,7 @@
+# heavy files 
+videos/*.mp4
+cv/*.pdf
+
+# exclude
+!videos/default.mp4
+!cv/default.pdf

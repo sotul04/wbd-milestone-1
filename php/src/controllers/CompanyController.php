@@ -1,5 +1,6 @@
 <?php
 
+
 class CompanyController extends Controller implements ControllerInterface
 {
     public function index()

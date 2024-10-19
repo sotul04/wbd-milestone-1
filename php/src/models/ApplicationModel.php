@@ -30,4 +30,13 @@ class ApplicationModel {
         $this->db->bind(':statusReason', $statusReason);
         return $this->db->execute();
     }
+
+    public function isLowonganExists($userId, $lowonganId) {
+        $this->db->query("SELECT * FROM lowongan WHERE company_id = :userId AND lowongan_id = :lowonganId");
+        $this->db->bind(':userId', $userId);
+        $this->db->bind(':lowonganId', $lowonganId);
+        $result = $this->db->resultSet();
+
+        return !empty($result);
+    }
 }

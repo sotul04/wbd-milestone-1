@@ -8,7 +8,11 @@ RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
 RewriteRule ^ - [L]
 
-# Jika bukan file atau direktori, lanjutkan ke index.php
+# Jika path mengarah ke /storage, pass ke index.php
+RewriteCond %{REQUEST_URI} ^/storage/.*$
+RewriteRule ^(.*)$ index.php/$1 [QSA,L]
+
+# Jika bukan file atau direktori, lanjutkan ke index.php (untuk permintaan lain selain /public dan /storage)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [QSA,L]

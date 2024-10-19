@@ -93,11 +93,35 @@ try {
         }
 
         // Insert into attachments_lowongan table
+        $availableAttachments = [
+            'attachment-1.png',
+            'attachment-2.jpg',
+            'attachment-3.jpg',
+            'attachment-4.webp'
+        ];
+
         $attachmentsInsertQuery = $pdo->prepare("INSERT INTO attachments_lowongan (attachment_id, lowongan_id, file_path) VALUES (?, ?, ?)");
-        foreach ($lowonganIds as $index => $lowonganId) {
-            $attachmentId = $pdo->query("SELECT uuid_generate_v4()")->fetchColumn();
-            $attachmentsInsertQuery->execute([$attachmentId, $lowonganId, "/files/attachment" . ($index + 1) . ".pdf"]);
+foreach ($lowonganIds as $index => $lowonganId) {
+    // Randomly decide how many attachments (0 to 3 attachments)
+    $numAttachments = rand(0, 3); 
+
+    if ($numAttachments > 0) {
+        // Randomly select attachment file paths without duplicates
+        $selectedAttachments = array_rand($availableAttachments, $numAttachments);
+
+        // If only one attachment is selected, make sure it's in an array
+        if ($numAttachments === 1) {
+            $selectedAttachments = [$selectedAttachments];
         }
+
+        // Insert each attachment for this lowongan
+        foreach ($selectedAttachments as $attachmentIndex) {
+            $attachmentId = $pdo->query("SELECT uuid_generate_v4()")->fetchColumn();
+            $filePath = $availableAttachments[$attachmentIndex];
+            $attachmentsInsertQuery->execute([$attachmentId, $lowonganId, $filePath]);
+        }
+    }
+}
 
         // Insert into lamaran table
         $lamaranInsertQuery = $pdo->prepare("INSERT INTO lamaran (lamaran_id, user_id, lowongan_id, cv_path, video_path, status, status_reason) VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -111,10 +135,10 @@ try {
                     $lamaranId,
                     $jobSeekerId,
                     $lowonganId,
-                    "/files/jobseeker" . ($index + 1) . "_cv.pdf",
-                    "/files/jobseeker" . ($index + 1) . "_video.mp4",
+                    "default.pdf",
+                    "default.mp4",
                     'waiting',
-                    ''
+                    null
                 ]);
             }
         }

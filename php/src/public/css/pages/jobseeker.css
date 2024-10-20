@@ -10,7 +10,7 @@
     display: grid;
     grid-template-columns: 220px 1fr;
     gap: 20px;
-    padding: 20px;
+    padding: 10px;
 }
 
 /* Style for the aside section */
@@ -21,8 +21,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-
+    gap: 20px;
 }
 
 .sidebar-item {
@@ -58,10 +57,11 @@
 .sidebar-item nav {
     border-top: 1px #A0B4B7 solid;
     margin: 0px 20px 20px 20px;
-    padding-top: 10px;
+    padding-top: 6px;
     display: flex;
     align-items: center;
     flex-direction: column;
+    gap: 4px;
 }
 
 .sidebar-item nav a {
@@ -79,7 +79,7 @@
 /* Style for the main content */
 .main-content {
     background-color: inherit;
-    padding: 8px 20px 8px 20px;
+    padding: 8px 10px 8px 10px;
     border-radius: 8px;
 }
 
@@ -93,7 +93,7 @@
         order: 1;
         position:static;
         top: 0;
-        padding: 20px;
+        padding: 10px;
     }
 
     .main-content {

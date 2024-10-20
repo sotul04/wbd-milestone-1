@@ -15,7 +15,18 @@
                     <p>Welcome, <?= isset($name) ? htmlspecialchars($name) : 'GUEST' ?>!</p>
                 </div>
                 <nav>
-                    <a href="http://localhost:8000/history">Application History</a>
+                    <?
+                    if (isset($name)) {
+                        ?>
+                        <a href="http://localhost:8000/history">Application History</a>
+                        <?
+                    } else {
+                        ?>
+                        <a href="http://localhost:8000/user/login">Login</a>
+                        <a href="http://localhost:8000/user/register">Register</a>
+                    <?
+                    }
+                    ?>
                 </nav>
             </div>
             <div class="sidebar-item shadow-5">

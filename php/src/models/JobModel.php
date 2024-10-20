@@ -149,6 +149,7 @@ class JobModel
             JOIN lowongan ON lamaran.lowongan_id = lowongan.lowongan_id 
             JOIN users ON lowongan.company_id = users.user_id 
             WHERE lamaran.user_id = :userId
+            ORDER BY lamaran.created_at DESC
         ");
         $this->db->bind(':userId', $userId);
 

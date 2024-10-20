@@ -15,6 +15,7 @@
                     <p>Welcome, <?= isset($name) ? htmlspecialchars($name) : 'GUEST' ?>!</p>
                 </div>
                 <nav>
+                    <a href="http://localhost:8000/history">Application History</a>
                 </nav>
             </div>
             <div class="sidebar-item shadow-5">
@@ -23,9 +24,9 @@
                         <label for="locationType">Location Type:</label>
                         <select name="locationType" id="locationType">
                             <option value="">All</option>
-                            <option value="on-site" <?= isset($_GET['locationType']) && $_GET['locationType'] == 'on-site' ? 'selected' : '' ?>>On-site</option>
-                            <option value="hybrid" <?= isset($_GET['locationType']) && $_GET['locationType'] == 'hybrid' ? 'selected' : '' ?>>Hybrid</option>
-                            <option value="remote" <?= isset($_GET['locationType']) && $_GET['locationType'] == 'remote' ? 'selected' : '' ?>>Remote</option>
+                            <option value="on-site">On-site</option>
+                            <option value="hybrid">Hybrid</option>
+                            <option value="remote">Remote</option>
                         </select>
                     </div>
 
@@ -33,29 +34,24 @@
                         <label for="jobType">Job Type:</label>
                         <select name="jobType" id="jobType">
                             <option value="">All</option>
-                            <option value="Full-time" <?= isset($_GET['jobType']) && $_GET['jobType'] == 'Full-time' ? 'selected' : '' ?>>Full-time</option>
-                            <option value="Part-time" <?= isset($_GET['jobType']) && $_GET['jobType'] == 'Part-time' ? 'selected' : '' ?>>Part-time</option>
-                            <option value="Internship" <?= isset($_GET['jobType']) && $_GET['jobType'] == 'Internship' ? 'selected' : '' ?>>Internship</option>
+                            <option value="Full-time">Full-time</option>
+                            <option value="Part-time">Part-time</option>
+                            <option value="Internship">Internship</option>
                         </select>
                     </div>
 
                     <div class="filter-group">
                         <label for="sort">Sort by:</label>
                         <select name="sort" id="sort">
-                            <option value="" <?= isset($_GET['sort']) && $_GET['sort'] == '' ? 'selected' : '' ?>>Default
-                            </option>
-                            <option value="ASC" <?= isset($_GET['sort']) && $_GET['sort'] == 'ASC' ? 'selected' : '' ?>>
-                                Older First</option>
-                            <option value="DESC" <?= isset($_GET['sort']) && $_GET['sort'] == 'DESC' ? 'selected' : '' ?>>
-                                Newest First</option>
+                            <option value="">Default</option>
+                            <option value="ASC">Older First</option>
+                            <option value="DESC">Newest First</option>
                         </select>
                     </div>
 
                     <div class="filter-group">
                         <label for="search">Search:</label>
-                        <input type="text" name="search" id="search"
-                            value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>"
-                            placeholder="Search">
+                        <input type="text" name="search" id="search" placeholder="Search">
                     </div>
                 </form>
             </div>
@@ -63,69 +59,13 @@
 
         <div class="main-content">
             <!-- Job Listings -->
-            <div class="job-listings">
-                <?php
-                if (isset($content)) {
-                    foreach ($content['jobs'] as $key => $item) {
-                        ?>
-                        <div class="job-card">
-                            <div class="job-header">
-                                <h3 class="job-title"><?= htmlspecialchars($item['posisi']) ?></h3>
-                                <p class="company-name"><?= htmlspecialchars($item['company_name']) ?></p>
-                            </div>
-                            <div class="job-body">
-                                <p><strong>Type:</strong> <?= htmlspecialchars($item['jenis_pekerjaan']) ?></p>
-                                <p><strong>Location:</strong> <?= htmlspecialchars($item['jenis_lokasi']) ?></p>
-                            </div>
-                            <div class="job-footer">
-                                <p><small>Posted on: <?= date('F j, Y', strtotime($item['created_at'])) ?></small></p>
-                                <a href="http://localhost:8000/job/<?= $item['lowongan_id'] ?>" class="apply-btn">Detail</a>
-                            </div>
-                        </div>
-                        <?php
-                    }
-                    if (count($content['jobs']) === 0) {
-                        ?>
-                        <p>No Job Available</p>
-                        <?php
-                    }
-                }
-                ?>
+            <div class="job-listings" id="job-listings">
+                <!-- Job Listings will be injected here -->
             </div>
 
             <!-- Pagination -->
-            <div class="pagination">
-                <?php
-                $totalPages = isset($content) ? $content['total_pages'] : 1;
-                $currentPage = isset($content) ? $content['current_page'] : 1;
-
-                echo "<p>$currentPage of $totalPages</p>";
-                // Previous button (disabled if on the first page)
-                if ($currentPage > 1) {
-                    echo "<button data-page='" . ($currentPage - 1) . "' class='prev-btn'>Prev</button>";
-                } else {
-                    echo "<button disabled class='prev-btn'>Prev</button>";
-                }
-
-                // Pagination numbers
-                $minPage = max(1, $currentPage - 1);
-                $maxPage = min($totalPages, $currentPage + 1);
-
-                for ($i = $minPage; $i <= $maxPage; $i++) {
-                    if ($i == $currentPage) {
-                        echo "<button class='active' disabled>$i</button>";
-                    } else {
-                        echo "<button data-page='$i'>$i</button>";
-                    }
-                }
-
-                // Next button (disabled if on the last page)
-                if ($currentPage < $totalPages) {
-                    echo "<button data-page='" . ($currentPage + 1) . "' class='next-btn'>Next</button>";
-                } else {
-                    echo "<button disabled class='next-btn'>Next</button>";
-                }
-                ?>
+            <div class="pagination" id="pagination">
+                <!-- Pagination will be injected here -->
             </div>
         </div>
     </section>

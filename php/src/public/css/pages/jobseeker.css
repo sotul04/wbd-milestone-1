@@ -52,7 +52,23 @@
 }
 
 .sidebar-item .sidebar-main {
-    margin: 50px 10px 20px 10px;
+    margin: 50px 10px 10px 10px;
+}
+
+.sidebar-item nav {
+    border-top: 1px #A0B4B7 solid;
+    margin: 0px 20px 20px 20px;
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.sidebar-item nav a {
+    color: #0077b5;
+    &:hover {
+        color: #003957;
+    }
 }
 
 .sidebar-main p {
@@ -126,11 +142,25 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 .job-listings>p {
     text-align: center;
+    gap: 10px;
     margin: 10px;
+}
+
+.job-listings .loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.job-listings .loading img {
+    height: 15px;
+    width: 15px;
 }
 
 .job-card {
@@ -138,6 +168,7 @@
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 20px;
+    width: 100%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 

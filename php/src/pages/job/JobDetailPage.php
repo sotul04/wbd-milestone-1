@@ -24,7 +24,7 @@
         </div>
         <div class="job-posted-date">
             <p>Posted on: <?= htmlspecialchars(date('F j, Y', strtotime($jobDetail['created_at']))) ?></p>
-            <p><strong><?= $jobDetail['is_open'] ? 'Open' : 'Closed'?></strong></p>
+            <div class="status <?= $jobDetail['is_open'] ? 'open': 'close' ?>"><p><strong><?= $jobDetail['is_open'] ? 'Open' : 'Closed'?></strong></p></div>
         </div>
 
         <!-- Apply Button for Job Seeker -->

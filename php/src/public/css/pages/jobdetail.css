@@ -70,7 +70,31 @@
     font-size: 16px;
 }
 
-.job-posted-date p {
+.job-posted-date .status {
+    position: relative;
+    padding-left: 12px;
+}
+
+.job-posted-date .status::before {
+    position: absolute;
+    content: '';
+    height: 8px;
+    width: 8px;
+    border-radius: 100%;
+    bottom: 50%;
+    left: 0;
+    transform: translateY(50%);
+}
+
+.job-posted-date .status.open::before {
+    background-color: green;
+}
+
+.job-posted-date .status.close::before {
+    background-color: red;
+}
+
+.job-posted-date p { 
     font-size: small;
 }
 

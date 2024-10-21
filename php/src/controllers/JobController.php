@@ -48,7 +48,7 @@ class JobController extends Controller
             $this->unauthorized();
         }
         $infoApplication = $this->model('JobModel')->getApplicationBrief($jobID);
-        if ($infoApplication !== false) {
+        if ($infoApplication !== false || !$jobDetail['is_open']) {
             header('Location: /job/' . $jobID);
             exit;
         }

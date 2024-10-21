@@ -49,6 +49,10 @@ class JobController extends Controller
         }
         $infoApplication = $this->model('JobModel')->getApplicationBrief($jobID);
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if (!$jobDetail['is_open']) {
+                header('Location: /job/' . $jobID);
+                exit;
+            }
             if ($infoApplication !== false) {
                 header('Location: /job/' . $jobID);
                 exit;

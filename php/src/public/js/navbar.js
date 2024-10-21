@@ -135,7 +135,7 @@ function redirectToRegister() {
 }
 
 function redirectToHistory() {
-    window.location.href = '/jobseeker/history';  // Replace with your history page URL
+    window.location.href = '/history';  // Replace with your history page URL
 }
 
 function redirectToProfile() {

@@ -31,6 +31,29 @@ class ApplicationModel {
         return $this->db->execute();
     }
 
+    public function isFileOwnedByJobseeker($userId, $fileName) {
+        $this->db->query('SELECT * FROM lamaran WHERE user_id = :userID AND (cv_path = :cvPath OR video_path = :videoPath)');
+        $this->db->bind(':userID', $userId);
+        $this->db->bind(':cvPath', $fileName);
+        $this->db->bind(':videoPath', $fileName);
+        $data = $this->db->resultSet();
+        return count($data) > 0;
+    }
+
+    public function isFileAccessedByCompany($companyId, $fileName) {
+        $this->db->query("SELECT * FROM lamaran
+            JOIN lowongan ON lamaran.lowongan_id = lowongan.lowongan_id
+            WHERE lowongan.company_id = :companyID 
+            AND (cv_path = :cvPath OR video_path = :videoPath)
+        ");
+        $this->db->bind(":companyID", $companyId);
+        $this->db->bind(":cvPath", $fileName);
+        $this->db->bind(":videoPath", $fileName);
+        $data = $this->db->resultSet();
+
+        return count($data) > 0;
+    }
+
     public function isLowonganExists($userId, $lowonganId) {
         $this->db->query("SELECT * FROM lowongan WHERE company_id = :userId AND lowongan_id = :lowonganId");
         $this->db->bind(':userId', $userId);

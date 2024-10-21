@@ -35,19 +35,42 @@ class HomeController extends Controller implements ControllerInterface
             $homeview->render();
             exit;
         } else {
-            $content = $this->model('JobModel')->getJobs($page, $sort, $locationType, $jobType, $search);
+            // $content = $this->model('JobModel')->getJobs($page, $sort, $locationType, $jobType, $search);
             $homeview = $this->view('home', 'JobseekerHomeView', [
                 'name' => $name,
-                'role' => $role,
-                'page' => $page,
-                'sort' => $sort,
-                'locationType' => $locationType,
-                'jobType' => $jobType,
-                'search' => $search,
-                'content' => $content
+                'role' => $role
+                // 'page' => $page,
+                // 'sort' => $sort,
+                // 'locationType' => $locationType,
+                // 'jobType' => $jobType,
+                // 'search' => $search,
+                // 'content' => $content
             ]);
             $homeview->render();
             exit;
+        }
+    }
+
+    public function jobs() 
+    {
+        $page = $_GET['page'] ?? 1;
+        $sort = $_GET['sort'] ?? '';
+        $locationType = $_GET['locationType'] ?? '';
+        $jobType = $_GET['jobType'] ?? '';
+        $name = $_SESSION['name'] ?? null;
+        $search = $_GET['search'] ?? '';
+        $role = $this->getRole();
+
+        // Validate parameters
+        $page = $this->validatePage($page);
+        $sort = $this->validateSort($sort);
+        $locationType = $this->validateLocationType($locationType);
+        $jobType = $this->validateJobType($jobType);
+        $search = $this->validateSearch($search);
+
+        if ($role !== 'company') {
+            $content = $this->model('JobModel')->getJobs($page, $sort, $locationType, $jobType, $search);
+            json_response_success($content);
         }
     }
 

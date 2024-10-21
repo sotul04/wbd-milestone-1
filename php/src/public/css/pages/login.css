@@ -79,11 +79,10 @@ button[type="submit"] {
 
 .top-error-message {
     color: rgb(254, 79, 79);
-    width: 95%;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border:rgb(254, 79, 79) dashed 2px;
-    border-radius: 8px;
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    background-color: #fce9e9;
     font-weight: 700;
     margin: 16px auto;
 }

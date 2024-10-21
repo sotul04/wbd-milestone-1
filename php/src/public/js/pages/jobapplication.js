@@ -33,13 +33,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         submitBtn.disabled = true;
                         submitBtn.textContent = "Applied";
                     } else {
-                        createToast(`Error: ${response.data || "Something went wrong."}`, 'error');
+                        createToast(`${response.data || "Something went wrong."}`, 'error');
                         submitBtn.disabled = false;
                         submitBtn.textContent = "Apply";
                     }
                 } else {
                     const error = JSON.parse(xhr.responseText);
-                    createToast(`Error: ${error.message || "Something went wrong."}`, 'error');
+                    createToast(`${error.message || "Something went wrong."}`, 'error');
                     submitBtn.disabled = false;
                     submitBtn.textContent = "Apply";
                 }

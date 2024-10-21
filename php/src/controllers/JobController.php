@@ -48,11 +48,11 @@ class JobController extends Controller
             $this->unauthorized();
         }
         $infoApplication = $this->model('JobModel')->getApplicationBrief($jobID);
-        if ($infoApplication !== false || !$jobDetail['is_open']) {
-            header('Location: /job/' . $jobID);
-            exit;
-        }
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ($infoApplication !== false) {
+                header('Location: /job/' . $jobID);
+                exit;
+            }
             $viewPage = $this->view('job', 'JobApplicationView', ['user_id' => $_SESSION['user_id'], 'jobID' => $jobID]);
             $viewPage->render();
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -60,6 +60,11 @@ class JobController extends Controller
                 json_response_fail('The job is closed. You can not apply this job.');
                 exit;
             }
+            if ($infoApplication !== false) {
+                json_response_fail('You have applied this job.');
+                exit;
+            }
+
             $uploaderCv = new FileUploader('/../storage/files/cv'); 
 
             $userId = $_SESSION['user_id'];

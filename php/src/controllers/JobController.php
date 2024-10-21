@@ -56,6 +56,10 @@ class JobController extends Controller
             $viewPage = $this->view('job', 'JobApplicationView', ['user_id' => $_SESSION['user_id'], 'jobID' => $jobID]);
             $viewPage->render();
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!$jobDetail['is_open']) {
+                json_response_fail('The job is closed. You can not apply this job.');
+                exit;
+            }
             $uploaderCv = new FileUploader('/../storage/files/cv'); 
 
             $userId = $_SESSION['user_id'];

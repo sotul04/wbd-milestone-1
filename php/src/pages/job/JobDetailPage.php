@@ -24,10 +24,11 @@
         </div>
         <div class="job-posted-date">
             <p>Posted on: <?= htmlspecialchars(date('F j, Y', strtotime($jobDetail['created_at']))) ?></p>
+            <p><strong><?= $jobDetail['is_open'] ? 'Open' : 'Closed'?></strong></p>
         </div>
 
         <!-- Apply Button for Job Seeker -->
-        <?php if ($role === 'jobseeker' && empty($infoApplication)): ?>
+        <?php if ($role === 'jobseeker' && empty($infoApplication) && $jobDetail['is_open']): ?>
             <div class="apply-button">
                 <a href="http://localhost:8000/job/<?= htmlspecialchars($jobDetail['lowongan_id']) ?>/application"
                     class="btn" aria-label="Apply for <?= htmlspecialchars($jobDetail['posisi']) ?>">Apply Now</a>

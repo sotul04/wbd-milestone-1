@@ -134,6 +134,17 @@
     margin: 10px;
 }
 
+.job-listings .loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.job-listings .loading img {
+    height: 15px;
+    width: 15px;
+}
+
 .job-card {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -177,6 +188,11 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none; /* Remove underline from link */
+    display: inline-block; /* Allow padding and line-height to take effect */
+    line-height: normal; /* Reset line-height to prevent vertical misalignment */
+    font-family: inherit; /* Use the same font as the rest of the page */
+    font-size: inherit; /* Use the same font size as the rest of the page */
 }
 
 .apply-btn:hover {
@@ -211,4 +227,8 @@
 /* Button hover effect */
 .pagination button:hover:not(.active) {
     background-color: #f0f0f0; /* Light grey background on hover */
+}
+
+strong {
+    font-weight: 600;
 }

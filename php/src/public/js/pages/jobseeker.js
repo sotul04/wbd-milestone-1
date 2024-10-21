@@ -132,6 +132,8 @@ document.addEventListener("DOMContentLoaded", function () {
     applyFilters(new URL(window.location.href).searchParams.get('page') || 1);
 
     window.addEventListener('popstate', function () {
-        fetchData(window.location.href);
+        let url = new URL(window.location.href);
+        let params = new URLSearchParams(url.search);
+        fetchData('/home/jobs?'+params.toString());
     });
 });

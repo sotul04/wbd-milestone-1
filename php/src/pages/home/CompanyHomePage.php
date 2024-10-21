@@ -1,7 +1,7 @@
 <?php require_once __DIR__ . "/../template/header.php" ?>
 <?php require_once __DIR__ . "/../template/navbar.php" ?>
 
-<link rel="stylesheet" href="<? BASE_URL ?>/public/css/pages/jobseekerpage.css" />
+<link rel="stylesheet" href="<? BASE_URL ?>/public/css/pages/companypage.css" />
 
 <main>
     <section class="grid-container container">

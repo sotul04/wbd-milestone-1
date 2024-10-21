@@ -101,8 +101,6 @@ class JobModel
 
         $totalRow = $countResult ? $countResult['total'] : 0; // Default to 0 if countResult is false
 
-        var_dump($totalRow);
-
         $totalPages = ceil($totalRow / $rowperpage);
 
         return [

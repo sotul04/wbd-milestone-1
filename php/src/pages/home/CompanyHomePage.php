@@ -77,7 +77,7 @@
                             </div>
                             <div class="job-footer">
                                 <p><small>Posted on: <?= date('F j, Y', strtotime($item['created_at'])) ?></small></p>
-                                <button class="apply-btn">Apply Now</button>
+                                <a href="http://localhost:8000/job/<?= $item['lowongan_id'] ?>" class="apply-btn">Detail</a>
                             </div>
                         </div>
                         <?

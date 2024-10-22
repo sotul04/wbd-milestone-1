@@ -30,10 +30,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    // Debounce for search input
     searchInput.addEventListener("input", function () {
         clearTimeout(debounceTimeout);
         debounceTimeout = setTimeout(function () {
-            applyFilters(1);
+            applyFilters(1); // Reset page to 1 when search changes
         }, 500);
     });
 
@@ -51,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function applyFilters(page) {
         let url = new URL(window.location.href);
         let params = new URLSearchParams(url.search);
-
+    
         filters.forEach((filter) => {
             if (filter === 'jobType' || filter === 'locationType') {
                 const values = getCheckedValues(filter);
@@ -69,15 +70,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
-
+    
+        // Update search parameter
         params.set('search', searchInput.value);
+    
+        // Update page parameter
         params.set('page', page);
+    
+        // Remove the trailing slash if present
         let pathname = url.pathname.replace(/\/$/, '');
         let newUrl = `${pathname}?${params.toString()}`;
 
         history.pushState(null, '', newUrl);
 
-        let endpoint = '/home/jobs';
+        let endpoint = '/home/companyJobs';
+
         endpoint += `?${params.toString()}`;
 
         fetchData(endpoint);
@@ -86,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function fetchData(endpoint) {
         jobListings.innerHTML = '<div class="loading"><img class="animate-spin" alt="Loading Spin" src="http://localhost:8000/public/assets/icons/Loading.ico"> Loading</div>';
         pagination.innerHTML = '';
-
+        
         const xhr = new XMLHttpRequest();
         xhr.open("GET", endpoint, true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -95,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
                 const jobs = response.data.jobs;
+                
                 if (jobs.length > 0) {
                     jobListings.innerHTML = '';
                     jobs.forEach(item => {
@@ -110,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 </div>
                                 <div class="job-footer">
                                     <p><small>Posted on: ${new Date(item.created_at).toLocaleDateString()}</small></p>
-                                    <a href="http://localhost:8000/job/${item.lowongan_id}" class="apply-btn">Detail</a>
+                                    <a href="http://localhost:8000/company/job/${item.lowongan_id}" class="apply-btn">Detail</a>
                                 </div>
                             </div>`;
                     });
@@ -190,6 +198,6 @@ document.addEventListener("DOMContentLoaded", function () {
         applyParams();
         let url = new URL(window.location.href);
         let params = new URLSearchParams(url.search);
-        fetchData('/home/jobs?' + params.toString());
+        fetchData('/home/companyJobs?'+params.toString());
     });
 });

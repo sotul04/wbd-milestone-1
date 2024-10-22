@@ -26,8 +26,9 @@ class CompanyDetailModel {
         return $this->db->execute();
     }
 
-    public function updateCompanyDetail($userId, $lokasi, $about) {
+    public function updateCompanyDetail($userId, $nama, $lokasi, $about) {
         $this->db->query("UPDATE company_details SET lokasi = :lokasi, about = :about WHERE user_id = :userId");
+        $this->db->query("UPDATE users SET nama = :nama WHERE user_id = :userId");
         $this->db->bind(':userId', $userId);
         $this->db->bind(':lokasi', $lokasi);
         $this->db->bind(':about', $about);

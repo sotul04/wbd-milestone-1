@@ -1,0 +1,125 @@
+/* Modal Container */
+#modalContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    pointer-events: none; /* Disable pointer events for the container */
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6); /* Darker semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Modal Box */
+.modal-box {
+    background: white;
+    padding: 24px;
+    border-radius: 8px; /* Rounded corners similar to LinkedIn */
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Modal Shown State */
+.modal-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-box.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Modal Title */
+.modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 16px;
+}
+
+/* Modal Description */
+.modal-description {
+    font-size: 16px;
+    color: #666666;
+    margin-bottom: 24px;
+}
+
+/* Modal Buttons */
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Primary Button (OK) */
+.btn-ok {
+    background-color: #0073b1; /* LinkedIn's blue color */
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.btn-ok:hover {
+    background-color: #005f91; /* Darker blue on hover */
+}
+
+/* Secondary Button (Cancel) */
+.btn-cancel {
+    background-color: transparent;
+    color: #666666;
+    padding: 8px 16px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.btn-cancel:hover {
+    background-color: #f3f3f3;
+}
+
+/* Modal Exit Transition */
+.modal-box.hide {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+
+/* Close Button */
+.close-btn {
+    background-color: transparent;
+    border: none;
+    color: #666666;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 8px;
+}

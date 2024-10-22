@@ -15,7 +15,7 @@ require_once __DIR__ . "/../template/navbar.php";
             </div>
         <?php endif; ?>
 
-        <form id="editForm" action="" method="POST">
+        <form id="editForm" action="" method="PUT">
             <div class="form-group">
                 <input type="text" id="name" name="name" value="<?= htmlspecialchars($companyDetail['nama']); ?>" required autocomplete="name">
             </div>
@@ -29,10 +29,12 @@ require_once __DIR__ . "/../template/navbar.php";
             </div>
 
             <div class="form-group">
-                <button class="btn btn-primary shadow-4" type="submit" aria-label="edit">Save</button>
+                <button company-id="<?= htmlspecialchars($companyDetail['user_id']); ?>" id="save-button" class="btn btn-primary shadow-4" type="submit" aria-label="edit">Save</button>
             </div>
         </form>
     </div>
 </section>
+
+<script src="http://localhost:8000/public/js/pages/companyeditprofile.js"></script>
 
 <?php require_once __DIR__ . "/../template/footer.php"; ?>

@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const statusIndicator = document.getElementById('status-indicator');
-    const toggleButton = document.getElementById('toggle-button');
-    const deleteButton = document.getElementById('delete-button');
-    const jobId = toggleButton.getAttribute('data-job-id'); // Get jobId from data attribute
+    const namaCompany = document.getElementById('nama-company');
+    const lokasiCompany = document.getElementById('lokasi-company');
+    const aboutCompany = document.getElementById('about-company');
+    const editProfile = document.getElementById('edit-profile')
 
     toggleButton.addEventListener('click', () => {
         const xhr = new XMLHttpRequest();
-        xhr.open("PUT", `http://localhost:8000/company/profile`, true);
+        xhr.open("PUT", `http://localhost:8000/company/update-profile`, true);
         xhr.setRequestHeader("Content-Type", "application/json");
 
         // Create the body payload as a JSON object

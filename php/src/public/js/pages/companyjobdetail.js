@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-                console.log(xhr.responseText);
                 const response = JSON.parse(xhr.responseText);
                 if (response.status === 'success') {
                     // Toggle the status locally

@@ -27,14 +27,30 @@ class JobModel
                   JOIN users ON lowongan.company_id = users.user_id
                   WHERE lowongan.company_id = :companyId";
 
-        if (!empty($locationType)) {
-            $query .= " AND jenis_lokasi = :jenis_lokasi";
+        // if (!empty($locationType)) {
+        //     $query .= " AND jenis_lokasi = :jenis_lokasi";
+        // }
+        // if (!empty($jobType)) {
+        //     $query .= " AND jenis_pekerjaan = :jenis_pekerjaan";
+        // }
+        // if (!empty($search)) {
+        //     $query .= " AND posisi ILIKE :search";
+        // }
+
+        // Handle multiple location types
+        if (!empty($locationTypes)) {
+            $placeholders = implode(',', array_fill(0, count($locationTypes), '?'));
+            $query .= " AND jenis_lokasi IN ($placeholders)";
         }
-        if (!empty($jobType)) {
-            $query .= " AND jenis_pekerjaan = :jenis_pekerjaan";
+
+        // Handle multiple job types
+        if (!empty($jobTypes)) {
+            $placeholders = implode(',', array_fill(0, count($jobTypes), '?'));
+            $query .= " AND jenis_pekerjaan IN ($placeholders)";
         }
+
         if (!empty($search)) {
-            $query .= " AND posisi ILIKE :search";
+            $query .= " AND posisi ILIKE ?";
         }
 
         switch ($sort) {
@@ -47,7 +63,7 @@ class JobModel
             default:
                 break;
         }
-        $query .= " LIMIT :limit OFFSET :offset";
+        $query .= " LIMIT ? OFFSET ?";
         
         $this->db->query($query);
         // Bind the parameter to the query

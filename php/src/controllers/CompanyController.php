@@ -64,10 +64,7 @@ class CompanyController extends Controller
         if ($role !== 'company') {
             $this->unauthorized();
         } else {
-            //echo($jobID);
             $infoApplicants = $this->model('JobModel')->getJobApplicants($jobID);
-            //echo('jumlah aplikan: ');
-            //echo(count($infoApplicants));
             $detailView = $this->view('company', 'CompanyJobDetailView', ['role' => $role, 'jobDetail' => $jobDetail, 'attachments' => $attachments, 'infoApplicants' => $infoApplicants]);
             $detailView->render();
         }

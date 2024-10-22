@@ -46,6 +46,7 @@
             <div class="applicant-grid">
                 <div class="applicant-header">Name</div>
                 <div class="applicant-header">Status</div>
+                <div class="applicant-header">Details</div>
                 
                 <?php foreach ($infoApplicants as $applicant): ?>
                 <div class="applicant-cell" id="applicant-name">

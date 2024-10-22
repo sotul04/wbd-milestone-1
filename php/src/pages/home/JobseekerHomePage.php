@@ -32,7 +32,7 @@
             <div class="sidebar-item shadow-5">
                 <form class="filter-form" id="filter-form">
                     <div class="filter-group multi">
-                        <label for="jobType">Job Type:</label>
+                        <label for="jobType">Location Type:</label>
                         <div class="item-filter">
                             <label for="locationType-onsite">On-site</label>
                             <input type="checkbox" name="locationType" value="on-site" id="locationType-onsite">

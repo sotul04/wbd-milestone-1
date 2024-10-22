@@ -12,6 +12,7 @@ class CompanyController extends Controller
         if ($length === 1) {
             if($params[0] === 'profile'){
                 //To-Do: Show Company Profile
+
                 exit;
             }else{
                 $this->notFound();
@@ -82,6 +83,22 @@ class CompanyController extends Controller
                 json_response_success($status);
             }
         }
+    }
+
+    public function profile(){
+        $role = $this->getRole() ?? 'guest';
+        if ($role !== 'company'){
+            $this->unauthorized();
+        } 
+        $companyId = $_SESSION['user_id'];
+        $companyDetail = $this->model('CompanyDetailModel')->getCompanyByUserId($companyId); 
+
+        if ($companyDetail === false){
+            $this->notFound();
+        }
+
+        $profileView = $this->view('company', 'CompanyProfileView', ['companyDetail'=>$companyDetail]);
+        $profileView->render();
     }
     // public function applicantDetail($jobID, $applicantID)
     // {

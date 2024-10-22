@@ -1,6 +1,6 @@
 <?php
 
-class CompanyView implements ViewInterface
+class CompanyProfileView implements ViewInterface
 {
     private $data;
     public function __construct($data = [])
@@ -10,7 +10,7 @@ class CompanyView implements ViewInterface
 
     public function render()
     {
-        extract($this->data)
+        extract($this->data);
         require_once __DIR__. '/../../pages/company/CompanyProfilePage.php';
     }
 }

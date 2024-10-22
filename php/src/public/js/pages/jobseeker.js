@@ -5,9 +5,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const pagination = document.getElementById("pagination");
     let debounceTimeout;
 
+    function getCheckedValues(name) {
+        return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
+    }
+
+    function setCheckedValues(name, values) {
+        document.querySelectorAll(`input[name="${name}"]`).forEach(el => {
+            el.checked = values.includes(el.value);
+        });
+    }
+
     filters.forEach((filter) => {
-        const element = document.getElementById(filter);
-        element.addEventListener("change", function () {
+        if (filter !== "jobType" && filter !== "locationType") {
+            const element = document.getElementById(filter);
+            element.addEventListener("change", function () {
+                applyFilters(1);
+            });
+        }
+    });
+
+    document.querySelectorAll('input[name="jobType"], input[name="locationType"]').forEach(el => {
+        el.addEventListener('change', function () {
             applyFilters(1);
         });
     });
@@ -35,11 +53,20 @@ document.addEventListener("DOMContentLoaded", function () {
         let params = new URLSearchParams(url.search);
 
         filters.forEach((filter) => {
-            const value = document.getElementById(filter).value;
-            if (value) {
-                params.set(filter, value);
+            if (filter === 'jobType' || filter === 'locationType') {
+                const values = getCheckedValues(filter);
+                if (values.length > 0) {
+                    params.set(filter, values.join(','));
+                } else {
+                    params.delete(filter);
+                }
             } else {
-                params.delete(filter);
+                const value = document.getElementById(filter).value;
+                if (value) {
+                    params.set(filter, value);
+                } else {
+                    params.delete(filter);
+                }
             }
         });
 
@@ -51,7 +78,6 @@ document.addEventListener("DOMContentLoaded", function () {
         history.pushState(null, '', newUrl);
 
         let endpoint = '/home/jobs';
-
         endpoint += `?${params.toString()}`;
 
         fetchData(endpoint);
@@ -60,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function fetchData(endpoint) {
         jobListings.innerHTML = '<div class="loading"><img class="animate-spin" alt="Loading Spin" src="http://localhost:8000/public/assets/icons/Loading.ico"> Loading</div>';
         pagination.innerHTML = '';
-        
+
         const xhr = new XMLHttpRequest();
         xhr.open("GET", endpoint, true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -129,11 +155,41 @@ document.addEventListener("DOMContentLoaded", function () {
         xhr.send();
     }
 
+    function applyParams() {
+        let url = new URL(window.location.href);
+        let params = new URLSearchParams(url.search);
+
+        if (params.has('search')) {
+            searchInput.value = params.get('search');
+        } else {
+            searchInput.value = '';
+        }
+
+        if (params.has('sort')) {
+            document.getElementById('sort').value = params.get('sort');
+        } else {
+            document.getElementById('sort').value = '';
+        }
+
+        if (params.has('jobType')) {
+            setCheckedValues('jobType', params.get('jobType').split(','));
+        } else {
+            setCheckedValues('jobType', []);
+        }
+
+        if (params.has('locationType')) {
+            setCheckedValues('locationType', params.get('locationType').split(','));
+        } else {
+            setCheckedValues('locationType', []);
+        }
+    }
+
     applyFilters(new URL(window.location.href).searchParams.get('page') || 1);
 
     window.addEventListener('popstate', function () {
+        applyParams();
         let url = new URL(window.location.href);
         let params = new URLSearchParams(url.search);
-        fetchData('/home/jobs?'+params.toString());
+        fetchData('/home/jobs?' + params.toString());
     });
 });

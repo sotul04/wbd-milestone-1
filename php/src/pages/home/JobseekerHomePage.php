@@ -15,48 +15,61 @@
                     <p>Welcome, <?= isset($name) ? htmlspecialchars($name) : 'GUEST' ?>!</p>
                 </div>
                 <nav>
-                    <?
+                    <?php
                     if (isset($name)) {
                         ?>
                         <a href="http://localhost:8000/history">Application History</a>
-                        <?
+                    <?php
                     } else {
                         ?>
                         <a href="http://localhost:8000/user/login">Login</a>
                         <a href="http://localhost:8000/user/register">Register</a>
-                    <?
+                    <?php
                     }
                     ?>
                 </nav>
             </div>
             <div class="sidebar-item shadow-5">
                 <form class="filter-form" id="filter-form">
-                    <div class="filter-group">
-                        <label for="locationType">Location Type:</label>
-                        <select name="locationType" id="locationType">
-                            <option value="">All</option>
-                            <option value="on-site">On-site</option>
-                            <option value="hybrid">Hybrid</option>
-                            <option value="remote">Remote</option>
-                        </select>
+                    <div class="filter-group multi">
+                        <label for="jobType">Job Type:</label>
+                        <div class="item-filter">
+                            <label for="locationType-onsite">On-site</label>
+                            <input type="checkbox" name="locationType" value="on-site" id="locationType-onsite">
+                        </div>
+                        <div class="item-filter">
+                            <label for="locationType-hybrid">Hybrid</label>
+                            <input type="checkbox" name="locationType" value="hybrid" id="locationType-hybrid">
+                        </div>
+                        <div class="item-filter">
+                            <label for="locationType-remote">Remote</label>
+                            <input type="checkbox" name="locationType" value="remote" id="locationType-remote">
+                        </div>
                     </div>
 
-                    <div class="filter-group">
+                    <div class="filter-group multi">
                         <label for="jobType">Job Type:</label>
-                        <select name="jobType" id="jobType">
-                            <option value="">All</option>
-                            <option value="Full-time">Full-time</option>
-                            <option value="Part-time">Part-time</option>
-                            <option value="Internship">Internship</option>
-                        </select>
+                        <div class="item-filter">
+                            <label for="jobType-fulltime">Full-time</label>
+                            <input type="checkbox" name="jobType" value="Full-time" id="jobType-fulltime">
+                        </div>
+                        <div class="item-filter">
+                            <label for="jobType-parttime">Part-time</label>
+                            <input type="checkbox" name="jobType" value="Part-time" id="jobType-parttime">
+                        </div>
+                        <div class="item-filter">
+                            <label for="jobType-internship">Internship</label>
+                            <input type="checkbox" name="jobType" value="Internship" id="jobType-internship">
+                        </div>
                     </div>
 
                     <div class="filter-group">
                         <label for="sort">Sort by:</label>
                         <select name="sort" id="sort">
-                            <option value="">Default</option>
-                            <option value="ASC">Older First</option>
-                            <option value="DESC">Newest First</option>
+                            <option value="" <?= $sort === '' ? 'selected' : ''; ?>>Default</option>
+                            <option value="ASC" <?= $sort === 'ASC' ? 'selected' : ''; ?>>Older First</option>
+                            <option value="DESC" <?= $sort === 'DESC' ? 'selected' : ''; ?>>Newest First</option>
+                        </select>
                         </select>
                     </div>
 

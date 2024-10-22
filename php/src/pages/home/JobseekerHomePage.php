@@ -31,7 +31,7 @@
             </div>
             <div class="sidebar-item shadow-5">
                 <form class="filter-form" id="filter-form">
-                    <div class="filter-group">
+                    <div class="filter-group multi">
                         <label for="jobType">Job Type:</label>
                         <div class="item-filter">
                             <label for="locationType-onsite">On-site</label>
@@ -42,24 +42,24 @@
                             <input type="checkbox" name="locationType" value="hybrid" id="locationType-hybrid">
                         </div>
                         <div class="item-filter">
-                            <input type="checkbox" name="locationType" value="remote" id="locationType-remote">
                             <label for="locationType-remote">Remote</label>
+                            <input type="checkbox" name="locationType" value="remote" id="locationType-remote">
                         </div>
                     </div>
 
-                    <div class="filter-group">
+                    <div class="filter-group multi">
                         <label for="jobType">Job Type:</label>
                         <div class="item-filter">
-                            <input type="checkbox" name="jobType" value="Full-time" id="jobType-fulltime">
                             <label for="jobType-fulltime">Full-time</label>
+                            <input type="checkbox" name="jobType" value="Full-time" id="jobType-fulltime">
                         </div>
                         <div class="item-filter">
-                            <input type="checkbox" name="jobType" value="Part-time" id="jobType-parttime">
                             <label for="jobType-parttime">Part-time</label>
+                            <input type="checkbox" name="jobType" value="Part-time" id="jobType-parttime">
                         </div>
                         <div class="item-filter">
-                            <input type="checkbox" name="jobType" value="Internship" id="jobType-internship">
                             <label for="jobType-internship">Internship</label>
+                            <input type="checkbox" name="jobType" value="Internship" id="jobType-internship">
                         </div>
                     </div>
 

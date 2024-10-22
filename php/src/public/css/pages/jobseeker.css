@@ -114,9 +114,9 @@
 }
 
 .filter-group label {
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 5px;
-    /* display: block; */
+    display: block;
 }
 
 .filter-group .item-filter {
@@ -131,6 +131,10 @@
     cursor: pointer;
 }
 
+.filter-group.multi>label {
+    padding-bottom: 4px;
+    border-bottom: rgb(167, 167, 167) solid 0.5px;
+}
 
 .filter-group select,
 .filter-group input {

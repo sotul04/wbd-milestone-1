@@ -40,24 +40,24 @@ function updateNavbar(response) {
         }
 
         // Create and append the navProfile dynamically
-        const navProfile = document.createElement('div');
+        const navProfile = document.createElement('li');
         navProfile.classList.add('navProfile');
         navProfile.innerHTML = `
-        <li class='profileCt'>
+        <div class='profileCt'>
             <p id='profile-trigger' class="shadow-2">${response.data.name ? response.data.name.substring(0, 1).toUpperCase() : ''}</p>
             <form action="http://localhost:8000/auth/logout" method="GET">
                 <button id="logout" class="btn btn-destroy" type="submit">Logout</button>
             </form>
-            <div id="profile-nav" class="shadow-4">
+            <div id="profile-nav" class="shadow-5">
                 <div>
                     <p>${response.data.name}</p>
                     <p>${response.data.role}</p>
                 </div>
                 <form action="http://localhost:8000/auth/logout" method="GET">
-                    <button id="profile-logout" class="btn btn-destroy shadow-3" type="submit">Logout</button>
+                    <button id="profile-logout" class="" type="submit">Logout</button>
                 </form>
             </div>
-        </li>`;
+        </div>`;
         navRight.appendChild(navProfile);
 
         document.getElementById('profile-nav-close').addEventListener('click', closeProfile);

@@ -1,283 +1,97 @@
-#main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Grid container for the layout */
-.grid-container {
-    margin-top: 10px;
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    /* gap: 10px; */
-    /* padding: 10px; */
-}
-
-/* Style for the aside section */
-.sidebar {
-    position: sticky; 
-    top: 70px;
-    align-self: start;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-.sidebar-item {
-    background-color: #ffffff;
-    border-radius: 8px;
-    width: 100%;
-}
-
-.sidebar :nth-child(1) {
-    position: relative;
-}
-
-.sidebar-item .img {
-    position: absolute;
-    height: 72px;
-    width: 72px;
-    border-radius: 100%;
-    padding: 16px;
-    background-color: #F8FAFD;
-    border: white 1.5px solid;
-    top: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.sidebar-item .sidebar-top {
-    height: 60px;
-    background-color: #A0B4B7;
-    border-radius: 8px 8px 0 0;
-}
-
-.sidebar-item .sidebar-main {
-    margin: 50px 10px 10px 10px;
-}
-
-.sidebar-item nav {
-    margin: 0px 20px 20px 20px;
-    padding-top: 6px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.sidebar-item nav a {
-    color: #0077b5;
-    &:hover {
-        color: #003957;
-    }
-}
-
-.sidebar-main p {
-    text-align: center;
-    font-weight: 600;
-}
-
-/* Style for the main content */
-.main-content {
-    background-color: inherit;
-    padding: 0px 10px 0px 10px;
-    border-radius: 8px;
-}
-
-/* Responsive styles for smaller screens */
-@media (max-width: 768px) {
-    .grid-container {
-        grid-template-columns: 1fr;
-    }
-
-    .sidebar {
-        order: 1;
-        position:static;
-        padding: 10px;
-    }
-
-    .main-content {
-        order: 2;
-    }
-}
-
-.filter-form {
-    padding: 15px 15px 8px 15px;
-    border-radius: 10px;
-}
-
-.filter-group {
-    margin-bottom: 15px;
-}
-
-.filter-group label {
-    font-weight: 600;
-    margin-bottom: 5px;
-    display: block;
-}
-
-.filter-group .item-filter {
-    gap: 4px;
-    position: relative;
-}
-
-.item-filter label {
-    font-size: 15px;
-    font-weight: 500;
-    margin-left: 20px;
-    cursor: pointer;
-}
-
-.filter-group.multi>label {
-    padding-bottom: 4px;
-    border-bottom: rgb(167, 167, 167) solid 0.5px;
-}
-
-.filter-group select,
-.filter-group input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.item-filter input {
-    position: absolute;
-    left: 0;
-    height: 12px;
-    width: 12px;
-    top: 50%;
-    transform: translateY(-45%);
-    cursor: pointer;
-}
-
-.filter-group .btn {
-    padding: 10px 20px;
-    background-color: #0073b1;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.filter-group .btn:hover {
-    background-color: #005a8c;
-}
-
-/* Style for job listings */
-.job-listings {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-}
-
-.job-listings>p {
-    text-align: center;
-    gap: 10px;
-    margin: 10px;
-}
-
-.job-listings .loading {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.job-listings .loading img {
-    height: 15px;
-    width: 15px;
-}
-
-.job-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+/* General container styling */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px;
-    width: 100%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.job-header {
-    margin-bottom: 15px;
+/* LinkedIn-like shadow */
+.shadow-5 {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-.job-title {
-    font-size: 1.2em;
+/* Company profile card layout */
+.company-profile-card {
+    padding: 30px;
+    background-color: #f5f8fa;
+    border-radius: 12px;
+}
+
+.company-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid #e1e8ed;
+    padding-bottom: 20px;
+}
+
+.company-logo img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #0073b1;
+}
+
+.company-info h1 {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+}
+
+.company-info p {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
+}
+
+.company-about {
+    margin-top: 20px;
+}
+
+.company-about h2 {
+    font-size: 1.5rem;
     color: #0073b1;
 }
 
-.company-name {
-    font-size: 0.9em;
-    color: #555;
-}
-
-.job-body {
-    margin-bottom: 15px;
-}
-
-.job-description {
+.company-about p {
+    font-size: 1rem;
     color: #333;
+    line-height: 1.6;
 }
 
-.job-footer {
+.company-footer {
+    margin-top: 30px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-end;
 }
 
-.apply-btn {
+.btn {
     background-color: #0073b1;
-    color: white;
-    padding: 8px 12px;
+    color: #fff;
     border: none;
-    border-radius: 5px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
     cursor: pointer;
-    text-decoration: none; /* Remove underline from link */
-    display: inline-block; /* Allow padding and line-height to take effect */
-    line-height: normal; /* Reset line-height to prevent vertical misalignment */
-    font-family: inherit; /* Use the same font as the rest of the page */
-    font-size: inherit; /* Use the same font size as the rest of the page */
 }
 
-.apply-btn:hover {
-    background-color: #005a8c;
-    text-decoration: none; /* Ensure no underline appears on hover */
+.btn:hover {
+    background-color: #005682;
 }
 
-.pagination {
-    display: flex;
-    justify-content: center; /* Center the pagination */
-    align-items: center;
-    margin: 20px 0; /* Add some margin above and below the pagination */
-}
-
-.pagination button {
-    background-color: white; /* Default background color */
-    border: 1px solid #ccc; /* Light grey border */
-    color: #0077b5; /* LinkedIn blue text color */
-    padding: 4px 10px 4px 10px; /* Padding for button */
-    margin: 0 5px; /* Space between buttons */
-    cursor: pointer; /* Pointer cursor on hover */
-    border-radius: 4px; /* Rounded corners */
-    transition: background-color 0.3s; /* Smooth transition for background color */
-}
-
-/* Active or current page style */
-.pagination button.active {
-    background-color: #0077b5; /* LinkedIn blue background */
-    color: white; /* White text color */
-    border: none; /* Remove border for active button */
-}
-
-/* Button hover effect */
-.pagination button:hover:not(.active) {
-    background-color: #f0f0f0; /* Light grey background on hover */
-}
-
-strong {
-    font-weight: 600;
+/* Responsive for mobile */
+@media (max-width: 600px) {
+    .company-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .company-logo img {
+        width: 80px;
+        height: 80px;
+    }
 }

@@ -4,33 +4,24 @@
 <link rel="stylesheet" href="http://localhost:8000/public/css/pages/companyprofile.css" />
 
 <section id="company">
-    <div>
-        <h1><?= htmlspecialchars($companyDetails['nama']); ?></h1> 
-        <p><strong>About:</strong></p> 
-        <textarea readonly id="about-editor" value="<?= htmlspecialchars($companyDetails['about']); ?>"></textarea>
-            
-        <div id="contact-info">
-            <h2>Contact Information</h2>
-            <p><strong>Email:</strong> <?= htmlspecialchars($companyDetails['email']); ?></p>
-            <strong>Address:</strong> 
-            <input readonly><?= htmlspecialchars($companyDetails['lokasi']); ?></input>
+    <div class="company-profile-card container shadow-5">
+        <div class="company-header">
+            <div class="company-info">
+                <h1><?= htmlspecialchars($companyDetail['nama']); ?></h1>
+                <p class="company-location"><?= htmlspecialchars($companyDetail['lokasi']); ?></p>
+                <p><strong>Email:</strong> <?= htmlspecialchars($companyDetail['email']); ?></p>
+            </div>
+        </div>
+        
+        <div class="company-about">
+            <h2>About</h2>
+            <p><?= htmlspecialchars($companyDetail['about']); ?></p>
         </div>
 
-        <div class="footer-profile">
-            <button id="edit-profile">Edit</button>
+        <div class="company-footer">
+            <a id="edit-profile" class="btn btn-primary" href="http://localhost:8000/company/profile/edit">Edit Profile</a>
         </div>
     </div>
-
-    <!-- Form untuk memperbarui profil -->
-    <!-- <form method="POST">
-        <label for="lokasi">Lokasi:</label>
-        <input type="text" id="lokasi" name="lokasi" value="<?= htmlspecialchars($companyDetails['lokasi']); ?>">
-
-        <label for="about">Tentang Perusahaan:</label>
-        <textarea id="about" name="about"><?= htmlspecialchars($companyDetails['about']); ?></textarea>
-
-        <button type="submit">Perbarui Profil</button>
-    </form> -->
 </section>
 
 <?php require_once __DIR__ . "/../template/footer.php"; ?>

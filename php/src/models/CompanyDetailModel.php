@@ -9,7 +9,7 @@ class CompanyDetailModel {
 
     public function getCompanyByUserId($userId) {
         $this->db->query("
-            SELECT u.nama, u.email, c.lokasi, c.about
+            SELECT u.nama as nama, u.email as email, c.lokasi as lokasi, c.about as about
             FROM company_details AS c
             JOIN users AS u ON c.user_id = u.user_id
             WHERE c.user_id = :userId

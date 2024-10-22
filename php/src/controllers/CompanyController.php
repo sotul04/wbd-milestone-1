@@ -13,7 +13,13 @@ class CompanyController extends Controller
             if ($params[0] === 'profile') {
                 //To-Do: Show Company Profile
                 $this->profileShow();
-            } else {
+            } else if ($params[0] === 'toggleJob') {
+                $this->toggleJob();
+                exit;
+            } else if ($params[0] === 'jobDelete'){
+                $this->deleteJob();
+                exit;
+            }  else {
                 $this->notFound();
             }
             exit;
@@ -35,8 +41,8 @@ class CompanyController extends Controller
         if ($length === 3) {
             if ($params[2] === 'close') {
                 //To-Do: Close lowongan
-            } else if ($params[2] === 'edit') {
-                //To-Do: edit lowongan
+            }else if($params[2] === 'edit'){
+                $this->toggleJob();
             }
         }
         if ($length === 4) {
@@ -66,26 +72,100 @@ class CompanyController extends Controller
             $detailView->render();
         }
     }
-
-    public function toggleJob($jobID)
+    public function toggleJob()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+            // Get the JSON data from the request body
+            $input = file_get_contents('php://input');
+            $data = json_decode($input, true); // Decoding JSON into an associative array
+
+            // Retrieve the jobId from the decoded data
+            $jobId = $data['jobId'] ?? null;
+
+            // Error handling
+            if (!$jobId) {
+                json_response_fail('Missing jobId!');
+                exit;
+            }
+
             $role = $this->getRole() ?? 'guest';
             if ($role !== 'company') {
                 json_response_fail('Unauthorized action!');
+                exit;
             }
 
             $companyId = $_SESSION['user_id'];
-            if (!$this->model('JobModel')->isRightCompany($jobID, $companyId)) {
+            if (!$this->model('JobModel')->isRightCompany($jobId, $companyId)) {
                 json_response_fail('Unlawful access!');
+                exit;
             }
 
-            $status = $this->model('JobModel')->toggleJob($jobID);
-            if ($status === false) {
-                json_response_fail('Something went wrong!');
-            } else {
-                json_response_success($status);
+            // Get the current job details
+            $job = $this->model('JobModel')->getJobDetail($jobId);
+            if ($job === false) {
+                json_response_fail('Job not found!');
+                exit;
             }
+
+            $newStatus = TRUE;
+            if($job['is_open'] === TRUE){
+                $newStatus = FALSE;
+            }
+
+            // Update the job status
+            $updated = $this->model('JobModel')->updateJobStatus($jobId, $newStatus);
+            if ($updated === false) {
+                json_response_fail('Something went wrong!');
+                exit;
+            }
+
+            // Return the new job status as JSON
+            json_response_success(['is_open' => $newStatus]);
+        }
+    }
+
+    public function deleteJob() {
+        if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
+            // Get the JSON data from the request body
+            $input = file_get_contents('php://input');
+            $data = json_decode($input, true); // Decoding JSON into an associative array
+
+            // Retrieve the jobId from the decoded data
+            $jobId = $data['jobId'] ?? null;
+
+            // Error handling
+            if (!$jobId) {
+                json_response_fail('Missing jobId!');
+                exit;
+            }
+
+            $role = $this->getRole() ?? 'guest';
+            if ($role !== 'company') {
+                json_response_fail('Unauthorized action!');
+                exit;
+            }
+
+            $companyId = $_SESSION['user_id'];
+            if (!$this->model('JobModel')->isRightCompany($jobId, $companyId)) {
+                json_response_fail('Unlawful access!');
+                exit;
+            }
+
+            // Get the current job details
+            $job = $this->model('JobModel')->getJobDetail($jobId);
+            if ($job === false) {
+                json_response_fail('Job not found!');
+                exit;
+            }
+
+            $deleted = $this->model('JobModel')->deleteJob($jobId);
+            if ($deleted === false) {
+                json_response_fail('Something went wrong!');
+                exit;
+            }
+
+            // Return the new job status as JSON
+            json_response_success('Successfully deleted the job');
         }
     }
 
@@ -122,8 +202,4 @@ class CompanyController extends Controller
         $editProfileView = $this->view('company', 'CompanyEditView', ['companyDetail' => $companyDetail]);
         $editProfileView->render();
     }
-    // public function applicantDetail($jobID, $applicantID)
-    // {
-
-    // }
 }

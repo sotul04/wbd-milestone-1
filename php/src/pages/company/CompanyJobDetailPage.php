@@ -29,7 +29,7 @@
             </div>
             <div class="job-posted-date">
                 <p>Posted on: <?= htmlspecialchars(date('F j, Y', strtotime($jobDetail['created_at']))) ?></p>
-                <div class="status <?= $jobDetail['is_open'] ? 'open' : 'close' ?>">
+                <div id="status-indicator" class="status <?= $jobDetail['is_open'] ? 'open' : 'close' ?>">
                     <p><strong><?= $jobDetail['is_open'] ? 'Open' : 'Closed' ?></strong></p>
                 </div>
             </div>
@@ -47,7 +47,7 @@
             <div class="modif-buttons" aria-label="">
                 <a class="btn edit" href="http://localhost:8000/company/job/<?= htmlspecialchars($applicant['lowongan_id']) ?>/edit">Edit</a>
                 <button id="delete-button" class="btn btn-destroy delete-job">Delete</button>
-                <button id="toggle-button" type="submit" class="btn <?= $jobDetail['is_open'] ? 'close' : 'open'?> toggle-job">
+                <button data-job-id="<?= htmlspecialchars($jobDetail['lowongan_id']) ?>" id="toggle-button" type="submit" class="btn <?= $jobDetail['is_open'] ? 'close' : 'open'?> toggle-job">
                     <?= $jobDetail['is_open'] ? 'Close' : 'Open'?>
                 </button>
             </div>
@@ -83,5 +83,7 @@
     </section>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="http://localhost:8000/public/js/pages/companyjobdetail.js"></script>
 
 <?php require_once __DIR__ . "/../template/footer.php" ?>

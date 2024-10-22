@@ -296,27 +296,17 @@ class JobModel
         return $this->db->resultSet();
     }
 
-    public function toggleJob($lowonganId)
+    public function updateJobStatus($jobID, $newStatus)
     {
-        $this->db->query('UPDATE lowongan
-                                 SET is_open = CASE 
-                                                WHEN is_open = TRUE THEN FALSE
-                                                ELSE TRUE
-                                               END
-                                WHERE lowongan_id = :lowonganId');
-        $this->db->bind(':lowonganId', value:$lowonganId);
-        
-        if($this->db->execute()){
-            $this->db->query('SELECT is_open FROM lowongan WHERE lowongan_id = :lowonganId');
-            $this->db->bind(':lowonganId', value:$lowonganId);
-            $data = $this->db->single();
-            if($data !== false){
-                return $data['is_open'] ? 'Successfully opened the job!' : 'Successfully closed the job!';
-            }
-        }
-
-        return false;
+        //echo($jobID);
+        //echo($newStatus);
+        $query = "UPDATE lowongan SET is_open = :newstatus WHERE lowongan_id = :jobID";
+        $this->db->query($query);
+        $this->db->bind(':newstatus', $newStatus, PDO::PARAM_BOOL);
+        $this->db->bind(':jobID', $jobID);
+        return $this->db->execute();
     }
+
 
     public function isRightCompany($lowonganId, $companyId)
     {
@@ -325,5 +315,12 @@ class JobModel
         $this->db->bind(':companyId', $companyId);
         $data = $this->db->resultSet();
         return count($data) > 0;
+    }
+
+    public function deleteJob($lowonganId)
+    {
+        $this->db->query('DELETE FROM lowongan WHERE lowongan.lowongan_id = :lowonganId');
+        $this->db->bind(':lowonganId', $lowonganId);
+        return $this->db->execute();
     }
 }

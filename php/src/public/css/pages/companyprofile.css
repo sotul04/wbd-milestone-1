@@ -1,0 +1,97 @@
+/* General container styling */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* LinkedIn-like shadow */
+.shadow-5 {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Company profile card layout */
+.company-profile-card {
+    padding: 30px;
+    background-color: #f5f8fa;
+    border-radius: 12px;
+}
+
+.company-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid #e1e8ed;
+    padding-bottom: 20px;
+}
+
+.company-logo img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #0073b1;
+}
+
+.company-info h1 {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+}
+
+.company-info p {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
+}
+
+.company-about {
+    margin-top: 20px;
+}
+
+.company-about h2 {
+    font-size: 1.5rem;
+    color: #0073b1;
+}
+
+.company-about p {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.6;
+}
+
+.company-footer {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn {
+    background-color: #0073b1;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #005682;
+}
+
+/* Responsive for mobile */
+@media (max-width: 600px) {
+    .company-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .company-logo img {
+        width: 80px;
+        height: 80px;
+    }
+}

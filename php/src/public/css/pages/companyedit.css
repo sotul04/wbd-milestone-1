@@ -1,0 +1,91 @@
+/* Container for the form */
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f5f8fa;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #0073b1;
+    margin-bottom: 20px;
+}
+
+.top-error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+    color: #495057;
+    box-sizing: border-box;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+.form-group input[type="text"]:focus {
+    border-color: #0073b1;
+    outline: none;
+}
+
+.form-group button {
+    width: 100%;
+    padding: 15px;
+    background-color: #0073b1;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-group button:hover {
+    background-color: #005682;
+}
+
+.form-group button:focus {
+    outline: none;
+}
+
+.btn-primary:active {
+    background-color: #004466;
+}
+
+.form-container .btn-primary.shadow-4 {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#edit-profile-section {
+    padding: 50px 0;
+    /* background-color: #e9ecef; */
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    h3 {
+        font-size: 1.6rem;
+    }
+}

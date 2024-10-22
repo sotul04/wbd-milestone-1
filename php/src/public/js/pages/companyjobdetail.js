@@ -9,8 +9,14 @@ document.addEventListener("DOMContentLoaded", function () {
         xhr.open("PUT", `http://localhost:8000/company/toggleJob`, true);
         xhr.setRequestHeader("Content-Type", "application/json");
 
+        // Create the body payload as a JSON object
+        const requestBody = JSON.stringify({
+            jobId: jobId
+        });
+
         xhr.onload = function () {
             if (xhr.status === 200) {
+                console.log(xhr.responseText);
                 const response = JSON.parse(xhr.responseText);
                 if (response.status === 'success') {
                     // Toggle the status locally
@@ -42,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         };
 
-        // Send the request body containing jobId
         xhr.send(requestBody);
     });
 

@@ -1,6 +1,6 @@
 <?php
 
-class CompanyHomeView implements ViewInterface
+class CompanyJobDetailView implements ViewInterface
 {
     private $data;
     public function __construct($data = [])
@@ -11,6 +11,6 @@ class CompanyHomeView implements ViewInterface
     public function render()
     {
         extract($this->data);
-        require_once __DIR__. '/../../pages/home/CompanyHomePage.php';
+        require_once __DIR__. '/../../pages/company/CompanyJobDetailPage.php';
     }
 }

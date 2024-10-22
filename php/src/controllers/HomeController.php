@@ -12,6 +12,7 @@ class HomeController extends Controller implements ControllerInterface
         $name = $_SESSION['name'] ?? null;
         $search = $_GET['search'] ?? '';
         $role = $this->getRole();
+        $companyId = $_SESSION['user_id'] ?? null;
 
         // Validate parameters
         $page = $this->validatePage($page);
@@ -21,6 +22,7 @@ class HomeController extends Controller implements ControllerInterface
         $search = $this->validateSearch($search);
 
         if ($role === 'company') {
+            //$content = $this->model('JobModel')->getJobByCompanyId($companyId, $page, $sort, $locationType, $jobType, $search);
             $homeview = $this->view('home', 'CompanyHomeView', [
                 'name' => $name,
                 'page' => $page,
@@ -63,6 +65,29 @@ class HomeController extends Controller implements ControllerInterface
 
         if ($role !== 'company') {
             $content = $this->model('JobModel')->getJobs($page, $sort, $locationType, $jobType, $search);
+            json_response_success($content);
+        }
+    }
+
+    public function companyJobs(){
+        $page = $_GET['page'] ?? 1;
+        $sort = $_GET['sort'] ?? '';
+        $locationType = $_GET['locationType'] ?? '';
+        $jobType = $_GET['jobType'] ?? '';
+        $name = $_SESSION['name'] ?? null;
+        $search = $_GET['search'] ?? '';
+        $companyId = $_SESSION['user_id'] ?? null;
+        $role = $this->getRole();
+
+        // Validate parameters
+        $page = $this->validatePage($page);
+        $sort = $this->validateSort($sort);
+        $locationType = $this->validateLocationType($locationType);
+        $jobType = $this->validateJobType($jobType);
+        $search = $this->validateSearch($search);
+
+        if ($role === 'company') {
+            $content = $this->model('JobModel')->getJobByCompanyId($companyId, $page, $sort, $locationType, $jobType, $search);;
             json_response_success($content);
         }
     }

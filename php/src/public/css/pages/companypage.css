@@ -7,30 +7,32 @@
 
 /* Grid container for the layout */
 .grid-container {
+    margin-top: 10px;
     display: grid;
     grid-template-columns: 220px 1fr;
-    gap: 20px;
-    padding: 20px;
+    /* gap: 10px; */
+    /* padding: 10px; */
 }
 
 /* Style for the aside section */
 .sidebar {
     position: sticky; 
-    top: 80px;
+    top: 70px;
     align-self: start;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-
 }
 
 .sidebar-item {
     background-color: #ffffff;
     border-radius: 8px;
-    border: 1px solid #DFDEDB;
-    position: relative;
     width: 100%;
+}
+
+.sidebar :nth-child(1) {
+    position: relative;
 }
 
 .sidebar-item .img {
@@ -53,7 +55,23 @@
 }
 
 .sidebar-item .sidebar-main {
-    margin: 50px 10px 20px 10px;
+    margin: 50px 10px 10px 10px;
+}
+
+.sidebar-item nav {
+    margin: 0px 20px 20px 20px;
+    padding-top: 6px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sidebar-item nav a {
+    color: #0077b5;
+    &:hover {
+        color: #003957;
+    }
 }
 
 .sidebar-main p {
@@ -64,6 +82,202 @@
 /* Style for the main content */
 .main-content {
     background-color: inherit;
-    padding: 8px 20px 8px 20px;
+    padding: 0px 10px 0px 10px;
     border-radius: 8px;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        order: 1;
+        position:static;
+        padding: 10px;
+    }
+
+    .main-content {
+        order: 2;
+    }
+}
+
+.filter-form {
+    padding: 15px 15px 8px 15px;
+    border-radius: 10px;
+}
+
+.filter-group {
+    margin-bottom: 15px;
+}
+
+.filter-group label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.filter-group .item-filter {
+    gap: 4px;
+    position: relative;
+}
+
+.item-filter label {
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.filter-group.multi>label {
+    padding-bottom: 4px;
+    border-bottom: rgb(167, 167, 167) solid 0.5px;
+}
+
+.filter-group select,
+.filter-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.item-filter input {
+    position: absolute;
+    left: 0;
+    height: 12px;
+    width: 12px;
+    top: 50%;
+    transform: translateY(-45%);
+    cursor: pointer;
+}
+
+.filter-group .btn {
+    padding: 10px 20px;
+    background-color: #0073b1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.filter-group .btn:hover {
+    background-color: #005a8c;
+}
+
+/* Style for job listings */
+.job-listings {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.job-listings>p {
+    text-align: center;
+    gap: 10px;
+    margin: 10px;
+}
+
+.job-listings .loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.job-listings .loading img {
+    height: 15px;
+    width: 15px;
+}
+
+.job-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.job-header {
+    margin-bottom: 15px;
+}
+
+.job-title {
+    font-size: 1.2em;
+    color: #0073b1;
+}
+
+.company-name {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.job-body {
+    margin-bottom: 15px;
+}
+
+.job-description {
+    color: #333;
+}
+
+.job-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.apply-btn {
+    background-color: #0073b1;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline from link */
+    display: inline-block; /* Allow padding and line-height to take effect */
+    line-height: normal; /* Reset line-height to prevent vertical misalignment */
+    font-family: inherit; /* Use the same font as the rest of the page */
+    font-size: inherit; /* Use the same font size as the rest of the page */
+}
+
+.apply-btn:hover {
+    background-color: #005a8c;
+    text-decoration: none; /* Ensure no underline appears on hover */
+}
+
+.pagination {
+    display: flex;
+    justify-content: center; /* Center the pagination */
+    align-items: center;
+    margin: 20px 0; /* Add some margin above and below the pagination */
+}
+
+.pagination button {
+    background-color: white; /* Default background color */
+    border: 1px solid #ccc; /* Light grey border */
+    color: #0077b5; /* LinkedIn blue text color */
+    padding: 4px 10px 4px 10px; /* Padding for button */
+    margin: 0 5px; /* Space between buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+/* Active or current page style */
+.pagination button.active {
+    background-color: #0077b5; /* LinkedIn blue background */
+    color: white; /* White text color */
+    border: none; /* Remove border for active button */
+}
+
+/* Button hover effect */
+.pagination button:hover:not(.active) {
+    background-color: #f0f0f0; /* Light grey background on hover */
+}
+
+strong {
+    font-weight: 600;
 }

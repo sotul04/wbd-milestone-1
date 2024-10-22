@@ -202,4 +202,13 @@ class CompanyController extends Controller
         $editProfileView = $this->view('company', 'CompanyEditView', ['companyDetail' => $companyDetail]);
         $editProfileView->render();
     }
+
+    public function updateProfile(){
+        if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+            $input = file_get_contents('php://input');
+            $data = json_decode($input, true);
+
+            
+        }
+    }
 }

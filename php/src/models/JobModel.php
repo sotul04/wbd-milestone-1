@@ -255,4 +255,17 @@ class JobModel
         $this->db->bind(':lowonganId', $lowonganId);
         return $this->db->single();
     }
+
+    public function getJobApplicants($lowonganId)
+    {
+        $this->db->query("SELECT users.nama as nama_pelamar,
+                                 lamaran.status as status_pelamar,
+                                 lamaran.lowongan_id as lowongan_id
+                                 FROM lamaran
+                                 JOIN users ON lamaran.user_id = users.user_id
+                                 WHERE lamaran.lowongan_id = :lowonganId");
+        $this->db->bind(':lowonganId', $lowonganId);
+        //echo(count($this->db->resultSet()));
+        return $this->db->resultSet();
+    }
 }

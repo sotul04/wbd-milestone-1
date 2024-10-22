@@ -44,13 +44,16 @@ class CompanyController extends Controller
         }
         $role = $this->getRole() ?? 'guest';
         $attachments = $this->model('JobModel')->getAttachments($jobID);
-        if ($role !== 'jobseeker') {
-            $detailView = $this->view('company', 'CompanyJobDetailView', ['role' => $role, 'jobDetail' => $jobDetail, 'attachments' => $attachments]);
-            $detailView->render();
-        } else {
-            $infoApplication = $this->model('JobModel')->getApplicationBrief($jobID);
-            $detailView = $this->view('company', 'CompanyJobDetailView', ['role' => $role, 'jobDetail' => $jobDetail, 'attachments' => $attachments, 'infoApplication' => $infoApplication]);
+        if ($role !== 'company') {
+            $this->unauthorized();
+        }else{
+            //echo($jobID);
+            $infoApplicants = $this->model('JobModel')->getJobApplicants($jobID);
+            //echo('jumlah aplikan: ');
+            //echo(count($infoApplicants));
+            $detailView = $this->view('company', 'CompanyJobDetailView', ['role' => $role, 'jobDetail' => $jobDetail, 'attachments' => $attachments, 'infoApplicants' => $infoApplicants]);
             $detailView->render();
         }
+
     }
 }

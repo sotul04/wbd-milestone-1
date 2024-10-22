@@ -10,7 +10,7 @@ class CompanyJobDetailView implements ViewInterface
 
     public function render()
     {
-        //extract($this->$data);
+        extract($this->data);
         require_once __DIR__. '/../../pages/company/CompanyJobDetailPage.php';
     }
 }

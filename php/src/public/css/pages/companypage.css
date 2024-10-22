@@ -7,30 +7,32 @@
 
 /* Grid container for the layout */
 .grid-container {
+    margin-top: 10px;
     display: grid;
     grid-template-columns: 220px 1fr;
-    gap: 20px;
-    padding: 20px;
+    /* gap: 10px; */
+    /* padding: 10px; */
 }
 
 /* Style for the aside section */
 .sidebar {
     position: sticky; 
-    top: 80px;
+    top: 70px;
     align-self: start;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-
 }
 
 .sidebar-item {
     background-color: #ffffff;
     border-radius: 8px;
-    border: 1px solid #DFDEDB;
-    position: relative;
     width: 100%;
+}
+
+.sidebar :nth-child(1) {
+    position: relative;
 }
 
 .sidebar-item .img {
@@ -53,7 +55,23 @@
 }
 
 .sidebar-item .sidebar-main {
-    margin: 50px 10px 20px 10px;
+    margin: 50px 10px 10px 10px;
+}
+
+.sidebar-item nav {
+    margin: 0px 20px 20px 20px;
+    padding-top: 6px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sidebar-item nav a {
+    color: #0077b5;
+    &:hover {
+        color: #003957;
+    }
 }
 
 .sidebar-main p {
@@ -64,7 +82,7 @@
 /* Style for the main content */
 .main-content {
     background-color: inherit;
-    padding: 8px 20px 8px 20px;
+    padding: 0px 10px 0px 10px;
     border-radius: 8px;
 }
 
@@ -77,8 +95,7 @@
     .sidebar {
         order: 1;
         position:static;
-        top: 0;
-        padding: 20px;
+        padding: 10px;
     }
 
     .main-content {
@@ -96,9 +113,26 @@
 }
 
 .filter-group label {
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 5px;
     display: block;
+}
+
+.filter-group .item-filter {
+    gap: 4px;
+    position: relative;
+}
+
+.item-filter label {
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.filter-group.multi>label {
+    padding-bottom: 4px;
+    border-bottom: rgb(167, 167, 167) solid 0.5px;
 }
 
 .filter-group select,
@@ -107,6 +141,16 @@
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 5px;
+}
+
+.item-filter input {
+    position: absolute;
+    left: 0;
+    height: 12px;
+    width: 12px;
+    top: 50%;
+    transform: translateY(-45%);
+    cursor: pointer;
 }
 
 .filter-group .btn {
@@ -126,11 +170,14 @@
 .job-listings {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .job-listings>p {
     text-align: center;
+    gap: 10px;
     margin: 10px;
 }
 
@@ -150,6 +197,7 @@
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 20px;
+    width: 100%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -197,6 +245,7 @@
 
 .apply-btn:hover {
     background-color: #005a8c;
+    text-decoration: none; /* Ensure no underline appears on hover */
 }
 
 .pagination {

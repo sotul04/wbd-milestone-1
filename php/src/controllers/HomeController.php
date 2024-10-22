@@ -92,29 +92,6 @@ class HomeController extends Controller implements ControllerInterface
         }
     }
 
-    public function companyJobs(){
-        $page = $_GET['page'] ?? 1;
-        $sort = $_GET['sort'] ?? '';
-        $locationType = $_GET['locationType'] ?? '';
-        $jobType = $_GET['jobType'] ?? '';
-        $name = $_SESSION['name'] ?? null;
-        $search = $_GET['search'] ?? '';
-        $companyId = $_SESSION['user_id'] ?? null;
-        $role = $this->getRole();
-
-        // Validate parameters
-        $page = $this->validatePage($page);
-        $sort = $this->validateSort($sort);
-        $locationType = $this->validateLocationType($locationType);
-        $jobType = $this->validateJobType($jobType);
-        $search = $this->validateSearch($search);
-
-        if ($role === 'company') {
-            $content = $this->model('JobModel')->getJobByCompanyId($companyId, $page, $sort, $locationType, $jobType, $search);;
-            json_response_success($content);
-        }
-    }
-
     public function getRole()
     {
         if (isset($_SESSION['user_id'])) {

@@ -19,40 +19,51 @@
 
             <div class="sidebar-item shadow-5">
                 <form class="filter-form" id="filter-form">
-                    <div class="filter-group">
-                        <label for="locationType">Location Type:</label>
-                        <select name="locationType" id="locationType">
-                            <option value="">All</option>
-                            <option value="on-site" <?= isset($_GET['locationType']) && $_GET['locationType'] == 'on-site' ? 'selected' : '' ?>>On-site</option>
-                            <option value="hybrid" <?= isset($_GET['locationType']) && $_GET['locationType'] == 'hybrid' ? 'selected' : '' ?>>Hybrid</option>
-                            <option value="remote" <?= isset($_GET['locationType']) && $_GET['locationType'] == 'remote' ? 'selected' : '' ?>>Remote</option>
-                        </select>
+                <div class="filter-group multi">
+                        <label for="jobType">Location Type:</label>
+                        <div class="item-filter">
+                            <label for="locationType-onsite">On-site</label>
+                            <input type="checkbox" name="locationType" value="on-site" id="locationType-onsite">
+                        </div>
+                        <div class="item-filter">
+                            <label for="locationType-hybrid">Hybrid</label>
+                            <input type="checkbox" name="locationType" value="hybrid" id="locationType-hybrid">
+                        </div>
+                        <div class="item-filter">
+                            <label for="locationType-remote">Remote</label>
+                            <input type="checkbox" name="locationType" value="remote" id="locationType-remote">
+                        </div>
                     </div>
-    
-                    <div class="filter-group">
+
+                    <div class="filter-group multi">
                         <label for="jobType">Job Type:</label>
-                        <select name="jobType" id="jobType">
-                            <option value="">All</option>
-                            <option value="Full-time" <?= isset($_GET['jobType']) && $_GET['jobType'] == 'Full-time' ? 'selected' : '' ?>>Full-time</option>
-                            <option value="Part-time" <?= isset($_GET['jobType']) && $_GET['jobType'] == 'Part-time' ? 'selected' : '' ?>>Part-time</option>
-                            <option value="Internship" <?= isset($_GET['jobType']) && $_GET['jobType'] == 'Internship' ? 'selected' : '' ?>>Internship</option>
-                        </select>
+                        <div class="item-filter">
+                            <label for="jobType-fulltime">Full-time</label>
+                            <input type="checkbox" name="jobType" value="Full-time" id="jobType-fulltime">
+                        </div>
+                        <div class="item-filter">
+                            <label for="jobType-parttime">Part-time</label>
+                            <input type="checkbox" name="jobType" value="Part-time" id="jobType-parttime">
+                        </div>
+                        <div class="item-filter">
+                            <label for="jobType-internship">Internship</label>
+                            <input type="checkbox" name="jobType" value="Internship" id="jobType-internship">
+                        </div>
                     </div>
-    
+
                     <div class="filter-group">
                         <label for="sort">Sort by:</label>
                         <select name="sort" id="sort">
-                            <option value="" <?= isset($_GET['sort']) && $_GET['sort'] == '' ? 'selected' : '' ?>>Default</option>
-                            <option value="ASC" <?= isset($_GET['sort']) && $_GET['sort'] == 'ASC' ? 'selected' : '' ?>>Older First</option>
-                            <option value="DESC" <?= isset($_GET['sort']) && $_GET['sort'] == 'DESC' ? 'selected' : '' ?>>Newest First</option>
+                            <option value="" <?= $sort === '' ? 'selected' : ''; ?>>Default</option>
+                            <option value="ASC" <?= $sort === 'ASC' ? 'selected' : ''; ?>>Older First</option>
+                            <option value="DESC" <?= $sort === 'DESC' ? 'selected' : ''; ?>>Newest First</option>
+                        </select>
                         </select>
                     </div>
-    
+
                     <div class="filter-group">
                         <label for="search">Search:</label>
-                        <input type="text" name="search" id="search"
-                            value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>"
-                            placeholder="Search jobs...">
+                        <input type="text" name="search" id="search" placeholder="Search">
                     </div>
                 </form>
             </div>

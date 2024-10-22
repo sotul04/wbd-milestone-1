@@ -295,4 +295,35 @@ class JobModel
         //echo(count($this->db->resultSet()));
         return $this->db->resultSet();
     }
+
+    public function toggleJob($lowonganId)
+    {
+        $this->db->query('UPDATE lowongan
+                                 SET is_open = CASE 
+                                                WHEN is_open = TRUE THEN FALSE
+                                                ELSE TRUE
+                                               END
+                                WHERE lowongan_id = :lowonganId');
+        $this->db->bind(':lowonganId', value:$lowonganId);
+        
+        if($this->db->execute()){
+            $this->db->query('SELECT is_open FROM lowongan WHERE lowongan_id = :lowonganId');
+            $this->db->bind(':lowonganId', value:$lowonganId);
+            $data = $this->db->single();
+            if($data !== false){
+                return $data['is_open'] ? 'Successfully opened the job!' : 'Successfully closed the job!';
+            }
+        }
+
+        return false;
+    }
+
+    public function isRightCompany($lowonganId, $companyId)
+    {
+        $this->db->query('SELECT * FROM lowongan WHERE lowongan.lowongan_id = :lowonganId AND lowongan.company_id = :companyId');
+        $this->db->bind(':lowonganId', $lowonganId);
+        $this->db->bind(':companyId', $companyId);
+        $data = $this->db->resultSet();
+        return count($data) > 0;
+    }
 }

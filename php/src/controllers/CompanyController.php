@@ -28,10 +28,17 @@ class CompanyController extends Controller
                 //To-Do: Show the specific job created by user also all the applicants + update the specific job created by user (delete or close the job)
             }
         }
-
-        if ($params[1] === 'application') {
-            $this->jobApplication($params[0]);
-            exit;
+        if ($length === 3){
+            if($params[2] === 'close'){
+                //To-Do: Close lowongan
+            }else if($params[2] === 'edit'){
+                //To-Do: edit lowongan
+            }
+        }
+        if ($length === 4){
+            if($params[0] === 'job' && $params[2] === 'applicant'){
+                $this->jobDetail($params[1]);
+            }
         }
         $this->notFound();
     }
@@ -54,6 +61,30 @@ class CompanyController extends Controller
             $detailView = $this->view('company', 'CompanyJobDetailView', ['role' => $role, 'jobDetail' => $jobDetail, 'attachments' => $attachments, 'infoApplicants' => $infoApplicants]);
             $detailView->render();
         }
-
     }
+
+    public function toggleJob($jobID){
+        if($_SERVER['REQUEST_METHOD'] === 'PUT'){
+            $role = $this->getRole() ?? 'guest';
+            if($role !== 'company'){
+                json_response_fail('Unauthorized action!');
+            }
+    
+            $companyId = $_SESSION['user_id'];
+            if(!$this->model('JobModel')->isRightCompany($jobID, $companyId)){
+                json_response_fail('Unlawful access!');
+            }
+    
+            $status = $this->model('JobModel')->toggleJob($jobID);
+            if($status === false ){
+                json_response_fail('Something went wrong!');
+            }else{
+                json_response_success($status);
+            }
+        }
+    }
+    // public function applicantDetail($jobID, $applicantID)
+    // {
+        
+    // }
 }

@@ -316,4 +316,11 @@ class JobModel
         $data = $this->db->resultSet();
         return count($data) > 0;
     }
+
+    public function deleteJob($lowonganId)
+    {
+        $this->db->query('DELETE FROM lowongan WHERE lowongan.lowongan_id = :lowonganId');
+        $this->db->bind(':lowonganId', $lowonganId);
+        return $this->db->execute();
+    }
 }

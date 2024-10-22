@@ -9,14 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
         xhr.open("PUT", `http://localhost:8000/company/toggleJob`, true);
         xhr.setRequestHeader("Content-Type", "application/json");
 
-        // Create the body payload as a JSON object
-        const requestBody = JSON.stringify({
-            jobId: jobId
-        });
-
         xhr.onload = function () {
             if (xhr.status === 200) {
-                console.log(xhr.responseText);
                 const response = JSON.parse(xhr.responseText);
                 if (response.status === 'success') {
                     // Toggle the status locally
@@ -50,5 +44,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Send the request body containing jobId
         xhr.send(requestBody);
+    });
+
+    function deleteJob(){
+        const xhr = new XMLHttpRequest();
+        xhr.open("DELETE", `http://localhost:8000/company/jobDelete`, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        // Create the body payload as a JSON object
+        const requestBody = JSON.stringify({
+            jobId: jobId
+        });
+
+        xhr.onload = function () {
+            if(xhr.status === 200){
+                const response = JSON.parse(xhr.responseText);
+                console.log(response);
+                if(response.status === 'success'){
+                    window.location.href = "http://localhost:8000/home";
+                }else{
+                    createToast(response.data, 'error');
+                }
+            }else {
+                createToast("Request failed!", 'error');
+            }
+        };
+
+        // Send the request body containing jobId
+        xhr.send(requestBody);
+    }
+
+    deleteButton.addEventListener('click', () => {
+        showModal('Job Deletion', 'Are you sure that you want to delete this job. All application data would be irreversibly lost!', deleteJob);
     });
 });

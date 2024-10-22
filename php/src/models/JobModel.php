@@ -25,30 +25,16 @@ class JobModel
         $query = "SELECT lowongan.*, users.nama as company_name 
                   FROM lowongan
                   JOIN users ON lowongan.company_id = users.user_id
-                  WHERE lowongan.company_id = :companyId";
+                  WHERE lowongan.company_id = ?";
 
-        // if (!empty($locationType)) {
-        //     $query .= " AND jenis_lokasi = :jenis_lokasi";
-        // }
-        // if (!empty($jobType)) {
-        //     $query .= " AND jenis_pekerjaan = :jenis_pekerjaan";
-        // }
-        // if (!empty($search)) {
-        //     $query .= " AND posisi ILIKE :search";
-        // }
-
-        // Handle multiple location types
-        if (!empty($locationTypes)) {
-            $placeholders = implode(',', array_fill(0, count($locationTypes), '?'));
+        if (!empty($locationType)) {
+            $placeholders = implode(',', array_fill(0, count($locationType), '?'));
             $query .= " AND jenis_lokasi IN ($placeholders)";
         }
-
-        // Handle multiple job types
-        if (!empty($jobTypes)) {
-            $placeholders = implode(',', array_fill(0, count($jobTypes), '?'));
+        if (!empty($jobType)) {
+            $placeholders = implode(',', array_fill(0, count($jobType), '?'));
             $query .= " AND jenis_pekerjaan IN ($placeholders)";
         }
-
         if (!empty($search)) {
             $query .= " AND posisi ILIKE ?";
         }
@@ -64,58 +50,70 @@ class JobModel
                 break;
         }
         $query .= " LIMIT ? OFFSET ?";
-        
-        $this->db->query($query);
-        // Bind the parameter to the query
-        $this->db->bind(':companyId', $companyId);
 
-        if (!empty($locationType)) {
-            $this->db->bind(':jenis_lokasi', $locationType);
+        $this->db->query($query);
+        
+        $index = 1;
+        $this->db->bind($index++, $companyId);
+        // Bind the parameter to the query
+        // $this->db->bind(':companyId', $companyId);
+
+        foreach ($locationType as $loc) {
+            $this->db->bind($index, $loc);
+            $index++;
         }
-        if (!empty($jobType)) {
-            $this->db->bind(':jenis_pekerjaan', $jobType);
+
+        foreach ($jobType as $job) {
+            $this->db->bind($index, $job);
+            $index++;
         }
+
         if (!empty($search)) {
             $searchTerm = '%' . $search . '%';
-            $this->db->bind(':search', $searchTerm);
+            $this->db->bind($index++, $searchTerm);
         }
 
-        $this->db->bind(':limit', $rowperpage, PDO::PARAM_INT);
-        $this->db->bind(':offset', $offset, PDO::PARAM_INT);
+        $this->db->bind($index++, (int) $rowperpage, PDO::PARAM_INT);
+        $this->db->bind($index, (int) $offset, PDO::PARAM_INT);
 
         $jobs = $this->db->resultSet();
 
         // Count query
         $countQuery = "SELECT COUNT(*) as total FROM lowongan JOIN users ON lowongan.company_id = users.user_id
-                  WHERE lowongan.company_id = :companyId";
+                    WHERE lowongan.company_id = ?";
 
         if (!empty($locationType)) {
-            $countQuery .= " AND jenis_lokasi = :jenis_lokasi";
+            $placeholders = implode(',', array_fill(0, count($locationType), '?'));
+            $countQuery .= " AND jenis_lokasi IN ($placeholders)";
         }
         if (!empty($jobType)) {
-            $countQuery .= " AND jenis_pekerjaan = :jenis_pekerjaan";
+            $placeholders = implode(',', array_fill(0, count($jobType), '?'));
+            $countQuery .= " AND jenis_pekerjaan IN ($placeholders)";
         }
         if (!empty($search)) {
-            $countQuery .= " AND posisi ILIKE :search";
+            $countQuery .= " AND posisi ILIKE ?";
         }
 
         $this->db->query($countQuery);
-        $this->db->bind(':companyId', $companyId);
 
-        if (!empty($locationType)) {
-            $this->db->bind(':jenis_lokasi', $locationType);
+        $index = 1;
+        $this->db->bind($index++, $companyId);
+
+        foreach ($locationType as $loc) {
+            $this->db->bind($index++, $loc);
         }
-        if (!empty($jobType)) {
-            $this->db->bind(':jenis_pekerjaan', $jobType);
+
+        foreach ($jobType as $job) {
+            $this->db->bind($index++, $job);
         }
+
         if (!empty($search)) {
-            $this->db->bind(':search', $searchTerm);
+            $this->db->bind($index++, $searchTerm);
         }
         
-        // Execute the query and fetch the result
         $countResult = $this->db->single();
 
-        $totalRow = $countResult ? $countResult['total'] : 0; // Default to 0 if countResult is false
+        $totalRow = $countResult ? $countResult['total'] : 0; 
 
         $totalPages = ceil($totalRow / $rowperpage);
 

@@ -3,7 +3,7 @@
     max-width: 600px;
     margin: 50px auto;
     padding: 30px;
-    background-color: #f5f8fa;
+    background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
 }
@@ -46,37 +46,15 @@ h3 {
     outline: none;
 }
 
-.form-group button {
-    width: 100%;
-    padding: 15px;
-    background-color: #0073b1;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.form-group button:hover {
-    background-color: #005682;
-}
-
-.form-group button:focus {
-    outline: none;
-}
-
-.btn-primary:active {
-    background-color: #004466;
-}
-
-.form-container .btn-primary.shadow-4 {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
 #edit-profile-section {
-    padding: 50px 0;
-    /* background-color: #e9ecef; */
+    padding: 25px 0;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px rgb(202, 202, 202) solid;
 }
 
 @media (max-width: 768px) {

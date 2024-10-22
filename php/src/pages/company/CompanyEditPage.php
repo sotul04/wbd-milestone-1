@@ -21,7 +21,7 @@ require_once __DIR__ . "/../template/navbar.php";
             </div>
 
             <div class="form-group">
-                <input type="text" id="about" name="about" value="<?= htmlspecialchars($companyDetail['about']); ?>" required autocomplete="name">
+                <textarea type="text" id="about" name="about" required autocomplete="name"><?= htmlspecialchars($companyDetail['about']); ?></textarea>
             </div>
 
             <div class="form-group">

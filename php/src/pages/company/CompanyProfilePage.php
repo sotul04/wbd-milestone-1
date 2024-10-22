@@ -7,15 +7,15 @@
     <div class="company-profile-card container shadow-5">
         <div class="company-header">
             <div class="company-info">
-                <h1><?= htmlspecialchars($companyDetail['nama']); ?></h1>
-                <p class="company-location"><?= htmlspecialchars($companyDetail['lokasi']); ?></p>
+                <h1 id="nama-company"><?= htmlspecialchars($companyDetail['nama']); ?></h1>
+                <p id="lokasi-company" class="company-location"><?= htmlspecialchars($companyDetail['lokasi']); ?></p>
                 <p><strong>Email:</strong> <?= htmlspecialchars($companyDetail['email']); ?></p>
             </div>
         </div>
         
         <div class="company-about">
             <h2>About</h2>
-            <p><?= htmlspecialchars($companyDetail['about']); ?></p>
+            <p id="about-company"><?= htmlspecialchars($companyDetail['about']); ?></p>
         </div>
 
         <div class="company-footer">

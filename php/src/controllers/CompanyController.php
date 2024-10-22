@@ -13,6 +13,10 @@ class CompanyController extends Controller
             if ($params[0] === 'profile') {
                 //To-Do: Show Company Profile
                 $this->profileShow();
+            } else if ($params[0] === 'update-profile'){
+                var_dump($params[0]);
+                $this->updateProfile();
+                exit;
             } else if ($params[0] === 'toggleJob') {
                 $this->toggleJob();
                 exit;
@@ -208,7 +212,36 @@ class CompanyController extends Controller
             $input = file_get_contents('php://input');
             $data = json_decode($input, true);
 
-            
+            $companyId = $data['userId'] ?? null;
+            if (!$companyId) {
+                json_response_fail('Missing jobId!');
+                exit;
+            }
+
+            $role = $this->getRole() ?? 'guest';
+            if ($role !== 'company') {
+                json_response_fail('Unauthorized action!');
+                exit;
+            }
+
+            if ($_SESSION['user_id'] !== $companyId) {
+                json_response_fail('Unlawful access!');
+                exit;
+            }
+
+            $companyDetail = $this->model('CompanyDetailModel')->getCompanyByUserId($companyId);
+            if ($companyDetail === false) {
+                json_response_fail('Company not found');
+                exit;
+            }
+
+            $updated = $this->model('CompanyDetailModel')->updateCompanyDetail($companyId);
+            if ($updated === false) {
+                json_response_fail('Something went wrong!');
+                exit;
+            }
+            echo('tes');
+            json_response_success('Successfully updated the profile');
         }
     }
 }

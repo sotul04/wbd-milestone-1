@@ -13,17 +13,16 @@ class CompanyController extends Controller
             if ($params[0] === 'profile') {
                 //To-Do: Show Company Profile
                 $this->profileShow();
-            } else if ($params[0] === 'update-profile'){
-                var_dump($params[0]);
+            } else if ($params[0] === 'update-profile') {
                 $this->updateProfile();
                 exit;
             } else if ($params[0] === 'toggleJob') {
                 $this->toggleJob();
                 exit;
-            } else if ($params[0] === 'jobDelete'){
+            } else if ($params[0] === 'jobDelete') {
                 $this->deleteJob();
                 exit;
-            }  else {
+            } else {
                 $this->notFound();
             }
             exit;
@@ -45,7 +44,7 @@ class CompanyController extends Controller
         if ($length === 3) {
             if ($params[2] === 'close') {
                 //To-Do: Close lowongan
-            }else if($params[2] === 'edit'){
+            } else if ($params[2] === 'edit') {
                 $this->toggleJob();
             }
         }
@@ -109,7 +108,7 @@ class CompanyController extends Controller
             }
 
             $newStatus = TRUE;
-            if($job['is_open'] === TRUE){
+            if ($job['is_open'] === TRUE) {
                 $newStatus = FALSE;
             }
 
@@ -125,8 +124,9 @@ class CompanyController extends Controller
         }
     }
 
-    public function deleteJob() {
-        if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
+    public function deleteJob()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
             // Get the JSON data from the request body
             $input = file_get_contents('php://input');
             $data = json_decode($input, true); // Decoding JSON into an associative array
@@ -187,7 +187,7 @@ class CompanyController extends Controller
         $profileView->render();
     }
 
-    public function editProfile()
+    private function editProfile()
     {
         $role = $this->getRole() ?? 'guest';
         if ($role !== 'company') {
@@ -204,14 +204,15 @@ class CompanyController extends Controller
         $editProfileView->render();
     }
 
-    public function updateProfile(){
+    public function updateProfile()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             $input = file_get_contents('php://input');
             $data = json_decode($input, true);
 
             $companyId = $data['userId'] ?? null;
             if (!$companyId) {
-                json_response_fail('Missing jobId!');
+                json_response_fail('Missing userId!');
                 exit;
             }
 
@@ -221,23 +222,29 @@ class CompanyController extends Controller
                 exit;
             }
 
+            
             if ($_SESSION['user_id'] !== $companyId) {
                 json_response_fail('Unlawful access!');
                 exit;
             }
-
+            
             $companyDetail = $this->model('CompanyDetailModel')->getCompanyByUserId($companyId);
             if ($companyDetail === false) {
                 json_response_fail('Company not found');
                 exit;
             }
-
-            $updated = $this->model('CompanyDetailModel')->updateCompanyDetail($companyId);
+            
+            // updateCompanyDetail($userId, $nama, $lokasi, $about)
+            $updated = $this->model('CompanyDetailModel')->updateCompanyDetail($companyId, $data['name'], $data['location'], $data['about']);
+            // json_response_fail($updated);
+            // exit;
             if ($updated === false) {
                 json_response_fail('Something went wrong!');
                 exit;
             }
-            echo('tes');
+
+            $_SESSION['name'] = $data['name'];
+
             json_response_success('Successfully updated the profile');
         }
     }

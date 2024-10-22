@@ -15,7 +15,7 @@ require_once __DIR__ . "/../template/navbar.php";
             </div>
         <?php endif; ?>
 
-        <form id="editForm" action="" method="PUT">
+        <form id="editForm">
             <div class="form-group">
                 <input type="text" id="name" name="name" value="<?= htmlspecialchars($companyDetail['nama']); ?>" required autocomplete="name">
             </div>

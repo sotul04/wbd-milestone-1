@@ -325,6 +325,7 @@ class JobModel
     public function getJobApplicants($lowonganId)
     {
         $this->db->query("SELECT users.nama as nama_pelamar,
+                                 users.user_id as userid,
                                  lamaran.status as status_pelamar,
                                  lamaran.lowongan_id as lowongan_id
                                  FROM lamaran
@@ -360,6 +361,5 @@ class JobModel
         $this->db->bind(':lowonganId', $lowonganId);
         return $this->db->execute();
     }
-
 
 }

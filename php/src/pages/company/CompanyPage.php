@@ -32,17 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p><strong>Email:</strong> <?= htmlspecialchars($companyDetails['email']); ?></p>
         <p><strong>Alamat:</strong> <?= htmlspecialchars($companyDetails['lokasi']); ?></p>
     </div>
-
-    <!-- Form untuk memperbarui profil -->
-    <!-- <form method="POST">
-        <label for="lokasi">Lokasi:</label>
-        <input type="text" id="lokasi" name="lokasi" value="<?= htmlspecialchars($companyDetails['lokasi']); ?>">
-
-        <label for="about">Tentang Perusahaan:</label>
-        <textarea id="about" name="about"><?= htmlspecialchars($companyDetails['about']); ?></textarea>
-
-        <button type="submit">Perbarui Profil</button>
-    </form> -->
 </section>
 
 <?php require_once __DIR__ . "/../template/footer.php"; ?>

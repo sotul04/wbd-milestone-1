@@ -210,6 +210,21 @@
     background-color: #fafafa;
 }
 
+.applicant-cell.waiting {
+    background-color: #fff;
+    color: rgb(148, 148, 148);
+}
+
+.applicant-cell.accepted {
+    background-color: rgb(91, 198, 91);
+    color: white;
+}
+
+.applicant-cell.rejected {
+    background-color: rgb(249, 101, 101);
+    color: white;
+}
+
 #job-description-editor {
     background-color: #f0f8ff;
     border-radius: 6px;

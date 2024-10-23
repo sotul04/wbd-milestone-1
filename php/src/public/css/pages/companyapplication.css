@@ -1,0 +1,86 @@
+#application {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the top */
+    padding: 20px;
+}
+
+.application-card h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-align: center;
+} 
+
+.application-card {
+    padding: 30px; /* Increased padding for a cleaner layout */
+    margin: 20px; /* Center card with auto margins */
+    background-color: #fff;
+    border-radius: 8px; /* Slightly rounder corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+}
+
+.applicant-info h2 {
+    font-size: 20px; /* Larger font for names */
+    font-weight: 600; /* Semi-bold for emphasis */
+    color: #2c3e50; /* Darker text color for contrast */
+}
+
+.applicant-info p {
+    font-size: 16px; /* Consistent paragraph size */
+    color: #7f8c8d; /* Subtle grey for email */
+    border-bottom: #bdc3c7 solid 0.5px;
+    padding-bottom: 10px;
+}
+
+.applicant-cv, .applicant-video {
+    margin-top: 15px;
+}
+
+.applicant-cv label, .applicant-video label {
+    font-size: 16px;
+    font-weight: 650;
+}
+
+video, embed {
+    border-radius: 6px;
+    width: 100%;
+    max-width: 100%; 
+}
+
+embed {
+    height: 25rlh;
+}
+
+#status-reason {
+    background-color: #e8f4fd; 
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 10px; 
+    border: 1px solid #bdc3c7;
+}
+
+.company-respon {
+    margin-top: 20px;
+    border-top: 1px solid #bdc3c7; /* Light border for separation */
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group label {
+    font-weight: 600; /* Bold for labels */
+}
+
+.form-group select {
+    padding: 10px;
+    max-width: 200px;
+    border-radius: 6px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}

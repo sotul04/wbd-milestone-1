@@ -67,11 +67,11 @@
                         <div class="applicant-cell" id="applicant-name">
                             <p><?= htmlspecialchars($applicant['nama_pelamar']) ?></p>
                         </div>
-                        <div class="applicant-cell" id="applicant-status">
+                        <div class="applicant-cell <?= htmlspecialchars($applicant['status_pelamar']) ?>" id="applicant-status">
                             <p><?= htmlspecialchars($applicant['status_pelamar']) ?></p>
                         </div>
                         <div class="applicant-cell">
-                            <a href="http://localhost:8000/job/<?= htmlspecialchars($applicant['lowongan_id']) ?>"
+                            <a href="<?= 'http://localhost:8000/company/job/'. htmlspecialchars($applicant['lowongan_id']) . '/applicant/' . htmlspecialchars($applicant['userid'])?>"
                                 class="btn btn-primary">View Details</a>
                         </div>
                     <?php endforeach; ?>

@@ -60,29 +60,22 @@ class AuthController extends Controller
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            // Fetch user by email
             $user = $this->model('UserModel')->getUserByEmail($email);
 
-            // Check if user exists
             if ($user === false) {
-                // Redirect to /user/login with error message and form data
                 header('Location: /user/login?errorMessage=User%20not%20found&email=' . urlencode($email));
                 exit;
             }
 
-            // Verify password
             if (password_verify($password, $user['password'])) {
-                // Start session and store user data
                 $_SESSION['user_id'] = $user['user_id'];
                 $_SESSION['name'] = $user['nama'];
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['role'] = $user['role'];
 
-                // Redirect to home page upon successful login
                 header('Location: /home');
                 exit;
             } else {
-                // Redirect to /user/login with error message and form data
                 header('Location: /user/login?errorMessage=Incorrect%20username%20or%20password&email=' . urlencode($email));
                 exit;
             }

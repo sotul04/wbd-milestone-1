@@ -14,12 +14,12 @@
         <form id="jobApplicationForm" method="POST" enctype="multipart/form-data"
             action="http://localhost:8000/job/apply/<?= htmlspecialchars($jobID) ?>">
             <div class="form-group">
-                <label for="cv">Upload your CV</label>
+                <label for="cv">Upload your CV - Max 10MB</label>
                 <input type="file" id="cv" name="cv" accept=".pdf" required>
             </div>
 
             <div class="form-group">
-                <label for="video">Upload your video (Optional)</label>
+                <label for="video">Upload your video (Optional) - Max 50MB</label>
                 <input type="file" id="video" name="video" accept=".mp4">
             </div>
 

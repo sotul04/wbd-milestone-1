@@ -9,13 +9,13 @@ require_once __DIR__ . "/../template/navbar.php";
     <div class="form-container">
         <h3>Edit Profile</h3>
 
-        <?php if (isset($errorMessage)): ?>
+        <?php if (isset($error)): ?>
             <div class="top-error-message">
-                <?= htmlspecialchars($errorMessage); ?>
+                <?= htmlspecialchars($error); ?>
             </div>
         <?php endif; ?>
 
-        <form id="editForm">
+        <form id="editForm" method="POST" action="http://localhost:8000/company/update-profile">
             <div class="form-group">
                 <p><strong>Company Name</strong></p>
                 <input type="text" id="name" name="name" value="<?= htmlspecialchars($companyDetail['nama']); ?>" required autocomplete="name">
@@ -33,12 +33,10 @@ require_once __DIR__ . "/../template/navbar.php";
 
             <div class="form-group footer">
                 <a class="btn btn-secondary" href="http://localhost:8000/company/profile">Cancel</a>
-                <button company-id="<?= htmlspecialchars($companyDetail['user_id']); ?>" id="save-button" class="btn btn-primary shadow-4" type="submit" aria-label="edit">Save</button>
+                <button id="save-button" class="btn btn-primary shadow-4" type="submit" aria-label="edit">Save</button>
             </div>
         </form>
     </div>
 </section>
-
-<script src="http://localhost:8000/public/js/pages/companyeditprofile.js"></script>
 
 <?php require_once __DIR__ . "/../template/footer.php"; ?>

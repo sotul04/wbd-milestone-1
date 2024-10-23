@@ -20,6 +20,7 @@ require_once __DIR__ . "/../template/navbar.php";
             <div class="form-group">
                 <label for="posisi">Position</label>
                 <input type="text" id="posisi" name="posisi" required>
+                <p id="position-error" class="error-message">Position cannot be empty.</p>
             </div>
 
             <div class="form-group">

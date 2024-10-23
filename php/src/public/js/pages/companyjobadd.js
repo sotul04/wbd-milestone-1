@@ -17,22 +17,31 @@ document.getElementById('save-button').addEventListener('click', function (event
     event.preventDefault();  // Prevent the form's default submission
 
     // Get the error message element
-    const errorMessage = document.getElementById('description-error');
+    const descriptionError = document.getElementById('description-error');
+    const nameError = document.getElementById('position-error');
+    const inputPosisi = document.getElementById('posisi');
 
     const description = quill.root.innerHTML;
 
-    if (quill.getText().trim().length === 0) {
-        errorMessage.classList.add('show-error');  
+    if (inputPosisi.value.trim().length === 0) {
+        nameError.classList.add('show-error');  
         return;  
     } else {
-        errorMessage.classList.remove('show-error');  
+        nameError.classList.remove('show-error');  
     }
+
+    if (quill.getText().trim().length === 0) {
+        descriptionError.classList.add('show-error');  
+        return;  
+    } else {
+        descriptionError.classList.remove('show-error');  
+    }
+
 
     console.log("Description:", description);
 
-    // Get other form data
     const formData = new FormData(document.getElementById('addForm'));
-    formData.append('description', description); // Append the Quill content
+    formData.append('description', description); 
 
     formData.delete('attachments[]');
 

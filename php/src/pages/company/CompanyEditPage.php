@@ -31,7 +31,8 @@ require_once __DIR__ . "/../template/navbar.php";
                 <input type="text" id="lokasi" name="lokasi" value="<?= htmlspecialchars($companyDetail['lokasi']); ?>" required autocomplete="name">
             </div>
 
-            <div class="form-group">
+            <div class="form-group footer">
+                <a class="btn btn-secondary" href="http://localhost:8000/company/profile">Cancel</a>
                 <button company-id="<?= htmlspecialchars($companyDetail['user_id']); ?>" id="save-button" class="btn btn-primary shadow-4" type="submit" aria-label="edit">Save</button>
             </div>
         </form>

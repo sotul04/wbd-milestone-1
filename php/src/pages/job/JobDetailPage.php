@@ -19,7 +19,7 @@
         <div class="job-description">
             <label for="job-description-editor">Job's description:</label>
             <div id="job-description-editor" role="document">
-                <?= htmlspecialchars($jobDetail['deskripsi']) ?>
+                <?= htmlspecialchars_decode($jobDetail['deskripsi']) ?>
             </div>
         </div>
         <div class="job-posted-date">
@@ -57,7 +57,7 @@
             <?php if ($infoApplication['status'] !== 'waiting' && !empty($infoApplication['status_reason'])): ?>
                 <label>Message from company:</label>
                 <div id="application-response" aria-live="polite">
-                    <?= htmlspecialchars($infoApplication['status_reason']) ?>
+                    <?= htmlspecialchars_decode($infoApplication['status_reason']) ?>
                 </div>
             <?php endif; ?>
 

@@ -24,7 +24,7 @@
             <div class="job-description">
                 <label for="job-description-editor">Job's description:</label>
                 <div id="job-description-editor" role="document">
-                    <?= htmlspecialchars($jobDetail['deskripsi']) ?>
+                    <?= htmlspecialchars_decode($jobDetail['deskripsi']) ?>
                 </div>
             </div>
             <div class="job-posted-date">
@@ -83,7 +83,7 @@
     </section>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 <script src="http://localhost:8000/public/js/pages/companyjobdetail.js"></script>
 
 <?php require_once __DIR__ . "/../template/footer.php" ?>

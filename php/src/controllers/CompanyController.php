@@ -22,14 +22,19 @@ class CompanyController extends Controller
             } else if ($params[0] === 'jobDelete') {
                 $this->deleteJob();
                 exit;
+            } else if ($params[0] === 'jobCreate') {
+                $this->addNewJob();
+                exit;
             } else {
                 $this->notFound();
             }
             exit;
         }
         if ($length === 2) {
-            if ($params[1] === 'create') {
+            if ($params[0] === 'job' && $params[1] === 'create') {
                 //To-Do: Show the create new job page for company user + add new job to the database
+                $this->createJob();
+                exit;
             } else if ($params[0] === 'profile') {
                 $this->editProfile();
                 exit;
@@ -222,18 +227,18 @@ class CompanyController extends Controller
                 exit;
             }
 
-            
+
             if ($_SESSION['user_id'] !== $companyId) {
                 json_response_fail('Unlawful access!');
                 exit;
             }
-            
+
             $companyDetail = $this->model('CompanyDetailModel')->getCompanyByUserId($companyId);
             if ($companyDetail === false) {
                 json_response_fail('Company not found');
                 exit;
             }
-            
+
             // updateCompanyDetail($userId, $nama, $lokasi, $about)
             $updated = $this->model('CompanyDetailModel')->updateCompanyDetail($companyId, $data['name'], $data['location'], $data['about']);
             // json_response_fail($updated);
@@ -248,4 +253,71 @@ class CompanyController extends Controller
             json_response_success('Successfully updated the profile');
         }
     }
+
+    private function createJob()
+    {
+        $role = $this->getRole() ?? 'guest';
+        if ($role !== 'company') {
+            $this->unauthorized();
+        }
+
+        $createView = $this->view('company', 'CompanyAddJobView');
+        $createView->render();
+    }
+
+    private function addNewJob()
+    {
+        $role = $this->getRole() ?? 'guest';
+        if ($role !== 'company') {
+            json_response_fail('Unauthorized services.');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $fileUploader = new FileUploader('/../public/files/attachments'); // Make sure the path is correct
+            $companyId = $_SESSION['user_id'];
+
+            $posisi = $_POST['posisi'] ?? '';
+            $deskripsi = $_POST['description'] ?? '';  
+            $jenisPekerjaan = $_POST['jenis_pekerjaan'] ?? '';
+            $jenisLokasi = $_POST['jenis_lokasi'] ?? '';
+
+            $uploadedFiles = [];
+            if (isset($_FILES['attachments']) && $_FILES['attachments']['error'][0] != UPLOAD_ERR_NO_FILE) {
+                foreach ($_FILES['attachments']['name'] as $key => $fileName) {
+                    if ($_FILES['attachments']['error'][$key] !== UPLOAD_ERR_OK) {
+                        json_response_fail('File upload error: ' . $_FILES['attachments']['error'][$key]);
+                        exit;
+                    }
+
+                    $file = [
+                        'name' => $_FILES['attachments']['name'][$key],
+                        'type' => $_FILES['attachments']['type'][$key],
+                        'tmp_name' => $_FILES['attachments']['tmp_name'][$key],
+                        'error' => $_FILES['attachments']['error'][$key],
+                        'size' => $_FILES['attachments']['size'][$key]
+                    ];
+
+                    $uploadResult = $fileUploader->uploadFile($file, ['image/jpeg', 'image/png'], 20 * 1024 * 1024); 
+
+                    if ($uploadResult['status'] === 'success') {
+                        $uploadedFiles[] = $uploadResult['fileName']; 
+                    } else {
+                        json_response_fail('Failed to upload file: ' . $uploadResult['message']);
+                        exit;
+                    }
+                }
+            }
+
+            $jobCreated = $this->model('JobModel')->createJob($companyId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi, $uploadedFiles);
+
+            if ($jobCreated !== false) {
+                json_response_success($jobCreated);
+            } else {
+                json_response_fail('Failed to add new job.');
+            }
+        } else {
+            json_response_fail('Invalid request method.');
+        }
+    }
+
 }

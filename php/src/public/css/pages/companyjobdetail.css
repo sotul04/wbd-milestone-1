@@ -209,3 +209,10 @@
 .applicant-cell {
     background-color: #fafafa;
 }
+
+#job-description-editor {
+    background-color: #f0f8ff;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.6;
+}

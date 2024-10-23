@@ -1,0 +1,98 @@
+/* General container for the form */
+.form-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+h3 {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #1f2223;
+}
+
+/* Form group spacing */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: #1f2223;
+    margin-bottom: 0.5rem;
+}
+
+/* Input fields */
+input[type="text"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #1f2223;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #0a66c2;
+    outline: none;
+}
+
+/* Quill editor container */
+#editor {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 200px;
+    font-size: 1rem;
+    padding: 0.75rem;
+}
+
+#editor {
+    background-color: #f0f8ff;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.top-error-message {
+    background-color: #ff4d4f;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    display: none; /* Initially hidden */
+}
+
+/* This class will display the error */
+.show-error {
+    display: block;
+}

@@ -63,7 +63,7 @@ require_once __DIR__ . "/../template/navbar.php";
     </div>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js" async></script>
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 <script src="/public/js/pages/companyeditjob.js" defer></script>
 
 <?php require_once __DIR__ . "/../template/footer.php"; ?>

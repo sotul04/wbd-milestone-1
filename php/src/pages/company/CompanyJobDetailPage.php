@@ -91,8 +91,8 @@
     </section>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js" async></script>
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-<script src="/public/js/pages/companyjobdetail.js" defer></script>
+<script src="/public/js/pages/companyjobdetail.js"></script>
 
 <?php require_once __DIR__ . "/../template/footer.php" ?>

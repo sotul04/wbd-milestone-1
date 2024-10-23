@@ -56,7 +56,6 @@ require_once __DIR__ . "/../template/navbar.php";
                 <label for="attachments">Job Attachments (Max 20MB per image)</label>
                 <input type="file" id="attachments" name="attachments[]" accept="image/*" multiple
                     aria-describedby="attachments-info">
-                <p id="attachments-info">Accepts multiple images. Max size 20MB each.</p>
             </div>
 
             <div class="form-group">
@@ -67,7 +66,7 @@ require_once __DIR__ . "/../template/navbar.php";
     </div>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js" async></script>
-<script src="http://localhost:8000/public/js/pages/companyjobadd.js" async></script>
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+<script src="http://localhost:8000/public/js/pages/companyjobadd.js"></script>
 
 <?php require_once __DIR__ . "/../template/footer.php"; ?>

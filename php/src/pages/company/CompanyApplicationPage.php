@@ -60,7 +60,7 @@
     </div>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js" async></script>
-<script src="http://localhost:8000/public/js/pages/companyapplication.js" async></script>
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+<script src="http://localhost:8000/public/js/pages/companyapplication.js"></script>
 
 <?php require_once __DIR__ . "/../template/footer.php"; ?>

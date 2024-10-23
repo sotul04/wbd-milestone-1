@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const statusIndicator = document.getElementById('status-indicator');
     const toggleButton = document.getElementById('toggle-button');
     const deleteButton = document.getElementById('delete-button');
-    const jobId = toggleButton.getAttribute('data-job-id'); 
+    const jobId = toggleButton.getAttribute('data-job-id');
 
     toggleButton.addEventListener('click', () => {
         const xhr = new XMLHttpRequest();
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         statusIndicator.classList.remove('open');
                         statusIndicator.classList.add('close');
                         statusIndicator.innerHTML = `<p><strong>Closed</strong></p>`;
-                        toggleButton.textContent = 'Open'; 
+                        toggleButton.textContent = 'Open';
                         toggleButton.classList.remove('close');
                         toggleButton.classList.add('open');
                     } else {
@@ -85,12 +85,19 @@ document.addEventListener("DOMContentLoaded", function () {
         showModal('Job Deletion', 'Are you sure that you want to delete this job. All application data would be irreversibly lost!', deleteJob);
     });
 
-    document.getElementById('export-csv').addEventListener('click', () => {
-        downloadApplications(jobId, 'csv')
-    });
-    document.getElementById('export-excel').addEventListener('click', () => {
-        downloadApplications(jobId, 'excel')
-    });
+    const csvbutton = document.getElementById('export-csv');
+    if (csvbutton) {
+        csvbutton.addEventListener('click', () => {
+            downloadApplications(jobId, 'csv');
+        });
+    }
+
+    const excelbutton = document.getElementById('export-excel');
+    if (excelbutton) {
+        excelbutton.addEventListener('click', () => {
+            downloadApplications(jobId, 'excel');
+        });
+    }
 });
 
 function downloadApplications(jobId, format) {

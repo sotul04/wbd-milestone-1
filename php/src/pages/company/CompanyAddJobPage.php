@@ -3,12 +3,10 @@ require_once __DIR__ . "/../template/header.php";
 require_once __DIR__ . "/../template/navbar.php";
 ?>
 
-<!-- Preconnect to CDN and preload local CSS -->
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preload" href="http://localhost:8000/public/css/pages/companyjobadd.css?v=1.2" as="style">
 <link href="http://localhost:8000/public/css/pages/companyjobadd.css?v=1.2" rel="stylesheet">
 
-<!-- Load Quill CSS asynchronously -->
 <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" media="print"
     onload="this.media='all'">
 
@@ -16,14 +14,12 @@ require_once __DIR__ . "/../template/navbar.php";
     <div class="form-container container">
         <h3>Create a New Job</h3>
 
-        <!-- Error Message -->
         <?php if (isset($errorMessage)): ?>
             <div class="top-error-message" role="alert" aria-live="polite">
                 <?= htmlspecialchars($errorMessage); ?>
             </div>
         <?php endif; ?>
 
-        <!-- Job Creation Form -->
         <form id="addForm" method="POST">
             <div class="form-group">
                 <label for="posisi">Position</label>
@@ -71,7 +67,6 @@ require_once __DIR__ . "/../template/navbar.php";
     </div>
 </section>
 
-<!-- Load scripts asynchronously -->
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js" async></script>
 <script src="http://localhost:8000/public/js/pages/companyjobadd.js" async></script>
 

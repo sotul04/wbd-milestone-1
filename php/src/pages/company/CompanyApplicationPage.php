@@ -60,7 +60,6 @@
     </div>
 </section>
 
-<!-- Load scripts asynchronously -->
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js" async></script>
 <script src="http://localhost:8000/public/js/pages/companyapplication.js" async></script>
 

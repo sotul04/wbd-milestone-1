@@ -77,6 +77,14 @@ class Database {
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getReturning() {
+        try {
+            return $this->stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
     public function single() {
         try {
             $this->execute();

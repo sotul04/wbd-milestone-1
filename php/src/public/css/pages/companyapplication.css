@@ -75,9 +75,10 @@ embed {
 }
 
 .form-group select {
-    padding: 10px;
+    padding: 8px;
     max-width: 200px;
     border-radius: 6px;
+    border: rgb(193, 193, 193) solid 0.5px;
 }
 
 .form-group {

@@ -23,7 +23,7 @@ class CompanyController extends Controller
             } else if ($params[0] === 'job-delete') {
                 $this->deleteJob();
                 exit;
-            } else if ($params[0] === 'jobCreate') {
+            } else if ($params[0] === 'job-create') {
                 $this->addNewJob();
                 exit;
             } else {
@@ -35,7 +35,7 @@ class CompanyController extends Controller
             if ($params[0] === 'job' && $params[1] === 'create') {
                 $this->createJob();
                 exit;
-            } else if ($params[0] === 'profile') {
+            } else if ($params[0] === 'profile' && $params[1] === 'edit') {
                 $this->editProfile();
                 exit;
             } else if ($params[0] === 'job') {
@@ -44,7 +44,7 @@ class CompanyController extends Controller
             }
         }
         if ($length === 3) {
-            if ($params[2] === 'edit') {
+            if ($params[0] === 'job' && $params[2] === 'edit') {
                 $this->editJob($params[1]);
                 exit;
             }

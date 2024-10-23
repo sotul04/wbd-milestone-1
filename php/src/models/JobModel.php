@@ -271,7 +271,7 @@ class JobModel
             $this->db->bind(':jenis_lokasi', $jenisLokasi);
 
             $this->db->execute();
-            $result = $this->db->single();
+            $result = $this->db->getReturning();
             $lowonganId = $result['lowongan_id'];
 
             if (!empty($attachments)) {

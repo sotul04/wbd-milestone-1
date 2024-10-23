@@ -55,7 +55,7 @@ document.getElementById('save-button').addEventListener('click', function (event
 
     // Create an AJAX request to submit the form
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:8000/company/jobCreate', true);
+    xhr.open('POST', 'http://localhost:8000/company/job-create', true);
     xhr.onload = function () {
         if (xhr.status === 200) {
             const response = JSON.parse(xhr.responseText);

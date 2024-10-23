@@ -6,13 +6,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const aboutInput = document.getElementById('about');
     const locationInput = document.getElementById('lokasi');
 
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
+    function submitForm() {
         const xhr = new XMLHttpRequest();
         xhr.open("PUT", 'http://localhost:8000/company/update-profile', true);
         xhr.setRequestHeader("Content-Type", "application/json");
 
-        // Create the body payload as a JSON object
         const requestBody = JSON.stringify({
             userId: companyId,
             name: nameInput.value,
@@ -25,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log(xhr.responseText);
                 const response = JSON.parse(xhr.responseText);
                 if (response.status === 'success') {
-                    // Toggle the status locally
                     window.location.href = 'http://localhost:8000/company/profile';
                     createToast("Data is successfully updated!", 'success');
                 } else {
@@ -37,5 +34,10 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         xhr.send(requestBody);
+    }
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        showModal('Profile Update', 'Are you sure to save the changes? The change can not be undo.', submitForm);
     });
 });

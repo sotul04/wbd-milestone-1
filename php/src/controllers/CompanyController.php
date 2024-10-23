@@ -17,10 +17,10 @@ class CompanyController extends Controller
             } else if ($params[0] === 'update-job') {
                 $this->updateJob();
                 exit;
-            } else if ($params[0] === 'toggleJob') {
+            } else if ($params[0] === 'toggle-job') {
                 $this->toggleJob();
                 exit;
-            } else if ($params[0] === 'jobDelete') {
+            } else if ($params[0] === 'job-delete') {
                 $this->deleteJob();
                 exit;
             } else if ($params[0] === 'jobCreate') {
@@ -44,10 +44,7 @@ class CompanyController extends Controller
             }
         }
         if ($length === 3) {
-            if ($params[2] === 'close') {
-                //To-Do: Close lowongan
-            } else if ($params[2] === 'edit') {
-                $this->toggleJob();
+            if ($params[2] === 'edit') {
                 $this->editJob($params[1]);
                 exit;
             }
@@ -175,6 +172,7 @@ class CompanyController extends Controller
         }
     }
 
+
     private function editJob($jobID)
     {
         $jobDetail = $this->model('JobModel')->getJobDetail($jobID);
@@ -268,21 +266,6 @@ class CompanyController extends Controller
         }
     }
 
-    // This is a helper function to handle file uploads
-    private function handleFileUploads($files)
-    {
-        $uploadedFilePaths = [];
-        foreach ($files['name'] as $key => $filename) {
-            $targetDir = "uploads/";
-            $targetFile = $targetDir . basename($filename);
-            if (move_uploaded_file($files['tmp_name'][$key], $targetFile)) {
-                $uploadedFilePaths[] = $targetFile;
-            }
-        }
-        return $uploadedFilePaths;
-    }
-
-
     private function profileShow()
     {
         $role = $this->getRole() ?? 'guest';
@@ -347,10 +330,8 @@ class CompanyController extends Controller
                 exit;
             }
 
-            // updateCompanyDetail($userId, $nama, $lokasi, $about)
             $updated = $this->model('CompanyDetailModel')->updateCompanyDetail($companyId, $data['name'], $data['location'], $data['about']);
-            // json_response_fail($updated);
-            // exit;
+            
             if ($updated === false) {
                 json_response_fail('Something went wrong!');
                 exit;
@@ -385,7 +366,7 @@ class CompanyController extends Controller
             $companyId = $_SESSION['user_id'];
 
             $posisi = $_POST['posisi'] ?? '';
-            $deskripsi = $_POST['description'] ?? '';
+            $deskripsi = $_POST['description'] ?? '';  
             $jenisPekerjaan = $_POST['jenis_pekerjaan'] ?? '';
             $jenisLokasi = $_POST['jenis_lokasi'] ?? '';
 
@@ -405,10 +386,10 @@ class CompanyController extends Controller
                         'size' => $_FILES['attachments']['size'][$key]
                     ];
 
-                    $uploadResult = $fileUploader->uploadFile($file, ['image/jpeg', 'image/png', 'image/x-icon', 'image/webp'], 20 * 1024 * 1024);
+                    $uploadResult = $fileUploader->uploadFile($file, ['image/jpeg', 'image/png'], 20 * 1024 * 1024); 
 
                     if ($uploadResult['status'] === 'success') {
-                        $uploadedFiles[] = $uploadResult['fileName'];
+                        $uploadedFiles[] = $uploadResult['fileName']; 
                     } else {
                         json_response_fail('Failed to upload file: ' . $uploadResult['message']);
                         exit;
@@ -470,6 +451,6 @@ class CompanyController extends Controller
                 json_response_fail('Failed to save status');
             }
         }
-    }   
+    }
 
 }

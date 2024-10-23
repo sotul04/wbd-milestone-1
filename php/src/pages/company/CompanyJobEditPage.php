@@ -60,7 +60,8 @@ require_once __DIR__ . "/../template/navbar.php";
                 <input type="file" id="attachments" name="attachments[]" accept="image/*" multiple>
             </div>
 
-            <div class="form-group">
+            <div class="form-group footer">
+                <a class="btn btn-secondary" href="http://localhost:8000/company/job/<?= $jobDetail['lowongan_id']?>">Cancel</a>
                 <button job-id="<?= htmlspecialchars($jobDetail['lowongan_id']); ?>" id="save-button"
                     class="btn btn-primary shadow-4" type="submit">Save</button>
             </div>

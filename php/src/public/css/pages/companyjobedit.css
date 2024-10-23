@@ -101,3 +101,9 @@ select:focus {
 .show-error {
     display: block;
 }
+
+.form-group.footer {
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+}

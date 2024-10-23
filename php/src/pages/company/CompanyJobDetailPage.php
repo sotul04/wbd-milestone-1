@@ -22,7 +22,7 @@
                 </p>
             </div>
             <div class="job-description">
-                <label for="job-description-editor">Job's description:</label>
+                <label>Job's description:</label>
                 <div id="job-description-editor" role="document">
                     <?= htmlspecialchars_decode($jobDetail['deskripsi']) ?>
                 </div>

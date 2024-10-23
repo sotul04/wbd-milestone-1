@@ -90,16 +90,17 @@ body {
 }
 
 .btn-secondary {
-    background-color: rgb(39, 39, 39);
-    color: white;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: rgb(200, 200, 200) solid 0.5px;
 }
 
 .btn-secondary:hover {
-    background-color: rgb(80, 80, 80);
+    background-color: rgb(230, 230, 230);
 }
 
 .btn-secondary:active {
-    background-color: rgb(105, 105, 105);
+    background-color: rgb(239, 239, 239);
 }
 
 a.link {

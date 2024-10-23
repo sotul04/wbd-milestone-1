@@ -408,4 +408,24 @@ class JobModel
         $this->db->bind(':jobID', $lowonganId);
         return $this->db->execute();
     }
+
+    public function getApplicationsByJobId($jobId) {
+        $this->db->query(
+            "SELECT 
+                u.nama AS applicant_name, 
+                l.posisi AS job_position, 
+                la.created_at AS application_date, 
+                la.cv_path AS cv_url, 
+                la.video_path AS video_url,  
+                la.status AS application_status
+            FROM lamaran la
+            INNER JOIN users u ON la.user_id = u.user_id
+            INNER JOIN lowongan l ON la.lowongan_id = l.lowongan_id
+            WHERE la.lowongan_id = :jobId"
+        );
+
+        $this->db->bind(':jobId', $jobId);
+
+        return $this->db->resultSet();
+    }
 }

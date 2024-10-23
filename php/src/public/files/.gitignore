@@ -1,0 +1,8 @@
+# heavy files 
+attachments/*
+
+# exclude
+!attachments/attachment-1.png
+!attachments/attachment-2.jpg
+!attachments/attachment-3.jpg
+!attachments/attachment-4.webp

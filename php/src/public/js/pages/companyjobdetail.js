@@ -84,4 +84,74 @@ document.addEventListener("DOMContentLoaded", function () {
     deleteButton.addEventListener('click', () => {
         showModal('Job Deletion', 'Are you sure that you want to delete this job. All application data would be irreversibly lost!', deleteJob);
     });
+
+    document.getElementById('export-csv').addEventListener('click', () => {
+        downloadApplications(jobId, 'csv')
+    });
+    document.getElementById('export-excel').addEventListener('click', () => {
+        downloadApplications(jobId, 'excel')
+    });
 });
+
+function downloadApplications(jobId, format) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `http://localhost:8000/export/export?jobid=${jobId}`, true);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            const result = JSON.parse(xhr.responseText);
+            if (result.status === 'success') {
+                if (format === 'csv') {
+                    const csvData = convertToCSV(result.data);
+                    downloadFile('applications.csv', csvData, 'text/csv');
+                } else if (format === 'excel') {
+                    downloadExcel(result.data);
+                }
+            } else {
+                createToas('Error: failed to get data', 'error');
+            }
+        } else {
+            createToas('Error: Request Failed', 'error');
+        }
+    };
+
+    xhr.onerror = function () {
+        console.error('Request error');
+    };
+
+    xhr.send();
+}
+
+function convertToCSV(data) {
+    const header = ['Applicant Name', 'Job Position', 'Application Date', 'CV URL', 'Video URL', 'Application Status'];
+    const rows = data.map(application => [
+        application.applicant_name,
+        application.job_position,
+        application.application_date,
+        application.cv_url,
+        application.video_url,
+        application.application_status
+    ]);
+
+    return [header, ...rows].map(row => row.join(',')).join('\n');
+}
+
+function downloadFile(filename, data, mimeType) {
+    const blob = new Blob([data], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function downloadExcel(data) {
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Applications');
+
+    XLSX.writeFile(workbook, 'applications.xlsx');
+}

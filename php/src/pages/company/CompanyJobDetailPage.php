@@ -45,10 +45,12 @@
             </div>
 
             <div class="modif-buttons" aria-label="">
-                <a id="edit-job" class="btn edit" href="http://localhost:8000/company/job/<?= htmlspecialchars($jobDetail['lowongan_id']) ?>/edit">Edit</a>
+                <a id="edit-job" class="btn edit"
+                    href="http://localhost:8000/company/job/<?= htmlspecialchars($jobDetail['lowongan_id']) ?>/edit">Edit</a>
                 <button id="delete-button" class="btn btn-destroy delete-job">Delete</button>
-                <button data-job-id="<?= htmlspecialchars($jobDetail['lowongan_id']) ?>" id="toggle-button" type="submit" class="btn <?= $jobDetail['is_open'] ? 'close' : 'open'?> toggle-job">
-                    <?= $jobDetail['is_open'] ? 'Close' : 'Open'?>
+                <button data-job-id="<?= htmlspecialchars($jobDetail['lowongan_id']) ?>" id="toggle-button"
+                    type="submit" class="btn <?= $jobDetail['is_open'] ? 'close' : 'open' ?> toggle-job">
+                    <?= $jobDetail['is_open'] ? 'Close' : 'Open' ?>
                 </button>
             </div>
         </div>
@@ -71,7 +73,7 @@
                             <p><?= htmlspecialchars($applicant['status_pelamar']) ?></p>
                         </div>
                         <div class="applicant-cell">
-                            <a href="<?= 'http://localhost:8000/company/job/'. htmlspecialchars($applicant['lowongan_id']) . '/applicant/' . htmlspecialchars($applicant['userid'])?>"
+                            <a href="<?= 'http://localhost:8000/company/job/' . htmlspecialchars($applicant['lowongan_id']) . '/applicant/' . htmlspecialchars($applicant['userid']) ?>"
                                 class="btn btn-primary">View Details</a>
                         </div>
                     <?php endforeach; ?>
@@ -79,11 +81,18 @@
                     <p>No Applicant yet</p>
                 <?php endif; ?>
             </div>
+            <?php if (count($infoApplicants) > 0): ?>
+                <div class="buttons">
+                    <button id="export-csv" class="btn btn-secondary">Export CSV</button>
+                    <button id="export-excel" class="btn btn-secondary">Export Excel</button>
+                </div>
+            <?php endif; ?>
         </div>
     </section>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 <script src="http://localhost:8000/public/js/pages/companyjobdetail.js"></script>
 
 <?php require_once __DIR__ . "/../template/footer.php" ?>

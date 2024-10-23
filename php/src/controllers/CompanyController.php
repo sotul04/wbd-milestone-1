@@ -239,7 +239,7 @@ class CompanyController extends Controller
                     }
                 }
             }
-            
+
             $result = $this->model('JobModel')->clearAttachments($jobID);
 
             if (!$result) {
@@ -296,50 +296,33 @@ class CompanyController extends Controller
             $this->notFound();
         }
 
-        $editProfileView = $this->view('company', 'CompanyEditView', ['companyDetail' => $companyDetail]);
+        $error = $_GET['error'] ?? null;
+        $editProfileView = $this->view('company', 'CompanyEditView', ['companyDetail' => $companyDetail, 'error' => $error]);
         $editProfileView->render();
     }
 
     private function updateProfile()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-            $input = file_get_contents('php://input');
-            $data = json_decode($input, true);
-
-            $companyId = $data['userId'] ?? null;
-            if (!$companyId) {
-                json_response_fail('Missing userId!');
-                exit;
-            }
-
-            $role = $this->getRole() ?? 'guest';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $role = $this->getRole();
             if ($role !== 'company') {
-                json_response_fail('Unauthorized action!');
+                header('Location: /error/unathorized');
                 exit;
             }
 
+            $companyId = $_SESSION['user_id'];
 
-            if ($_SESSION['user_id'] !== $companyId) {
-                json_response_fail('Unlawful access!');
-                exit;
-            }
+            $updated = $this->model('CompanyDetailModel')->updateCompanyDetail($companyId, $_POST['name'], $_POST['lokasi'], $_POST['about']);
 
-            $companyDetail = $this->model('CompanyDetailModel')->getCompanyByUserId($companyId);
-            if ($companyDetail === false) {
-                json_response_fail('Company not found');
-                exit;
-            }
-
-            $updated = $this->model('CompanyDetailModel')->updateCompanyDetail($companyId, $data['name'], $data['location'], $data['about']);
-            
             if ($updated === false) {
-                json_response_fail('Something went wrong!');
+                header('Location: /company/profile/edit?error=Failed%20to%20update%20the%20data');
                 exit;
             }
 
-            $_SESSION['name'] = $data['name'];
+            $_SESSION['name'] = $_POST['name'];
 
-            json_response_success('Successfully updated the profile');
+            header('Location: /company/profile');
+            exit;
         }
     }
 
@@ -362,11 +345,11 @@ class CompanyController extends Controller
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $fileUploader = new FileUploader('/../public/files/attachments'); // Make sure the path is correct
+            $fileUploader = new FileUploader('/../public/files/attachments'); 
             $companyId = $_SESSION['user_id'];
 
             $posisi = $_POST['posisi'] ?? '';
-            $deskripsi = $_POST['description'] ?? '';  
+            $deskripsi = $_POST['description'] ?? '';
             $jenisPekerjaan = $_POST['jenis_pekerjaan'] ?? '';
             $jenisLokasi = $_POST['jenis_lokasi'] ?? '';
 
@@ -386,10 +369,10 @@ class CompanyController extends Controller
                         'size' => $_FILES['attachments']['size'][$key]
                     ];
 
-                    $uploadResult = $fileUploader->uploadFile($file, ['image/jpeg', 'image/png'], 20 * 1024 * 1024); 
+                    $uploadResult = $fileUploader->uploadFile($file, ['image/jpeg', 'image/png'], 20 * 1024 * 1024);
 
                     if ($uploadResult['status'] === 'success') {
-                        $uploadedFiles[] = $uploadResult['fileName']; 
+                        $uploadedFiles[] = $uploadResult['fileName'];
                     } else {
                         json_response_fail('Failed to upload file: ' . $uploadResult['message']);
                         exit;
@@ -409,7 +392,7 @@ class CompanyController extends Controller
         }
     }
 
-    private function jobApplication($jobID, $applicantID) 
+    private function jobApplication($jobID, $applicantID)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $role = $this->getRole() ?? 'guest';

@@ -50,8 +50,8 @@ require_once __DIR__ . "/../template/navbar.php";
             </div>
 
             <div class="form-group">
-                <label for="attachments"><strong>Job Attachments (Multiple images)</strong></label>
-                <input type="file" id="attachments" name="attachments[]" accept="image/*" multiple aria-label="Job Attachments">
+                <label for="attachments"><strong>Job Attachments (Max 20MB per image)</strong></label>
+                <input type="file" id="attachments" name="attachments[]" accept="image/*" multiple>
             </div>
 
             <div class="form-group footer">

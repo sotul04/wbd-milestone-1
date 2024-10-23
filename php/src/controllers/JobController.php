@@ -73,7 +73,7 @@ class JobController extends Controller
 
             $userId = $_SESSION['user_id'];
 
-            $cvResponse = $uploaderCv->uploadFile($_FILES['cv'], $userId, $jobID,['application/pdf'], 10000000); // 10MB max
+            $cvResponse = $uploaderCv->uploadFile($_FILES['cv'], ['application/pdf'], 10000000); // 10MB max
             if ($cvResponse['status'] !== 'success') {
                 json_response_fail($cvResponse['message']);
                 return;
@@ -83,7 +83,7 @@ class JobController extends Controller
 
             if (isset($_FILES['video']) && $_FILES['video']['error'] !== UPLOAD_ERR_NO_FILE) {
                 $uploaderVideo = new FileUploader('/../storage/files/videos');
-                $videoResponse = $uploaderVideo->uploadFile($_FILES['video'], $userId, $jobID, ['video/mp4'], 50000000); // 50MB max
+                $videoResponse = $uploaderVideo->uploadFile($_FILES['video'], ['video/mp4'], 50000000); // 50MB max
 
                 if ($videoResponse['status'] !== 'success') {
                     json_response_fail($videoResponse['message']);

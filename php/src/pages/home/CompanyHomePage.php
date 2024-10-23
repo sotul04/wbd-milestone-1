@@ -14,12 +14,15 @@
                 <div class="sidebar-main">
                     <p>Welcome, <?= isset($name) ? htmlspecialchars($name) : 'GUEST' ?>!</p>
                 </div>
-                <nav></nav>
+                <nav>
+                    <a href="http://localhost:8000/company/profile">Profile</a>
+                    <a href="http://localhost:8000/company/job/create">Add new job</a>
+                </nav>
             </div>
 
             <div class="sidebar-item shadow-5">
                 <form class="filter-form" id="filter-form">
-                <div class="filter-group multi">
+                    <div class="filter-group multi">
                         <label for="jobType">Location Type:</label>
                         <div class="item-filter">
                             <label for="locationType-onsite">On-site</label>

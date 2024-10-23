@@ -257,16 +257,41 @@ class JobModel
         return $this->db->single();
     }
 
-    public function createJob($companyId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi)
+    public function createJob($companyId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi, $attachments = []) 
     {
-        $this->db->query("INSERT INTO lowongan (company_id, posisi, deskripsi, jenis_pekerjaan, jenis_lokasi) 
-                            VALUES (:companyId, :posisi, :deskripsi, :jenis_pekerjaan, :jenis_lokasi)");
-        $this->db->bind(':companyId', $companyId);
-        $this->db->bind(':posisi', $posisi);
-        $this->db->bind(':deskripsi', $deskripsi);
-        $this->db->bind(':jenis_pekerjaan', $jenisPekerjaan);
-        $this->db->bind(':jenis_lokasi', $jenisLokasi);
-        return $this->db->execute();
+        $this->db->startTransaction();
+        try {
+            $this->db->query("INSERT INTO lowongan (company_id, posisi, deskripsi, jenis_pekerjaan, jenis_lokasi) 
+                                VALUES (:companyId, :posisi, :deskripsi, :jenis_pekerjaan, :jenis_lokasi) 
+                                RETURNING lowongan_id");
+            $this->db->bind(':companyId', $companyId);
+            $this->db->bind(':posisi', $posisi);
+            $this->db->bind(':deskripsi', $deskripsi);
+            $this->db->bind(':jenis_pekerjaan', $jenisPekerjaan);
+            $this->db->bind(':jenis_lokasi', $jenisLokasi);
+    
+            $this->db->execute();
+            $result = $this->db->single();
+            $lowonganId = $result['lowongan_id'];
+    
+            if (!empty($attachments)) {
+                foreach ($attachments as $attachment) {
+                    $this->db->query("INSERT INTO attachments_lowongan (lowongan_id, file_path) 
+                                        VALUES (:lowonganId, :filePath)");
+                    $this->db->bind(':lowonganId', $lowonganId);
+                    $this->db->bind(':filePath', $attachment);
+    
+                    if (!$this->db->execute()) {
+                        throw new Exception('Failed to insert attachment.');
+                    }
+                }
+            }
+            $this->db->commit();
+            return $lowonganId; 
+        } catch (Exception $e) {
+            $this->db->rollback();
+            return false; 
+        }
     }
 
     public function getAllAppliedJobs()
@@ -312,8 +337,6 @@ class JobModel
 
     public function updateJobStatus($jobID, $newStatus)
     {
-        //echo($jobID);
-        //echo($newStatus);
         $query = "UPDATE lowongan SET is_open = :newstatus WHERE lowongan_id = :jobID";
         $this->db->query($query);
         $this->db->bind(':newstatus', $newStatus, PDO::PARAM_BOOL);
@@ -347,4 +370,6 @@ class JobModel
         $this->db->bind(':lowonganId', $lowonganId);
         return $this->db->execute();
     }
+
+
 }

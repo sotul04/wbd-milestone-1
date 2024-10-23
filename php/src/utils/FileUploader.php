@@ -15,7 +15,7 @@ class FileUploader
         }
     }
 
-    public function uploadFile($file, $userId, $jobID, $allowedTypes = [], $maxFileSize = null)
+    public function uploadFile($file, $allowedTypes = [], $maxFileSize = null)
     {
         if (!isset($file) || $file['error'] !== UPLOAD_ERR_OK) {
             return ['status' => 'error', 'message' => 'File upload error.'];
@@ -29,9 +29,9 @@ class FileUploader
             return ['status' => 'error', 'message' => 'File is too large.'];
         }
 
-        $uniqueId = $userId.'_'.$jobID;
-        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $fileName = $uniqueId . '.' . $fileExtension;
+        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION); 
+        $uniqueId = uniqid();
+        $fileName = $uniqueId . '.' . $fileExtension; 
         $destination = $this->uploadDir . $fileName;
 
         if (move_uploaded_file($file['tmp_name'], __DIR__.$destination)) {

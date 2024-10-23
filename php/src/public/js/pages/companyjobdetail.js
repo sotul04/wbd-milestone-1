@@ -1,3 +1,11 @@
+var quill = new Quill('#job-description-editor', {
+    theme: 'snow',
+    readOnly: true,
+    modules: {
+        toolbar: false
+    }
+});
+
 document.addEventListener("DOMContentLoaded", function () {
     const statusIndicator = document.getElementById('status-indicator');
     const toggleButton = document.getElementById('toggle-button');
@@ -20,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (response.status === 'success') {
                     // Toggle the status locally
                     const isOpen = statusIndicator.classList.contains('open');
-                    
+
                     // Update the status indicator based on the current state
                     if (isOpen) {
                         statusIndicator.classList.remove('open');
@@ -50,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
         xhr.send(requestBody);
     });
 
-    function deleteJob(){
+    function deleteJob() {
         const xhr = new XMLHttpRequest();
         xhr.open("DELETE", `http://localhost:8000/company/jobDelete`, true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -61,15 +69,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         xhr.onload = function () {
-            if(xhr.status === 200){
+            if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
                 console.log(response);
-                if(response.status === 'success'){
+                if (response.status === 'success') {
                     window.location.href = "http://localhost:8000/home";
-                }else{
+                } else {
                     createToast(response.data, 'error');
                 }
-            }else {
+            } else {
                 createToast("Request failed!", 'error');
             }
         };

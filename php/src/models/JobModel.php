@@ -52,7 +52,7 @@ class JobModel
         $query .= " LIMIT ? OFFSET ?";
 
         $this->db->query($query);
-        
+
         $index = 1;
         $this->db->bind($index++, $companyId);
         // Bind the parameter to the query
@@ -110,10 +110,10 @@ class JobModel
         if (!empty($search)) {
             $this->db->bind($index++, $searchTerm);
         }
-        
+
         $countResult = $this->db->single();
 
-        $totalRow = $countResult ? $countResult['total'] : 0; 
+        $totalRow = $countResult ? $countResult['total'] : 0;
 
         $totalPages = ceil($totalRow / $rowperpage);
 
@@ -122,7 +122,7 @@ class JobModel
             'total_pages' => $totalPages,
             'current_page' => $page
         ];
-    }    
+    }
 
     public function getJobs($page, $sort, $locationTypes, $jobTypes, $search)
     {
@@ -257,7 +257,7 @@ class JobModel
         return $this->db->single();
     }
 
-    public function createJob($companyId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi, $attachments = []) 
+    public function createJob($companyId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi, $attachments = []): mixed
     {
         $this->db->startTransaction();
         try {
@@ -269,28 +269,28 @@ class JobModel
             $this->db->bind(':deskripsi', $deskripsi);
             $this->db->bind(':jenis_pekerjaan', $jenisPekerjaan);
             $this->db->bind(':jenis_lokasi', $jenisLokasi);
-    
+
             $this->db->execute();
             $result = $this->db->single();
             $lowonganId = $result['lowongan_id'];
-    
+
             if (!empty($attachments)) {
                 foreach ($attachments as $attachment) {
                     $this->db->query("INSERT INTO attachments_lowongan (lowongan_id, file_path) 
                                         VALUES (:lowonganId, :filePath)");
                     $this->db->bind(':lowonganId', $lowonganId);
                     $this->db->bind(':filePath', $attachment);
-    
+
                     if (!$this->db->execute()) {
                         throw new Exception('Failed to insert attachment.');
                     }
                 }
             }
             $this->db->commit();
-            return $lowonganId; 
+            return $lowonganId;
         } catch (Exception $e) {
             $this->db->rollback();
-            return false; 
+            return false;
         }
     }
 
@@ -344,14 +344,44 @@ class JobModel
         return $this->db->execute();
     }
 
-    public function updateJobDetail($jobID, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi){
-        $this->db->query("UPDATE lowongan SET posisi = :posisi, deskripsi = :deskripsi, jenisPekerjaan = :jenisPekerjaan, jenisLokasi = :jenisLokasi WHERE lowongan_id = :jobID");
-        $this->db->bind(':jobID', $jobID);
-        $this->db->bind(':posisi', $posisi);
-        $this->db->bind(':deskripsi', $deskripsi);
-        $this->db->bind(':jenisPekerjaan', $jenisPekerjaan);
-        $this->db->bind(':jenisLokasi', $jenisLokasi);
-        return $this->db->execute();
+    public function updateJobDetail($jobID, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi, $attachments = [])
+    {
+        try {
+            $this->db->query("UPDATE lowongan 
+                                    SET posisi = :posisi, 
+                                        deskripsi = :deskripsi, 
+                                        jenis_pekerjaan = :jenisPekerjaan, 
+                                        jenis_lokasi = :jenisLokasi 
+                                    WHERE lowongan_id = :jobID
+            ");
+            $this->db->bind(':jobID', $jobID);
+            $this->db->bind(':posisi', $posisi);
+            $this->db->bind(':deskripsi', $deskripsi);
+            $this->db->bind(':jenisPekerjaan', $jenisPekerjaan);
+            $this->db->bind(':jenisLokasi', $jenisLokasi);
+
+            $this->db->execute();
+            $lowonganId = $jobID;
+
+            if (!empty($attachments)) {
+                foreach ($attachments as $attachment) {
+                    $this->db->query("INSERT INTO attachments_lowongan (lowongan_id, file_path) 
+                                        VALUES (:lowonganId, :filePath)");
+                    $this->db->bind(':lowonganId', $lowonganId);
+                    $this->db->bind(':filePath', $attachment);
+
+                    if (!$this->db->execute()) {
+                        throw new Exception('Failed to insert attachment.');
+                    }
+                }
+            }
+            $this->db->commit();
+            return $lowonganId;
+        } catch (Exception $e) {
+            $this->db->rollback();
+            return false;
+        }
+        // return $this->db->execute();
     }
 
 
@@ -371,5 +401,10 @@ class JobModel
         return $this->db->execute();
     }
 
-
+    public function clearAttachments($lowonganId)
+    {
+        $this->db->query('DELETE FROM attachments_lowongan WHERE lowongan_id = :jobID');
+        $this->db->bind(':jobID', $lowonganId);
+        return $this->db->execute();
+    }
 }

@@ -196,14 +196,13 @@ class CompanyController extends Controller
         }
     }
 
+    private function updateJob()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $fileUploader = new FileUploader('/../public/files/attachments');
+            $jobID = $_POST['jobID'] ?? null;
 
-    public function updateJob(){
-        if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-            $input = file_get_contents('php://input');
-            $data = json_decode($input, true);
-
-            $jobId = $data['jobID'] ?? null;
-            if (!$jobId) {
+            if (!$jobID) {
                 json_response_fail('Missing jobId!');
                 exit;
             }
@@ -215,31 +214,79 @@ class CompanyController extends Controller
             }
 
             $companyId = $_SESSION['user_id'];
-            if (!$this->model('JobModel')->isRightCompany($jobId, $companyId)) {
-                json_response_fail('Unlawful access!');
+            if (!$this->model('JobModel')->isRightCompany($jobID, $companyId)) {
+                json_response_fail('Unlawful access!' . $jobID);
                 exit;
             }
 
-            // Get the current job details
-            $job = $this->model('JobModel')->getJobDetail($jobId);
-            if ($job === false) {
-                json_response_fail('Job not found!');
+            // Handle file uploads
+            $uploadedFiles = [];
+            if (isset($_FILES['attachments']) && $_FILES['attachments']['error'][0] != UPLOAD_ERR_NO_FILE) {
+                foreach ($_FILES['attachments']['name'] as $key => $fileName) {
+                    if ($_FILES['attachments']['error'][$key] !== UPLOAD_ERR_OK) {
+                        json_response_fail('File upload error: ' . $_FILES['attachments']['error'][$key]);
+                        exit;
+                    }
+
+                    $file = [
+                        'name' => $_FILES['attachments']['name'][$key],
+                        'type' => $_FILES['attachments']['type'][$key],
+                        'tmp_name' => $_FILES['attachments']['tmp_name'][$key],
+                        'error' => $_FILES['attachments']['error'][$key],
+                        'size' => $_FILES['attachments']['size'][$key]
+                    ];
+
+                    $uploadResult = $fileUploader->uploadFile($file, ['image/jpeg', 'image/png'], 20 * 1024 * 1024);
+
+                    if ($uploadResult['status'] === 'success') {
+                        $uploadedFiles[] = $uploadResult['fileName'];
+                    } else {
+                        json_response_fail('Failed to upload file: ' . $uploadResult['message']);
+                        exit;
+                    }
+                }
+            }
+
+            $result = $this->model('JobModel')->clearAttachments($jobID);
+
+            if (!$result) {
+                json_response_fail('Failed to clear the previous attachments');
                 exit;
             }
 
-            // Update the detail job
-            $updated = $this->model('JobModel')->updateJobDetail($jobId, $data['posisi'], $data['deskripsi'], $data['jenisPekerjaan'], $data['jenisLokasi']);
+            $updated = $this->model('JobModel')->updateJobDetail(
+                $jobID,
+                $_POST['posisi'],
+                $_POST['deskripsi'],
+                $_POST['jenisPekerjaan'],
+                $_POST['jenisLokasi'],
+                $uploadedFiles
+            );
+
             if ($updated === false) {
                 json_response_fail('Something went wrong!');
                 exit;
             }
 
-            // $_SESSION['posisi'] = $data['posisi'];
-
-            // Return the new job status as JSON
-            json_response_success('Successfully updated the job');
+            json_response_success($updated);
+            exit;
         }
     }
+
+    // This is a helper function to handle file uploads
+    private function handleFileUploads($files)
+    {
+        $uploadedFilePaths = [];
+        foreach ($files['name'] as $key => $filename) {
+            $targetDir = "uploads/";
+            $targetFile = $targetDir . basename($filename);
+            if (move_uploaded_file($files['tmp_name'][$key], $targetFile)) {
+                $uploadedFilePaths[] = $targetFile;
+            }
+        }
+        return $uploadedFilePaths;
+    }
+
 
     public function profileShow()
     {
@@ -343,7 +390,7 @@ class CompanyController extends Controller
             $companyId = $_SESSION['user_id'];
 
             $posisi = $_POST['posisi'] ?? '';
-            $deskripsi = $_POST['description'] ?? '';  
+            $deskripsi = $_POST['description'] ?? '';
             $jenisPekerjaan = $_POST['jenis_pekerjaan'] ?? '';
             $jenisLokasi = $_POST['jenis_lokasi'] ?? '';
 
@@ -363,10 +410,10 @@ class CompanyController extends Controller
                         'size' => $_FILES['attachments']['size'][$key]
                     ];
 
-                    $uploadResult = $fileUploader->uploadFile($file, ['image/jpeg', 'image/png'], 20 * 1024 * 1024); 
+                    $uploadResult = $fileUploader->uploadFile($file, ['image/jpeg', 'image/png'], 20 * 1024 * 1024);
 
                     if ($uploadResult['status'] === 'success') {
-                        $uploadedFiles[] = $uploadResult['fileName']; 
+                        $uploadedFiles[] = $uploadResult['fileName'];
                     } else {
                         json_response_fail('Failed to upload file: ' . $uploadResult['message']);
                         exit;

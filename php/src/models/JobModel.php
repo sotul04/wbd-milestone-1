@@ -325,6 +325,7 @@ class JobModel
     public function getJobApplicants($lowonganId)
     {
         $this->db->query("SELECT users.nama as nama_pelamar,
+                                 users.user_id as userid,
                                  lamaran.status as status_pelamar,
                                  lamaran.lowongan_id as lowongan_id
                                  FROM lamaran
@@ -401,10 +402,4 @@ class JobModel
         return $this->db->execute();
     }
 
-    public function clearAttachments($lowonganId)
-    {
-        $this->db->query('DELETE FROM attachments_lowongan WHERE lowongan_id = :jobID');
-        $this->db->bind(':jobID', $lowonganId);
-        return $this->db->execute();
-    }
 }

@@ -1,5 +1,5 @@
 // Initialize Quill editor
-var quill = new Quill('#editor', {
+const quill = new Quill('#editor', {
     theme: 'snow',
     placeholder: 'Enter job description...',
     modules: {

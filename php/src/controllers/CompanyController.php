@@ -6,12 +6,10 @@ class CompanyController extends Controller
     public function index(...$params)
     {
         $length = count($params);
-        // goto not-found
         if ($length === 0)
             $this->notFound();
         if ($length === 1) {
             if ($params[0] === 'profile') {
-                //To-Do: Show Company Profile
                 $this->profileShow();
             } else if ($params[0] === 'update-profile') {
                 $this->updateProfile();
@@ -35,18 +33,14 @@ class CompanyController extends Controller
         }
         if ($length === 2) {
             if ($params[0] === 'job' && $params[1] === 'create') {
-                //To-Do: Show the create new job page for company user + add new job to the database
                 $this->createJob();
                 exit;
             } else if ($params[0] === 'profile') {
                 $this->editProfile();
                 exit;
-                // $this->unauthorized();
             } else if ($params[0] === 'job') {
                 $this->jobDetail($params[1]);
                 exit;
-            } {
-                //To-Do: Show the specific job created by user also all the applicants + update the specific job created by user (delete or close the job)
             }
         }
         if ($length === 3) {
@@ -60,13 +54,14 @@ class CompanyController extends Controller
         }
         if ($length === 4) {
             if ($params[0] === 'job' && $params[2] === 'applicant') {
-                $this->jobDetail($params[1]);
+                $this->jobApplication($params[1], $params[3]);
+                exit;
             }
         }
         $this->notFound();
     }
 
-    public function jobDetail($jobID)
+    private function jobDetail($jobID)
     {
         $jobDetail = $this->model('JobModel')->getJobDetail($jobID);
         if ($jobDetail === false) {
@@ -82,7 +77,7 @@ class CompanyController extends Controller
             $detailView->render();
         }
     }
-    public function toggleJob()
+    private function toggleJob()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             // Get the JSON data from the request body
@@ -134,7 +129,7 @@ class CompanyController extends Controller
         }
     }
 
-    public function deleteJob()
+    private function deleteJob()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
             // Get the JSON data from the request body
@@ -288,7 +283,7 @@ class CompanyController extends Controller
     }
 
 
-    public function profileShow()
+    private function profileShow()
     {
         $role = $this->getRole() ?? 'guest';
         if ($role !== 'company') {
@@ -322,7 +317,7 @@ class CompanyController extends Controller
         $editProfileView->render();
     }
 
-    public function updateProfile()
+    private function updateProfile()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             $input = file_get_contents('php://input');
@@ -432,5 +427,49 @@ class CompanyController extends Controller
             json_response_fail('Invalid request method.');
         }
     }
+
+    private function jobApplication($jobID, $applicantID) 
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $role = $this->getRole() ?? 'guest';
+            if ($role !== 'company') {
+                $this->unauthorized();
+            }
+
+            $userID = $_SESSION['user_id'];
+            $data = $this->model('ApplicationModel')->getApplication($jobID, $userID, $applicantID);
+
+            if ($data === false) {
+                $this->notFound();
+            }
+
+            $view = $this->view('company', 'CompanyApplicationView', ['applicant' => $data]);
+            $view->render();
+        } else if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+            $role = $this->getRole() ?? 'guest';
+            if ($role !== 'company') {
+                json_response_fail('Unauthorized request');
+                exit;
+            }
+
+            $userID = $_SESSION['user_id'];
+            $data = $this->model('ApplicationModel')->getApplication($jobID, $userID, $applicantID);
+
+            if ($data === false) {
+                json_response_fail('Application is not found');
+                exit;
+            }
+
+            $input = file_get_contents('php://input');
+            $data = json_decode($input, true);
+
+            $result = $this->model('ApplicationModel')->updateApplication($jobID, $userID, $applicantID, $data['status'], $data['status_reason']);
+            if ($result) {
+                json_response_success('Successfully save the application status');
+            } else {
+                json_response_fail('Failed to save status');
+            }
+        }
+    }   
 
 }

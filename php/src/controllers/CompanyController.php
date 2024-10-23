@@ -231,7 +231,7 @@ class CompanyController extends Controller
                         'size' => $_FILES['attachments']['size'][$key]
                     ];
 
-                    $uploadResult = $fileUploader->uploadFile($file, ['image/jpeg', 'image/png'], 20 * 1024 * 1024);
+                    $uploadResult = $fileUploader->uploadFile($file, ['image/jpeg', 'image/png', 'image/x-icon', 'image/webp'], 20 * 1024 * 1024);
 
                     if ($uploadResult['status'] === 'success') {
                         $uploadedFiles[] = $uploadResult['fileName'];
@@ -241,7 +241,7 @@ class CompanyController extends Controller
                     }
                 }
             }
-
+            
             $result = $this->model('JobModel')->clearAttachments($jobID);
 
             if (!$result) {
@@ -405,7 +405,7 @@ class CompanyController extends Controller
                         'size' => $_FILES['attachments']['size'][$key]
                     ];
 
-                    $uploadResult = $fileUploader->uploadFile($file, ['image/jpeg', 'image/png'], 20 * 1024 * 1024);
+                    $uploadResult = $fileUploader->uploadFile($file, ['image/jpeg', 'image/png', 'image/x-icon', 'image/webp'], 20 * 1024 * 1024);
 
                     if ($uploadResult['status'] === 'success') {
                         $uploadedFiles[] = $uploadResult['fileName'];

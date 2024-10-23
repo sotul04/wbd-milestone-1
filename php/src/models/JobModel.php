@@ -402,4 +402,10 @@ class JobModel
         return $this->db->execute();
     }
 
+    public function clearAttachments($lowonganId)
+    {
+        $this->db->query('DELETE FROM attachments_lowongan WHERE lowongan_id = :jobID');
+        $this->db->bind(':jobID', $lowonganId);
+        return $this->db->execute();
+    }
 }

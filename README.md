@@ -32,18 +32,18 @@ This application (LinkinPurry) serves as a job platform with two distinct user t
     ```
 
 ## Screenshots
-![register page](screenshots\register.png)
-![login page](screenshots\login.png)
-![home joob seeker page](screenshots\home-jobseeker.png)
-![detail lowongan page](screenshots\detail-lowongan-js.png)
-![lamaran page](screenshots\lamaran.png)
-![riwayat page](screenshots\riwayat.png)
-![home company page](screenshots\home-company.png)
-![tambah lowongan page](screenshots\tambah-lowongan.png)
-![detail lowongan page](screenshots\detail-lowongan-c.png)
-![detail lamaran page](screenshots\detail-lamaran.png)
-![edit lowongan page](screenshots\edit-lowongan.png)
-![profil page](screenshots\profil.png)
+![register page](screenshots/register.png)
+![login page](screenshots/login.png)
+![home joob seeker page](screenshots/home-jobseeker.png)
+![detail lowongan page](screenshots/detail-lowongan-js.png)
+![lamaran page](screenshots/lamaran.png)
+![riwayat page](screenshots/riwayat.png)
+![home company page](screenshots/home-company.png)
+![tambah lowongan page](screenshots/tambah-lowongan.png)
+![detail lowongan page](screenshots/detail-lowongan-c.png)
+![detail lamaran page](screenshots/detail-lamaran.png)
+![edit lowongan page](screenshots/edit-lowongan.png)
+![profil page](screenshots/profil.png)
 
 
 ## Work Responsibilities

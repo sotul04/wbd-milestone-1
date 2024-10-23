@@ -45,7 +45,7 @@
             </div>
 
             <div class="modif-buttons" aria-label="">
-                <a class="btn edit" href="http://localhost:8000/company/job/<?= htmlspecialchars($applicant['lowongan_id']) ?>/edit">Edit</a>
+                <a id="edit-job" class="btn edit" href="http://localhost:8000/company/job/<?= htmlspecialchars($jobDetail['lowongan_id']) ?>/edit">Edit</a>
                 <button id="delete-button" class="btn btn-destroy delete-job">Delete</button>
                 <button data-job-id="<?= htmlspecialchars($jobDetail['lowongan_id']) ?>" id="toggle-button" type="submit" class="btn <?= $jobDetail['is_open'] ? 'close' : 'open'?> toggle-job">
                     <?= $jobDetail['is_open'] ? 'Close' : 'Open'?>

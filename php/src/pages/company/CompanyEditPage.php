@@ -17,14 +17,17 @@ require_once __DIR__ . "/../template/navbar.php";
 
         <form id="editForm">
             <div class="form-group">
+                <p><strong>Company Name</strong></p>
                 <input type="text" id="name" name="name" value="<?= htmlspecialchars($companyDetail['nama']); ?>" required autocomplete="name">
             </div>
 
             <div class="form-group">
+                <p><strong>About</strong></p>
                 <textarea type="text" id="about" name="about" required autocomplete="name"><?= htmlspecialchars($companyDetail['about']); ?></textarea>
             </div>
 
             <div class="form-group">
+                <p><strong>Location</strong></p>
                 <input type="text" id="lokasi" name="lokasi" value="<?= htmlspecialchars($companyDetail['lokasi']); ?>" required autocomplete="name">
             </div>
 

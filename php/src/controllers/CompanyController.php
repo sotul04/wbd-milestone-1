@@ -16,6 +16,9 @@ class CompanyController extends Controller
             } else if ($params[0] === 'update-profile') {
                 $this->updateProfile();
                 exit;
+            } else if ($params[0] === 'update-job') {
+                $this->updateJob();
+                exit;
             } else if ($params[0] === 'toggleJob') {
                 $this->toggleJob();
                 exit;
@@ -46,6 +49,8 @@ class CompanyController extends Controller
                 //To-Do: Close lowongan
             } else if ($params[2] === 'edit') {
                 $this->toggleJob();
+                $this->editJob($params[1]);
+                exit;
             }
         }
         if ($length === 4) {
@@ -167,6 +172,67 @@ class CompanyController extends Controller
 
             // Return the new job status as JSON
             json_response_success('Successfully deleted the job');
+        }
+    }
+
+    private function editJob($jobID)
+    {
+        $jobDetail = $this->model('JobModel')->getJobDetail($jobID);
+        if ($jobDetail === false) {
+            $this->notFound();
+        }
+        $role = $this->getRole() ?? 'guest';
+        $attachments = $this->model('JobModel')->getAttachments($jobID);
+        if ($role !== 'company') {
+            $this->unauthorized();
+        } else {
+            $detailView = $this->view('company', 'CompanyJobEditView', ['role' => $role, 'jobDetail' => $jobDetail, 'attachments' => $attachments]);
+            $detailView->render();
+        }
+    }
+
+
+    public function updateJob(){
+        if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+            $input = file_get_contents('php://input');
+            $data = json_decode($input, true);
+
+            $jobId = $data['jobID'] ?? null;
+            if (!$jobId) {
+                json_response_fail('Missing jobId!');
+                exit;
+            }
+
+            $role = $this->getRole() ?? 'guest';
+            if ($role !== 'company') {
+                json_response_fail('Unauthorized action!');
+                exit;
+            }
+
+            $companyId = $_SESSION['user_id'];
+            if (!$this->model('JobModel')->isRightCompany($jobId, $companyId)) {
+                json_response_fail('Unlawful access!');
+                exit;
+            }
+
+            // Get the current job details
+            $job = $this->model('JobModel')->getJobDetail($jobId);
+            if ($job === false) {
+                json_response_fail('Job not found!');
+                exit;
+            }
+
+            // Update the detail job
+            $updated = $this->model('JobModel')->updateJobDetail($jobId, $data['posisi'], $data['deskripsi'], $data['jenisPekerjaan'], $data['jenisLokasi']);
+            if ($updated === false) {
+                json_response_fail('Something went wrong!');
+                exit;
+            }
+
+            // $_SESSION['posisi'] = $data['posisi'];
+
+            // Return the new job status as JSON
+            json_response_success('Successfully updated the job');
         }
     }
 

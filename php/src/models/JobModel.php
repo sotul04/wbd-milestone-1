@@ -321,6 +321,16 @@ class JobModel
         return $this->db->execute();
     }
 
+    public function updateJobDetail($jobID, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi){
+        $this->db->query("UPDATE lowongan SET posisi = :posisi, deskripsi = :deskripsi, jenisPekerjaan = :jenisPekerjaan, jenisLokasi = :jenisLokasi WHERE lowongan_id = :jobID");
+        $this->db->bind(':jobID', $jobID);
+        $this->db->bind(':posisi', $posisi);
+        $this->db->bind(':deskripsi', $deskripsi);
+        $this->db->bind(':jenisPekerjaan', $jenisPekerjaan);
+        $this->db->bind(':jenisLokasi', $jenisLokasi);
+        return $this->db->execute();
+    }
+
 
     public function isRightCompany($lowonganId, $companyId)
     {

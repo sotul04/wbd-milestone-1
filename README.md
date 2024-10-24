@@ -32,9 +32,10 @@ This application (LinkinPurry) serves as a job platform with two distinct user t
     ```
 
 ## Screenshots
+- Main Pages
 ![register page](screenshots/register.png)
 ![login page](screenshots/login.png)
-![home joob seeker page](screenshots/home-jobseeker.png)
+![home job seeker page](screenshots/home-jobseeker.png)
 ![detail lowongan page](screenshots/detail-lowongan-js.png)
 ![lamaran page](screenshots/lamaran.png)
 ![riwayat page](screenshots/riwayat.png)
@@ -44,6 +45,23 @@ This application (LinkinPurry) serves as a job platform with two distinct user t
 ![detail lamaran page](screenshots/detail-lamaran.png)
 ![edit lowongan page](screenshots/edit-lowongan.png)
 ![profil page](screenshots/profil.png)
+
+
+- Lighthouse score
+![register page](screenshots/lighthouse/register.png)
+![login page](screenshots/lighthouse/login.png)
+![home job seeker page](screenshots/lighthouse/homejobseeker.png)
+![detail lowongan page](screenshots/lighthouse/jobdetail.png)
+![lamaran page](screenshots/lighthouse/jobapplication.png)
+![riwayat page](screenshots/lighthouse/history.png)
+![home company page](screenshots/lighthouse/homecompany.png)
+![tambah lowongan page](screenshots/lighthouse/addjob.png)
+![detail lamaran page](screenshots/lighthouse/jobapplicationcompany.png)
+![edit lowongan page](screenshots/lighthouse/jobdetailedit.png)
+![profil page](screenshots/lighthouse/companyprofile.png)
+![edit profil page](screenshots/lighthouse/companyprofileedit.png)
+![not found page](screenshots/lighthouse/not-found.png)
+![unauthorized page](screenshots/lighthouse/unauthorized.png)
 
 
 ## Work Responsibilities

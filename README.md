@@ -93,3 +93,9 @@ If you encounter ```./config/seed.sh: file not found``` error, please copy the c
 |                  | Edit Lowongan     | `13522104`              | 
 |                  | Profil            | `13522104`              | 
 |                  | Edit Profil       | `13522104`              | 
+
+## Completed Bonuses
+- All responsive web design
+- UI/UX like LinkedIn
+- Data export excel and csv
+- Good score of lighthouse

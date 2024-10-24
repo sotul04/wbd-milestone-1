@@ -46,8 +46,7 @@ statusDropdown.addEventListener('change', () => {
     updateDropdownColor();
 });
 
-document.getElementById('form-company').addEventListener('submit', (event) => {
-    event.preventDefault();
+function submitForm(){
     const status = document.getElementById('status');
     let reason = quill.root.innerHTML;
 
@@ -81,5 +80,10 @@ document.getElementById('form-company').addEventListener('submit', (event) => {
     }
 
     xhr.send(requestBody);
+}
 
+document.getElementById('form-company').addEventListener('submit', (event) => {
+    event.preventDefault();
+    
+    showModal('Application Status', 'Please make sure all the data is set correctly. All changes would be irreversible!', submitForm);
 });

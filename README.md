@@ -7,7 +7,7 @@ This application (LinkinPurry) serves as a job platform with two distinct user t
 - **Docker**: This project uses Docker for containerization. Make sure to install Docker Desktop, which includes Docker Compose. You can download it from the [Docker website](https://www.docker.com/products/docker-desktop).
 
 
-## How to Installation
+## How to Install
 1. Clone the repository from GitHub:
    ```bash
    git clone https://github.com/yourusername/your-repository-name.git
@@ -30,6 +30,10 @@ This application (LinkinPurry) serves as a job platform with two distinct user t
     ```
     http://localhost:8080
     ```
+
+> ### Error Handling
+
+If you encounter ```./config/seed.sh: file not found``` error, please copy the contents of ```seed.sh```, delete ```seed.sh```, and paste the copied contents to new ```seed.sh``` file. This error usually happened when the ```seed.sh``` file is downloaded from repo.
 
 ## Screenshots
 - Main Pages

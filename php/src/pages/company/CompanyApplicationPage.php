@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="form-footer">
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button id="submit-button" type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>
     </div>

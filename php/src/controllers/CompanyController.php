@@ -424,6 +424,11 @@ class CompanyController extends Controller
                 exit;
             }
 
+            if($data['status'] !== 'waiting'){
+                json_response_fail('Application status is already determined!');
+                exit;
+            }
+
             $input = file_get_contents('php://input');
             $data = json_decode($input, true);
 

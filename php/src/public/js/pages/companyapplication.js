@@ -28,20 +28,22 @@ function updateDropdownColor() {
 
 updateDropdownColor();
 
-const applicantStatus = form.getAttribute('data-status');
-const submitButton = document.getElementById("submit-button");
-if (applicantStatus === 'accepted' || applicantStatus === 'rejected') {
-    statusDropdown.disabled = true;
-    quill.enable(false);
-    submitButton.disabled = true;
-    submitButton.classList.remove('btn-primary');
-    submitButton.classList.add('btn-secondary');
+function updateForm() {
+    const applicantStatus = form.getAttribute('data-status');
+    const submitButton = document.getElementById("submit-button");
+    if (applicantStatus === 'accepted' || applicantStatus === 'rejected') {
+        statusDropdown.disabled = true;
+        quill.enable(false);
+        submitButton.disabled = true;
+        submitButton.classList.remove('btn-primary');
+        submitButton.classList.add('btn-secondary');
+    }
 }
 
+updateForm();
+
 statusDropdown.addEventListener('change', () => {
-    if (statusDropdown.value === 'accepted' || statusDropdown.value === 'rejected') {
-        statusDropdown.disabled = true;
-    }
+    updateDropdownColor();
 });
 
 document.getElementById('form-company').addEventListener('submit', (event) => {
@@ -67,6 +69,8 @@ document.getElementById('form-company').addEventListener('submit', (event) => {
                 const response = JSON.parse(xhr.responseText);
                 if (response.status === 'success') {
                     createToast(response.data, 'success');
+                    form.setAttribute('data-status', status.value);
+                    updateForm();
                 } else {
                     createToast(response.data, 'error');
                 }

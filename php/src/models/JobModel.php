@@ -297,7 +297,7 @@ class JobModel
     public function getAllAppliedJobs()
     {
         $userId = $_SESSION['user_id'];
-        $this->db->query("SELECT lowongan.*, users.nama as company_name 
+        $this->db->query("SELECT lowongan.*, users.nama as company_name, lamaran.status as status 
             FROM lamaran 
             JOIN lowongan ON lamaran.lowongan_id = lowongan.lowongan_id 
             JOIN users ON lowongan.company_id = users.user_id 

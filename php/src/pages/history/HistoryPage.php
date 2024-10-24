@@ -9,7 +9,7 @@
         // Pastikan variabel $jobs terdefinisi dan berisi daftar pekerjaan
         if (isset($jobs) && count($jobs) > 0) {
             ?>
-                <h2>Your applied job(s).</h2>
+            <h2>Your applied job(s).</h2>
             <?
             foreach ($jobs as $job) {
                 ?>
@@ -21,6 +21,12 @@
                     <div class="job-body">
                         <p><strong>Type:</strong> <?= htmlspecialchars($job['jenis_pekerjaan']) ?></p>
                         <p><strong>Location:</strong> <?= htmlspecialchars($job['jenis_lokasi']) ?></p>
+                    </div>
+                    <div class="job-status">
+                        <div class="status <?= $job['is_open'] ? 'open' : 'close' ?>">
+                            <p><strong><?= $job['is_open'] ? 'Open' : 'Closed' ?></strong></p>
+                        </div>
+                        <p class="status-application <?= $job['status']?>"><?= $job['status']?></p>
                     </div>
                     <div class="job-footer">
                         <p><small>Posted on: <?= date('F j, Y', strtotime($job['created_at'])) ?></small></p>

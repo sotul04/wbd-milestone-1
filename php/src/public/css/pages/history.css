@@ -67,3 +67,53 @@
     background-color: #005a8c;
     text-decoration: none; /* Ensure no underline appears on hover */
 }
+
+.status {
+    position: relative;
+    padding-left: 12px;
+}
+
+.status::before {
+    position: absolute;
+    content: '';
+    height: 8px;
+    width: 8px;
+    border-radius: 100%;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.status.open::before {
+    background-color: green;
+}
+
+.status.close::before {
+    background-color: red;
+}
+
+.status-application {
+    border-radius: 6px;
+    border: #b9b9b9 solid 0.5px;
+    padding: 4px 10px 4px 10px;
+}
+
+.status-application.waiting {
+    color: #555;
+}
+
+.status-application.accepted {
+    color: white;
+    background-color: rgb(87, 226, 87);
+}
+
+.status-application.rejected {
+    color: white;
+    background-color: rgb(235, 97, 97);
+}
+
+.job-status {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}

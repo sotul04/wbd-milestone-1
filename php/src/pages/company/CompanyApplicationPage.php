@@ -38,7 +38,7 @@
             <?php endif; ?>
         </div>
 
-        <form class="company-respon" id="form-company" method="POST">
+        <form class="company-respon" id="form-company" method="POST" data-status="<?= htmlspecialchars($applicant['status']) ?>">
             <div class="form-group">
                 <label for="status">Status</label>
                 <select id="status" name="status" required>

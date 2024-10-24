@@ -11,6 +11,38 @@ const quill = new Quill('#status-reason', {
     }
 });
 
+const statusDropdown = document.getElementById('status');
+const form = document.getElementById('form-company');
+
+// Function to update the color of the dropdown based on the selected status
+function updateDropdownColor() {
+    statusDropdown.classList.remove('status-accepted', 'status-rejected', 'status-waiting');
+    
+    if (statusDropdown.value === 'accepted') {
+        statusDropdown.classList.add('status-accepted');
+    } else if (statusDropdown.value === 'rejected') {
+        statusDropdown.classList.add('status-rejected');
+    } else {
+        statusDropdown.classList.add('status-waiting');
+    }
+}
+
+// Initial color update based on the current status
+updateDropdownColor();
+
+// Get the applicant's status from the data attribute and disable dropdown if necessary
+const applicantStatus = form.getAttribute('data-status');
+if (applicantStatus === 'accepted' || applicantStatus === 'rejected') {
+    statusDropdown.disabled = true;
+}
+
+// Event listener to handle changes in the status dropdown
+statusDropdown.addEventListener('change', () => {
+    if (statusDropdown.value === 'accepted' || statusDropdown.value === 'rejected') {
+        statusDropdown.disabled = true; // Disable the dropdown once accepted or rejected is chosen
+    }
+});
+
 document.getElementById('form-company').addEventListener('submit', (event) => {
     event.preventDefault();
     const status = document.getElementById('status');

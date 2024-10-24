@@ -61,6 +61,23 @@ embed {
     border: 1px solid #bdc3c7;
 }
 
+/* Add styles for the dropdown based on status */
+.status-accepted {
+    background-color: #28a745; /* Green */
+    color: white;
+}
+
+.status-rejected {
+    background-color: #dc3545; /* Red */
+    color: white;
+}
+
+.status-waiting {
+    background-color: #f8f9fa; /* Default */
+    color: black;
+}
+
+
 .company-respon {
     margin-top: 20px;
     border-top: 1px solid #bdc3c7; /* Light border for separation */

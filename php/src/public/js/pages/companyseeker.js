@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function applyFilters(page) {
         let url = new URL(window.location.href);
         let params = new URLSearchParams(url.search);
-    
+
         filters.forEach((filter) => {
             if (filter === 'jobType' || filter === 'locationType') {
                 const values = getCheckedValues(filter);
@@ -70,13 +70,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
-    
+
         // Update search parameter
         params.set('search', searchInput.value);
-    
+
         // Update page parameter
         params.set('page', page);
-    
+
         // Remove the trailing slash if present
         let pathname = url.pathname.replace(/\/$/, '');
         let newUrl = `${pathname}?${params.toString()}`;
@@ -90,10 +90,41 @@ document.addEventListener("DOMContentLoaded", function () {
         fetchData(endpoint);
     }
 
+    function deleteJob(jobID, element) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("DELETE", `http://localhost:8000/company/job-delete`, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        const requestBody = JSON.stringify({
+            jobId: jobID
+        });
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                console.log(response);
+                if (response.status === 'success') {
+                    // let url = new URL(window.location.href);
+                    // let params = new URLSearchParams(url.search);
+                    // const currentPage = params.get('page');
+                    element.classList.add('hidden');
+                    createToast('Job deleted');
+                    // applyFilters(currentPage);
+                } else {
+                    createToast(response.data, 'error');
+                }
+            } else {
+                createToast("Request failed!", 'error');
+            }
+        };
+
+        xhr.send(requestBody);
+    }
+
     function fetchData(endpoint) {
         jobListings.innerHTML = '<div class="loading"><img class="animate-spin" alt="Loading Spin" src="http://localhost:8000/public/assets/icons/Loading.ico"> Loading</div>';
         pagination.innerHTML = '';
-        
+
         const xhr = new XMLHttpRequest();
         xhr.open("GET", endpoint, true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -102,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
                 const jobs = response.data.jobs;
-                
+
                 if (jobs.length > 0) {
                     jobListings.innerHTML = '';
                     jobs.forEach(item => {
@@ -118,10 +149,23 @@ document.addEventListener("DOMContentLoaded", function () {
                                 </div>
                                 <div class="job-footer">
                                     <p><small>Posted on: ${new Date(item.created_at).toLocaleDateString()}</small></p>
-                                    <a href="http://localhost:8000/company/job/${item.lowongan_id}" class="apply-btn">Detail</a>
+                                    <div class="buttons">
+                                        <button job-id="${item.lowongan_id}" aria-label="Delete this job" class="btn btn-destroy delete-job">Delete</button>
+                                        <a href="http://localhost:8000/company/job/${item.lowongan_id}" class="apply-btn">Detail</a>
+                                    </div>
                                 </div>
                             </div>`;
                     });
+
+                    jobListings.querySelectorAll('div.job-card').forEach(item => {
+                        const deleteButton = item.querySelector('button');
+                        if (deleteButton) {
+                            deleteButton.addEventListener('click', () => {
+                                showModal('Job Deletion', 'Are you sure that you want to delete this job. All application data would be irreversibly lost!', () => deleteJob(deleteButton.getAttribute('job-id'), item));
+                            });
+                        }
+                    });
+
                     let totalPages = response.data.total_pages;
                     let currentPage = response.data.current_page;
 
@@ -198,6 +242,6 @@ document.addEventListener("DOMContentLoaded", function () {
         applyParams();
         let url = new URL(window.location.href);
         let params = new URLSearchParams(url.search);
-        fetchData('/home/companyJobs?'+params.toString());
+        fetchData('/home/companyJobs?' + params.toString());
     });
 });

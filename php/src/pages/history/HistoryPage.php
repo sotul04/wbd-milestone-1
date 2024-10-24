@@ -37,7 +37,7 @@
             }
         } else {
             ?>
-            <p>No Job Available</p>
+            <p>No application available. You have not applied for any job yet!</p>
             <?php
         }
         ?>

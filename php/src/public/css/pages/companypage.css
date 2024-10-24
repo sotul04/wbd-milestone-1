@@ -281,3 +281,13 @@
 strong {
     font-weight: 600;
 }
+
+.job-footer .buttons {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.job-card.hidden {
+    display: none;
+}

@@ -135,8 +135,8 @@ function convertToCSV(data) {
         application.applicant_name,
         application.job_position,
         application.application_date,
-        application.cv_url,
-        application.video_url,
+        `http://localhost:8000/storage/files/cv/${application.cv_url}`,
+        `${application.video_url ? 'http://localhost:8000/storage/files/videos/'+application.video_url : application.video_url}`,
         application.application_status
     ]);
 
@@ -156,8 +156,15 @@ function downloadFile(filename, data, mimeType) {
 }
 
 function downloadExcel(data) {
+    const parsedData = data.map(item => {
+        return {
+            ...item,
+            cv_url: `http://localhost:8000/storage/files/cv/${item.cv_url}`,
+            video_url: item.video_url ? 'http://localhost:8000/storage/files/videos/'+item.video_url : item.video_url
+        }
+    })
     const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.json_to_sheet(data);
+    const worksheet = XLSX.utils.json_to_sheet(parsedData);
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Applications');
 
     XLSX.writeFile(workbook, 'applications.xlsx');
